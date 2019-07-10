@@ -6,37 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stylish_Homepage</title>
-    <!-- <script type="text/javascript" src="function.js"></script> -->
-    <script>
-
-        function ajax(src, callback) {
-
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status == 200) {
-                    callback(JSON.parse(xhr.responseText)); 
-                }
-            };
-            xhr.open('GET', src);
-            xhr.send();
-        }
-
-        function getJSONObject(parsedData) {
-            //data[0].products[0].images[0];
-            console.log(parsedData.data[0].products[0].images[0]);
-            a = parsedData.data[0].products[0].images[0];
-        }
-        ajax("https://api.appworks-school.tw/api/1.0/marketing/hots", getJSONObject);
-
-    </script>
-
+    <script type="text/javascript" src="function.js"></script>
 </head>
 
 <body>
     <h1>hello</h1>
     <p id="abc"></p>
-
-    <img src="https://api.appworks-school.tw/assets/201807202157/0.jpg">
+    
 </body>
 
 </html>
