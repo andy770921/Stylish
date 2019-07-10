@@ -1,0 +1,42 @@
+/* ================================= 
+  Base Element Styles
+==================================== */
+* {
+	box-sizing: border-box;
+}
+body {
+    font-family: "Times New Roman Georgia";
+    line-height: 1.6;
+}
+
+a { 
+	text-decoration: none;
+}
+
+/* ================================= 
+  Base Layout Styles
+==================================== */
+
+
+
+/* ---- Change Cursor to Pointer ---- */
+
+.addCursor {
+  cursor: pointer;
+}
+
+
+/* ================================= 
+  Media Queries
+==================================== */
+
+@media (min-width: 501px) and (max-width: 800px) {
+
+}
+
+@media (min-width: 801px)  {
+
+    .container {
+		max-width: 1200px;
+	}
+}
