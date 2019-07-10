@@ -17,7 +17,24 @@ a {
   Base Layout Styles
 ==================================== */
 
+/* ---- Flexbox ---- */
 
+.container {
+    display: flex;
+    height: 76px;
+    align-items: center;
+    justify-content: center;
+    background-color: #ccc;
+  }
+
+.item-1 {
+    /* margin-right: auto; */
+    max-width: 151px;
+  }
+.item-2 {
+    margin-right: 10px;
+    max-width: 40px;
+  }
 
 /* ---- Change Cursor to Pointer ---- */
 
