@@ -72,7 +72,6 @@ p{
     display: flex;
     height: 50px;
     align-items: center;
-    justify-content: space-around;
     background-color: var(--charcoal-grey);
     position: relative;
 }
@@ -81,6 +80,8 @@ p{
     display: flex;
     color: #828282;
     font-size: 16px;
+    flex-grow: 1;
+    justify-content: center;
 }
 .vertical-line-2x1 {
     position: absolute;
@@ -185,14 +186,53 @@ p{
 /* ---- sticky ---- */
 
 .sticky {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   position: fixed;
   width: 100%;
   left: 0;
   bottom: 0;
   z-index: 1;
   height: 60px;
-  background-color: #bbb;
+  background-color: var(--charcoal-grey);
+  
 }
+.item-s{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.img-s {
+  margin-right: 10px;
+  max-width: 40px;
+}
+
+.text-s {
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.vertical-line-s {
+  position: absolute;
+  left:49.75%;
+  color: #ffffff;
+  font-size: 30px;
+}
+
+/* .border-right-2nd{
+  border-style: none solid none none;
+  border-color: #ffffff;
+  border-width: 1.5px; 
+} */
 
 /* ================================= 
   Footer
@@ -207,12 +247,34 @@ p{
   display: flex;
   width: 100%;
   height: 208px;  /* ---- 148+60 ---- */
-  background-color: #ddd;
+  background-color: var(--charcoal-grey);
   justify-content: center;
   align-items: center;
   position: relative;
 }
-.item-5x3{
+.item-5x1 {
+  display: flex;
+  position: absolute;
+  top: 23px;
+  left: 40px;
+  flex-direction: column;
+  height: 148px;
+  flex-wrap: wrap;
+}
+.text-5x1 {
+  font-size: 14px;
+  text-align: left;
+  color: #f5f5f5;
+  display: block;
+  margin: 0 35px 0 0;
+  flex-basis: 30%;
+}
+.item-5x2 {
+  position: absolute;
+  top: 41px;
+  right: 92px;
+}
+.item-5x3 {
   position: absolute;
   bottom: 80px;   /* ---- 20+60 ---- */
   font-size: 10px;

@@ -50,9 +50,6 @@ function setJSONObject(parsedData) {
   document.getElementsByClassName('text-product')[5].appendChild(document.createElement("br")); 
   document.getElementsByClassName('text-product')[5].innerHTML += `TWD.${parsedData.data[0].products[0].price}`;
 
-  document.getElementsByClassName('text-product')[6].innerHTML = `${parsedData.data[0].products[0].title}`;
-  document.getElementsByClassName('text-product')[6].appendChild(document.createElement("br")); 
-  document.getElementsByClassName('text-product')[6].innerHTML += `TWD.${parsedData.data[0].products[0].price}`;
 }
 
 function createImg(url) {
