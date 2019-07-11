@@ -49,11 +49,22 @@ a {
     display: flex;
     height: 50px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     background-color: #bbb;
     position: relative;
   }
 
+  .item-2x1, .item-2x2, .item-2x3 {
+    display: flex;
+  }
+  .vertical-line-2x1{
+    position: absolute;
+    left: 33.33%;
+  }
+  .vertical-line-2x2{
+    position: absolute;
+    left: 66.66%;
+  }
 /* ---- Change Cursor to Pointer ---- */
 
 .addCursor {
