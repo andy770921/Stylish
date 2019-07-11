@@ -256,9 +256,9 @@ p{
   display: flex;
   position: absolute;
   top: 23px;
-  left: 40px;
+  bottom: 109px; /* ---- 20+14+15+60 ---- */
+  left: 40px; 
   flex-direction: column;
-  height: 148px;
   flex-wrap: wrap;
 }
 .text-5x1 {
@@ -272,7 +272,11 @@ p{
 .item-5x2 {
   position: absolute;
   top: 41px;
-  right: 92px;
+  right: 6.67%; /* ---- 24/360=6.67% ---- */
+}
+.img-5x2{
+  width: 20px;
+  margin: 0 14px 0 0;
 }
 .item-5x3 {
   position: absolute;
