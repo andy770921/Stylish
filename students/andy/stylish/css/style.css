@@ -174,7 +174,11 @@ p{
   list-style: none;
   float: left;
   margin: 8px 6px 8px 0px;
-  background-color: red;
+  border: solid;
+  border-color: lightgray;
+  border-width: 1px;
+  border-radius: 3px;
+  /* background-color: red; */
 }
 
 /* ---- New  Icon ---- */
