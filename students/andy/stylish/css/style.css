@@ -61,7 +61,7 @@ p{
     position: absolute;
     right: 10px;
 }
-.item-1x3 .item-1x4 .item-1x5 {
+.item-1x3 ,.item-1x4 ,.item-1x5 {
   display: none;
 }
 
@@ -313,7 +313,7 @@ body {
 ==================================== */
 
 
-@media (min-width: 501px)  {
+@media (min-width: 1150px)  {
 
   /* ---- Flexbox Container-1---- */
 
