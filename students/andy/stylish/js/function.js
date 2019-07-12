@@ -2,6 +2,7 @@
 const hostName = "api.appworks-school.tw";
 const ApiVersion = "1.0";
 const productListURL = `https://${hostName}/api/${ApiVersion}/products`;
+const bulletURL = `https://${hostName}/api/${ApiVersion}/marketing/campaigns`;
 
 function ajax(src, callback) {
   var xhr = new XMLHttpRequest();
@@ -15,10 +16,21 @@ function ajax(src, callback) {
 }
 
 ajax(`${productListURL}/all`, setProduct);
+ajax(`${bulletURL}`, setBulletImg);
+
+function getWomenProduct() {
+  ajax(`${productListURL}/women`, setProduct);
+}
+function getMenProduct() {
+  ajax(`${productListURL}/men`, setProduct);
+}
+function getAccProduct() {
+  ajax(`${productListURL}/accessories`, setProduct);
+}
 
 function setProduct(parsedData) {
-  console.log(parsedData);
-  console.log(parsedData.data[0].colors[0].code);
+  //console.log(parsedData);
+  //console.log(parsedData.data[0].colors[0].code);
   for (let i = 0; i < parsedData.data.length; i++) {
     // 加入產品圖片
     const img = document.getElementsByClassName(`img-4x${i + 1}`)[0];
@@ -26,8 +38,10 @@ function setProduct(parsedData) {
     // 加入產品顏色
     const colorClassName = `color-4x${i + 1}`;
     for (let j = 0; j < parsedData.data[i].colors.length; j++) {
-      const colorCode = parsedData.data[i].colors[j].code;
-      createColor(colorClassName, colorCode);
+      if (document.querySelectorAll(`.color-4x${i + 1} li`).length < parsedData.data[i].colors.length) {
+        const colorCode = parsedData.data[i].colors[j].code;
+        createColor(colorClassName, colorCode);
+      }
     }
     // 加入產品文字及價錢
     const text = document.getElementsByClassName(`text-4x${i + 1}`)[0]
@@ -37,14 +51,19 @@ function setProduct(parsedData) {
   }
 }
 
-function getWomenProduct() {
-  ajax(`${productListURL}/women`, setProduct);
+function setBulletImg(parsedData) {
+  for (let i = 0; i < parsedData.data.length; i++) {
+    // 加入發燒產品圖片
+    const bulletImg = document.getElementsByClassName('container-3')[0];
+    bulletImg.style.backgroundImage = `url("https://${hostName}${parsedData.data[i].picture}")`;
+  }
 }
 
 
 
 
 
+/*  實驗之函數
 //ajax("https://api.appworks-school.tw/api/1.0/marketing/hots", setJSONObject);
 
 function setJSONObject(parsedData) {
@@ -93,6 +112,12 @@ function createImg(url) {
   body.appendChild(img);
 }
 
+const resetCursor = (event) => {
+  event.target.style.cursor = "default";
+};
+
+*/
+
 function createColor(colorClassName, colorNumber) {
   const ul = document.getElementsByClassName(`${colorClassName}`)[0];
   const li = document.createElement('li');
@@ -108,14 +133,15 @@ function createNewIcon(colorNumber) {
 }
 
 
+// 加入事件監聽函數
 
-const resetCursor = (event) => {  
-  event.target.style.cursor = "default";
-};
+const womenNavBar = document.getElementsByClassName('item-2x1')[0];
+const womenNavBar2 = document.getElementsByClassName('item-2x1')[1];
 
-const womenNavBar = document.getElementsByClassName('color-product')[0];
-mainTitle.addEventListener('click', (event) => {
-  mainTitle.textContent = 'Have a good time!';
-  resetCursor(event);
+womenNavBar.addEventListener('click', () => {
+  getWomenProduct();
 });
-getWomenProduct();
+
+womenNavBar2.addEventListener('click', () => {
+  getWomenProduct();
+});
