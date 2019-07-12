@@ -340,6 +340,7 @@ body {
   .item-2x1, .item-2x2, .item-2x3 {
     color: #3f3a3a;
     margin-left: 1em;
+    font-size: 20px;
   }
   /* ---- Search bar into item-1x4 ----- */
   .item-1x4 {
@@ -476,7 +477,7 @@ body {
   margin-right: 5%;
 }
 .text-5x1 {
-  font-size: 14px;
+  font-size: 16px;
   color: #f5f5f5;
   display: block;
   margin: 0;
