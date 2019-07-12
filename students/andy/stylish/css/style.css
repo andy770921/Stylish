@@ -169,8 +169,10 @@ p{
 }
 
 .color-product li{
-  width: 12px;
-  height: 12px;
+  width: 3.33vw; /* 12px/360px=3.33% */
+  height: 3.33vw;
+  max-width: 24px;
+  max-height: 24px;
   list-style: none;
   float: left;
   margin: 8px 6px 8px 0px;
