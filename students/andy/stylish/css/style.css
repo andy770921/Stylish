@@ -290,7 +290,7 @@ body {
   right: 6.67%; /* ---- 24/360=6.67% ---- */
 }
 .img-5x2{
-  width: 20px;
+  width: 35px; 
 }
 .img-5x2:not(:last-child) {
   margin: 0 14px 0 0; 
@@ -310,6 +310,10 @@ body {
   cursor: pointer;
 }
 
+ /* ----  switch Display ---- */
+.display-switch {
+  display: flex;
+}
 
 
 /* ================================= 
@@ -373,6 +377,9 @@ body {
     border-style: none;
     flex-grow: 1;
     width: 70%;
+  }
+  .search-bar:focus {
+    outline: medium;
   }
   .img-1x4 {
     flex-grow: 1;
@@ -522,6 +529,10 @@ body {
   color: #828282;
   flex-grow: 1;
   margin-right: 5%;
+}
+ /* ----  switch Display ---- */
+ .display-switch {
+  display: none;
 }
 
  /* ---- container-4 max-width responsive ---- */
