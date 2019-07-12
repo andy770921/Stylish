@@ -64,6 +64,9 @@ p{
     position: absolute;
     right: 10px;
 }
+.item-1x3 .item-1x4 .item-1x5 .item-1x6 {
+  display: none;
+}
 
 
 /* ---- Flexbox Container-2---- */
@@ -194,11 +197,6 @@ p{
   font-size: 14px;
   color: #fff;
 }
-/* ---- Change Cursor to Pointer ---- */
-
-.addCursor {
-  cursor: pointer;
-}
 
 /* ---- sticky ---- */
 
@@ -299,6 +297,14 @@ p{
   color: #828282;
 }
 
+/* ================================= 
+  Change Cursor to Pointer
+==================================== */
+.addCursor {
+  cursor: pointer;
+}
+
+
 
 /* ================================= 
   Media Queries
@@ -307,7 +313,81 @@ p{
 
 @media (min-width: 501px)  {
 
-    .container {
-		max-width: 1240px;
+  /* ---- Flexbox Container-1---- */
+
+  .container-1 {
+    height: 100px;
+  }
+
+  .item-1x1 {   
+    max-width: 258px;
+    left: 60px;  
+  }
+  .item-1x2 {
+    display: none;
+  }
+  .item-1x3 {
+    display: flex;
+    position: absolute;
+    top: 44px;
+    left: 414px;   
+    width: 379px;
+    letter-spacing: 1em;
+  }
+  /* ---- Nav bar changes into item-1x3 ----- */
+  .item-2x1, .item-2x2, .item-2x3 {
+    color: #3f3a3a;
+    margin-left: 1em;
+  }
+  /* ---- Search bar into item-1x4 ----- */
+  .item-1x4 {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 30px;
+    right: 226px;   
+    width: 214px;
+    height: 40px;
+    border-style: solid;
+    border-color: #979797;
+    border-width: 1px;
+    border-radius:  20px;
+  }
+  .search-bar {
+    margin-left: 1em;
+    letter-spacing: 0.5em;
+    border-style: none;
+    flex-grow: 1;
+    width: 70%;
+  }
+  .img-1x4 {
+    flex-grow: 1;
+  }
+  .space {
+    flex-grow: 1;
+  }
+  /* ---- New  Icon ---- */
+  .new-icon {
+    width: 64px;
+    height: 64px;
+    top: 20px;
+    right: 20px;
+    justify-content: center;
+  }
+  .new-icon-text {
+    font-size: 20px;
+    margin-left: 4%;
+  }
+
+
+  .sticky {
+    display: none;
+  }
+
+ /* ---- container-4 max-width responsive ---- */
+  .container-4 {
+    max-width: 1240px;
+    margin-right: auto;
+    margin-left: auto;
 	}
 }
