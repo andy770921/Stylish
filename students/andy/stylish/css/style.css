@@ -50,7 +50,7 @@ p{
     height: 76px;
     align-items: center;
     justify-content: center;
-    background-color: #ddd;
+    background-color: #fff;
     position: relative;
 }
 
@@ -81,6 +81,7 @@ p{
     color: #828282;
     font-size: 16px;
     flex-grow: 1;
+    flex-basis: 50px;
     justify-content: center;
 }
 .vertical-line-2x1 {
@@ -156,9 +157,10 @@ p{
 .item-product{
   margin: 15px 6px;
   width: 45%;
-  background-color: #ddd;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .img-product {
   width: 100%; 
@@ -173,10 +175,25 @@ p{
   margin: 8px 6px 8px 0px;
   background-color: red;
 }
-/* .text-product {
-  margin-top: auto;
-  } */
 
+/* ---- New  Icon ---- */
+.new-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  background-color: #c49871;
+  position: absolute;
+  top: 10px;
+  right: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.new-icon-text {
+  font-family: PingFangTC-Regular, sans-serif;
+  font-size: 14px;
+  color: #fff;
+}
 /* ---- Change Cursor to Pointer ---- */
 
 .addCursor {
@@ -203,6 +220,8 @@ p{
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+  flex-basis: 100px;
+  position: relative;
 }
 
 .img-s {
@@ -223,16 +242,11 @@ p{
 
 .vertical-line-s {
   position: absolute;
-  left:49.75%;
+  left:99.2%;
   color: #ffffff;
   font-size: 30px;
 }
 
-/* .border-right-2nd{
-  border-style: none solid none none;
-  border-color: #ffffff;
-  border-width: 1.5px; 
-} */
 
 /* ================================= 
   Footer

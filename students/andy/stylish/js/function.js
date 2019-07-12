@@ -65,3 +65,10 @@ function createColor(colorNumber) {
   li.style.backgroundColor = colorNumber;
   ul.appendChild(li);
 }
+
+function createNewIcon(colorNumber) {
+  const ul = document.getElementsByClassName('color-product')[0];
+  const li = document.createElement('li');
+  li.style.backgroundColor = colorNumber;
+  ul.appendChild(li);
+}
