@@ -14,7 +14,7 @@ function ajax(src, callback) {
   xhr.send();
 }
 
-// ajax(`${productListURL}/all`, setProduct);
+ajax(`${productListURL}/all`, setProduct);
 
 function setProduct(parsedData) {
   console.log(parsedData);
@@ -37,9 +37,13 @@ function setProduct(parsedData) {
   }
 }
 
-//function getWomenProduct {
+function getWomenProduct() {
   ajax(`${productListURL}/women`, setProduct);
-//}
+}
+
+
+
+
 
 //ajax("https://api.appworks-school.tw/api/1.0/marketing/hots", setJSONObject);
 
@@ -102,3 +106,16 @@ function createNewIcon(colorNumber) {
   li.style.backgroundColor = colorNumber;
   ul.appendChild(li);
 }
+
+
+
+const resetCursor = (event) => {  
+  event.target.style.cursor = "default";
+};
+
+const womenNavBar = document.getElementsByClassName('color-product')[0];
+mainTitle.addEventListener('click', (event) => {
+  mainTitle.textContent = 'Have a good time!';
+  resetCursor(event);
+});
+getWomenProduct();

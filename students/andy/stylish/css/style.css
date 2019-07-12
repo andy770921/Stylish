@@ -343,15 +343,22 @@ body {
   /* ---- Nav bar changes into item-1x3 ----- */
   .item-2x1, .item-2x2, .item-2x3 {
     color: #3f3a3a;
-    margin-left: 1em;
     font-size: 20px;
+    flex-grow: 1;
+ 
+  }
+  .barItem-1, .barItem-2, .barItem-3 {
+    margin-left: 1em;
+  }
+  .vertical-line-2x1, .vertical-line-2x2 {
+    letter-spacing: 0;
   }
   /* ---- Search bar into item-1x4 ----- */
   .item-1x4 {
     display: flex;
     justify-content: center;
     position: absolute;
-    top: 30px;
+    bottom: 26px;
     right: 226px;   
     width: 214px;
     height: 40px;
@@ -379,7 +386,7 @@ body {
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 28px;
+    bottom: 26px;
     right: 12px;    /*---- 54 - margin 42 = 12 ---- */
   }
   .img-1x5 {
