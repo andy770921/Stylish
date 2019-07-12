@@ -64,7 +64,7 @@ p{
     position: absolute;
     right: 10px;
 }
-.item-1x3 .item-1x4 .item-1x5 .item-1x6 {
+.item-1x3 .item-1x4 .item-1x5 {
   display: none;
 }
 
@@ -331,7 +331,7 @@ p{
     position: absolute;
     top: 44px;
     left: 414px;   
-    width: 379px;
+    min-width: 19.73%;  /* ----379/1920 ----- */
     letter-spacing: 1em;
   }
   /* ---- Nav bar changes into item-1x3 ----- */
@@ -366,6 +366,19 @@ p{
   .space {
     flex-grow: 1;
   }
+ /* ---- Icon item-1x5 ----- */
+ .item-1x5 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 28px;
+  right: 12px;    /*---- 54 - margin 42 = 12 ---- */
+}
+.img-1x5 {
+  width: 44px;
+  margin: 0 42px 0 0;  
+}
   /* ---- New  Icon ---- */
   .new-icon {
     width: 64px;
