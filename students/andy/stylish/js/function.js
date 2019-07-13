@@ -4,6 +4,11 @@ const ApiVersion = "1.0";
 const productListURL = `https://${hostName}/api/${ApiVersion}/products`;
 const bulletURL = `https://${hostName}/api/${ApiVersion}/marketing/campaigns`;
 
+//加入新產品Icon
+createNewIcon();
+
+//與連線遠端，取得JSON相關
+
 function ajax(src, callback) {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
@@ -27,6 +32,7 @@ function getMenProduct() {
 function getAccProduct() {
   ajax(`${productListURL}/accessories`, setProduct);
 }
+
 
 function setProduct(parsedData) {
   //console.log(parsedData);
@@ -57,7 +63,7 @@ function setProduct(parsedData) {
   }
 
   // 當產品數量小於6，清除圖片、顏色、文字
-  
+
   const numOfItem = 6;
   if (parsedData.data.length < numOfItem) {
     for (let i = 0; i < numOfItem - parsedData.data.length; i++) {
@@ -72,6 +78,21 @@ function setProduct(parsedData) {
       const text = document.getElementsByClassName(`text-4x${parsedData.data.length + i + 1}`)[0]
       text.innerHTML = "";
     }
+  }
+
+  // 當產品數量等於0(無任何顏色框框): 顯示字"未搜尋到關鍵字"，及移除產品圖示。大於0，移除字
+  let totalLi = 0;
+  for (var i = 0; i < document.querySelectorAll(`.color-product`).length; i++) {
+    totalLi += document.querySelectorAll(`.color-4x${i + 1} li`).length;
+  }
+  //console.log(totalLi);
+
+  if (totalLi == 0 && document.querySelectorAll('.container-4 span').length == 0) {
+    createText('未搜尋到關鍵字');
+    removeAllNewIcon();
+  }
+  else if (totalLi > 0 || document.querySelectorAll('.container-4 span').length > 0) {
+    removeAllSpanText();
   }
 }
 
@@ -149,13 +170,37 @@ function createColor(colorClassName, colorNumber) {
   ul.appendChild(li);
 }
 
-function createNewIcon(colorNumber) {
-  const ul = document.getElementsByClassName('color-product')[0];
-  const li = document.createElement('li');
-  li.style.backgroundColor = colorNumber;
-  ul.appendChild(li);
+function createNewIcon() {
+  const newProduct = document.getElementsByClassName('item-4x2')[0];
+  const newIconDiv = document.createElement('div');
+  newIconDiv.className = 'new-icon';
+  newProduct.appendChild(newIconDiv);
+  const newIconP = document.createElement('p');
+  newIconP.className = 'new-icon-text';
+  newIconP.innerText = '新品';
+  newIconDiv.appendChild(newIconP);
+  newProduct.appendChild(newIconDiv);
 }
 
+function removeAllNewIcon() {
+  //const parent = document.querySelectorAll('.container-4 div');
+  const newIcon = document.querySelectorAll('.new-icon');
+  //newIcon.parentNode.removeChild(newIcon);
+  newIcon.forEach((element) => { element.parentNode.removeChild(element); });
+}
+
+function createText(text) {
+  const parent = document.getElementsByClassName('container-4')[0];
+  const childText = document.createElement('span');
+  childText.innerText = text;
+  parent.appendChild(childText);
+}
+
+function removeAllSpanText() {
+  const parent = document.getElementsByClassName('container-4')[0];
+  const childText = document.querySelectorAll('.container-4 span');
+  childText.forEach((element) => { parent.removeChild(element); });
+}
 
 // 加入事件監聽函數
 
@@ -190,4 +235,14 @@ accNavBar.addEventListener('click', () => {
 
 accNavBar2.addEventListener('click', () => {
   getAccProduct();
+});
+
+const searchBarBtn = document.getElementsByClassName('img-1x4')[0];
+
+searchBarBtn.addEventListener('click', () => {
+  userValue = document.getElementsByClassName('search-bar')[0].value;
+  console.log('userValue Updated');
+  console.log(userValue);
+  ajax(`${productListURL}/search?keyword=${userValue}`, setProduct);
+
 });

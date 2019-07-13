@@ -153,8 +153,14 @@ p{
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  position: relative;
 }
-
+.container-4 span{
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .item-product{
   margin: 15px 6px 0px 6px;
   width: 45%;
