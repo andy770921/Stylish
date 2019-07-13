@@ -183,9 +183,7 @@ function createNewIcon() {
 }
 
 function removeAllNewIcon() {
-  //const parent = document.querySelectorAll('.container-4 div');
   const newIcon = document.querySelectorAll('.new-icon');
-  //newIcon.parentNode.removeChild(newIcon);
   newIcon.forEach((element) => { element.parentNode.removeChild(element); });
 }
 
@@ -202,7 +200,9 @@ function removeAllSpanText() {
   childText.forEach((element) => { parent.removeChild(element); });
 }
 
-// 加入事件監聽函數
+// ---- 加入事件監聽函數 -----
+
+// 點選產品後，取得產品資料，並顯示
 
 const womenNavBar = document.getElementsByClassName('item-2x1')[0];
 const womenNavBar2 = document.getElementsByClassName('item-2x1')[1];
@@ -237,6 +237,8 @@ accNavBar2.addEventListener('click', () => {
   getAccProduct();
 });
 
+// 打搜尋字串，再滑鼠點選放大鏡後，使用AJAX撈資料並顯示
+
 const searchBarBtn = document.getElementsByClassName('img-1x4')[0];
 
 searchBarBtn.addEventListener('click', () => {
@@ -245,4 +247,25 @@ searchBarBtn.addEventListener('click', () => {
   console.log(userValue);
   ajax(`${productListURL}/search?keyword=${userValue}`, setProduct);
 
+});
+
+// 滑動到底時，使用AJAX再撈資料，顯示多撈到的產品
+
+function doSomething() {
+  let windowHeight = window.innerHeight;
+  let footerRemains = document.getElementsByClassName('container-5')[0].getBoundingClientRect().top;
+  if (footerRemains - windowHeight  < 0 ) {
+    console.log('hi');
+  }
+}
+
+let ticking = false;
+window.addEventListener('scroll', function(e) {
+  if (!ticking) {
+    window.requestAnimationFrame(function() {
+      doSomething();
+      ticking = false;
+    });
+  }
+  ticking = true;
 });
