@@ -22,7 +22,7 @@ function ajax(src, callback) {
 }
 
 ajax(`${productListURL}/all`, setProduct);
-ajax(`${bulletURL}`, setBulletImg);
+//ajax(`${bulletURL}`, setBulletImg);
 
 function getWomenProduct() {
   ajax(`${productListURL}/women`, setProduct);
@@ -119,7 +119,7 @@ function setProduct(parsedData) {
 function setBulletImg(parsedData) {
   for (let i = 0; i < parsedData.data.length; i++) {
     // 加入發燒產品圖片
-    const bulletImg = document.getElementsByClassName('container-3')[0];
+    const bulletImg = document.getElementsByClassName('item-3x3')[0];
     bulletImg.style.backgroundImage = `url("https://${hostName}${parsedData.data[i].picture}")`;
   }
 }

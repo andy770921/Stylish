@@ -37,6 +37,9 @@ p{
 
 :root {
   --charcoal-grey: #313538;
+  --bullet-img-display-time: 2s;
+  --bullet-img-display-timex2: 4s;
+  --bullet-img-display-timex3: 6s;
 }
 
 /* ---- Flexbox Container-1---- */
@@ -100,9 +103,6 @@ p{
     display: flex;
     width: 100%;
     height: 185px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center top;  /* ---- 背景圖左右置中、上下置上，若四方置中可寫成 background-position: center; --也可設定位置百分比如 background-position: 20% 50%;-- */
     position: relative;
 }
 .item-3x1 {
@@ -125,6 +125,74 @@ p{
   bottom: 20px; 
   width: 100%; 
   align-self: flex-end;
+}
+
+/* ---- 設定背景圖輪播動畫 ---- */
+
+.item-3x3 {
+  height: 100%; 
+  width: 100%; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.item-3x3 > a{
+  height: 100%; 
+  display: block;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  /*當圖片數量增加，影片長度需更改，變為播放秒數(10s)x圖片數量(3)*/
+  -webkit-animation: silder var(--bullet-img-display-timex3) linear infinite;
+  animation: silder var(--bullet-img-display-timex3) linear infinite;
+}
+.item-3x3 > a > img { 
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+  /*---- 背景圖左右置中、上下置上，若四方置中可寫成 background-position: center; --也可設定位置百分比如 background-position: 20% 50%;-- */
+  z-index: -1;
+}
+@-webkit-keyframes silder {
+  3% {
+      opacity: 1;
+      filter: alpha(opacity=100);
+  }
+  27% {
+      opacity: 1;
+      filter: alpha(opacity=100);
+  }
+  30% {
+      opacity: 0;
+      filter: alpha(opacity=0);
+  }
+}
+@keyframes silder {
+  3% {
+      opacity: 1;
+      filter: alpha(opacity=100);
+  }
+  27% {
+      opacity: 1;
+      filter: alpha(opacity=100);
+  }
+  30% {
+      opacity: 0;
+      filter: alpha(opacity=0);
+  }
+}
+
+
+/* 設定正在播放的圖延遲秒數。扣掉正在播放的圖，延遲秒數為圖片數量(2)x每個圖片各延遲秒數(10秒) */
+.item-3x3 > a:nth-child(3) {
+  -webkit-animation-delay: var(--bullet-img-display-timex2);
+          animation-delay: var(--bullet-img-display-timex2);
+
+}
+/* 滑入時停止播放 */
+.item-3x3:hover > a {
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
 }
 
 /* ---- Carousel Dot ---- */
