@@ -108,7 +108,7 @@ p{
     position: absolute;
     left: 6.38%;  /* 23/360=6.38% */
     top: 19.5%; /* 36/185=19.5% */
-    width: 80%; /* 143/360=39.7% */
+    /*width: 80%;  143/360=39.7%  設定80會讓右邊出現空白，不滿版*/
     background-color: transparent;
 }
 .imgWords-1{
@@ -173,6 +173,8 @@ p{
   height: 3.33vw;
   max-width: 24px;
   max-height: 24px;
+  min-width: 12px;
+  min-height: 12px;
   list-style: none;
   float: left;
   margin: 8px 6px 8px 0px;
@@ -322,7 +324,24 @@ body {
   Media Queries
 ==================================== */
 
+@media (min-width: 701px) and (max-width: 1149px) {
+  
+  /* ---- Flexbox Container-4---- */
 
+  .container-4 {
+    font-size: 15px;
+  }
+
+  .item-product{
+    margin: 30px 10px 0px 10px;
+    width: 27%;
+  }
+  .img-product {
+    width: 100%; 
+    height: auto;
+  }
+
+}
 @media (min-width: 1150px)  {
 
   /* ---- Flexbox Container-1---- */
@@ -448,6 +467,7 @@ body {
     margin: 70px 20px 0px 20px;
     width: 28%;
   }
+  /* 
   .img-product {
     width: 100%; 
     height: auto;
@@ -457,7 +477,7 @@ body {
     height: 24px;
     margin: 20px 10px 20px 0px;
   }
-
+*/
   /* ---- New  Icon ---- */
   .new-icon {
     width: 64px;
