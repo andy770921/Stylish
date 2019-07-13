@@ -3,6 +3,7 @@ const hostName = "api.appworks-school.tw";
 const ApiVersion = "1.0";
 const productListURL = `https://${hostName}/api/${ApiVersion}/products`;
 const bulletURL = `https://${hostName}/api/${ApiVersion}/marketing/campaigns`;
+let pageIndicator = "all";
 
 //加入新產品Icon
 createNewIcon();
@@ -25,12 +26,15 @@ ajax(`${bulletURL}`, setBulletImg);
 
 function getWomenProduct() {
   ajax(`${productListURL}/women`, setProduct);
+  pageIndicator = "women";
 }
 function getMenProduct() {
   ajax(`${productListURL}/men`, setProduct);
+  pageIndicator = "men";
 }
 function getAccProduct() {
   ajax(`${productListURL}/accessories`, setProduct);
+  pageIndicator = "accessories";
 }
 
 
@@ -79,6 +83,20 @@ function setProduct(parsedData) {
       text.innerHTML = "";
     }
   }
+  // 清除第7-12個，展開的產品
+
+  for (let i = 0; i < numOfItem; i++) {
+    // 清除第7-12個產品圖片
+    const noImg = document.getElementsByClassName(`img-4x${numOfItem + i + 1}`)[0];
+    noImg.src = "";
+    // 清除第7-12個產品顏色
+    const noColorUl = document.getElementsByClassName(`color-4x${numOfItem + i + 1}`)[0];
+    const li = document.querySelectorAll(`.color-4x${numOfItem + i + 1} li`);
+    li.forEach((element) => { noColorUl.removeChild(element); });
+    // 清除第7-12個產品文字及價錢
+    const text = document.getElementsByClassName(`text-4x${numOfItem + i + 1}`)[0]
+    text.innerHTML = "";
+  }
 
   // 當產品數量等於0(無任何顏色框框): 顯示字"未搜尋到關鍵字"，及移除產品圖示。大於0，移除字
   let totalLi = 0;
@@ -94,6 +112,8 @@ function setProduct(parsedData) {
   else if (totalLi > 0 || document.querySelectorAll('.container-4 span').length > 0) {
     removeAllSpanText();
   }
+  // 加入監聽瀏覽器卷軸
+  window.addEventListener('scroll', handleScroll);
 }
 
 function setBulletImg(parsedData) {
@@ -260,23 +280,57 @@ searchBarBtn.addEventListener('click', () => {
 
 });
 
-// 滑動到底時，使用AJAX再撈資料，顯示多撈到的產品
-
-function doSomething() {
-  let windowHeight = window.innerHeight;
-  let footerRemains = document.getElementsByClassName('container-5')[0].getBoundingClientRect().top;
-  if (footerRemains - windowHeight  < 0 ) {
-    console.log('hi');
-  }
-}
+// 先監聽滑動事件，滑動到底時，使用AJAX再撈資料，顯示多撈到的產品，並取消監聽滑動事件
 
 let ticking = false;
-window.addEventListener('scroll', function(e) {
+//window.addEventListener('scroll', handleScroll);
+
+function handleScroll(e) {
   if (!ticking) {
     window.requestAnimationFrame(function() {
-      doSomething();
+      doAjaxGetExt();
       ticking = false;
     });
   }
   ticking = true;
-});
+}
+
+function doAjaxGetExt() {
+  let windowHeight = window.innerHeight;
+  let footerRemains = document.getElementsByClassName('container-5')[0].getBoundingClientRect().top;
+  if (footerRemains - windowHeight  < 0 ) {
+    ajax(`${productListURL}/${pageIndicator}?paging=1`, setExtProduct);
+    window.removeEventListener('scroll', handleScroll);
+  }
+}
+
+
+function setExtProduct(parsedData) {
+  const numOfItem = 6;
+
+  for (let i = 0; i < parsedData.data.length; i++) {
+    // 加入產品圖片
+    const img = document.getElementsByClassName(`img-4x${numOfItem + i + 1}`)[0];
+    img.src = parsedData.data[i].main_image;
+
+    // 加入產品顏色，兩步驟 1.先移除所有產品顏色 2.再新增顏色
+    // 1. 先移除所有產品顏色
+    const colorClassName = `color-4x${numOfItem + i + 1}`;
+    const noColorUl = document.getElementsByClassName(colorClassName)[0];
+    const li = document.querySelectorAll(`.${colorClassName} li`);
+    li.forEach((element) => { noColorUl.removeChild(element); });
+
+    // 2.再新增所有產品顏色
+    for (let j = 0; j < parsedData.data[i].colors.length; j++) {
+      const colorCode = parsedData.data[i].colors[j].code;
+      createColor(colorClassName, colorCode);
+    }
+
+    // 加入產品文字及價錢
+    const text = document.getElementsByClassName(`text-4x${numOfItem + i + 1}`)[0]
+    text.innerHTML = `${parsedData.data[i].title}`;
+    text.appendChild(document.createElement("br"));
+    text.innerHTML += `TWD. ${parsedData.data[i].price}`;
+  }
+
+}
