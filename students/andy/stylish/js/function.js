@@ -35,19 +35,43 @@ function setProduct(parsedData) {
     // 加入產品圖片
     const img = document.getElementsByClassName(`img-4x${i + 1}`)[0];
     img.src = parsedData.data[i].main_image;
-    // 加入產品顏色
+
+    // 加入產品顏色，兩步驟 1.先移除所有產品顏色 2.再新增顏色
+    // 1. 先移除所有產品顏色
     const colorClassName = `color-4x${i + 1}`;
+    const noColorUl = document.getElementsByClassName(colorClassName)[0];
+    const li = document.querySelectorAll(`.${colorClassName} li`);
+    li.forEach((element) => { noColorUl.removeChild(element); });
+
+    // 2.再新增所有產品顏色
     for (let j = 0; j < parsedData.data[i].colors.length; j++) {
-      if (document.querySelectorAll(`.color-4x${i + 1} li`).length < parsedData.data[i].colors.length) {
-        const colorCode = parsedData.data[i].colors[j].code;
-        createColor(colorClassName, colorCode);
-      }
+      const colorCode = parsedData.data[i].colors[j].code;
+      createColor(colorClassName, colorCode);
     }
+
     // 加入產品文字及價錢
     const text = document.getElementsByClassName(`text-4x${i + 1}`)[0]
     text.innerHTML = `${parsedData.data[i].title}`;
     text.appendChild(document.createElement("br"));
     text.innerHTML += `TWD. ${parsedData.data[i].price}`;
+  }
+
+  // 當產品數量小於6，清除圖片、顏色、文字
+  
+  const numOfItem = 6;
+  if (parsedData.data.length < numOfItem) {
+    for (let i = 0; i < numOfItem - parsedData.data.length; i++) {
+      // 移除多餘產品圖片
+      const noImg = document.getElementsByClassName(`img-4x${parsedData.data.length + i + 1}`)[0];
+      noImg.src = "";
+      // 移除多餘產品顏色
+      const noColorUl = document.getElementsByClassName(`color-4x${parsedData.data.length + i + 1}`)[0];
+      const li = document.querySelectorAll(`.color-4x${parsedData.data.length + i + 1} li`);
+      li.forEach((element) => { noColorUl.removeChild(element); });
+      // 移除多餘產品文字及價錢
+      const text = document.getElementsByClassName(`text-4x${parsedData.data.length + i + 1}`)[0]
+      text.innerHTML = "";
+    }
   }
 }
 
@@ -144,4 +168,26 @@ womenNavBar.addEventListener('click', () => {
 
 womenNavBar2.addEventListener('click', () => {
   getWomenProduct();
+});
+
+const menNavBar = document.getElementsByClassName('item-2x2')[0];
+const menNavBar2 = document.getElementsByClassName('item-2x2')[1];
+
+menNavBar.addEventListener('click', () => {
+  getMenProduct();
+});
+
+menNavBar2.addEventListener('click', () => {
+  getMenProduct();
+});
+
+const accNavBar = document.getElementsByClassName('item-2x3')[0];
+const accNavBar2 = document.getElementsByClassName('item-2x3')[1];
+
+accNavBar.addEventListener('click', () => {
+  getAccProduct();
+});
+
+accNavBar2.addEventListener('click', () => {
+  getAccProduct();
 });
