@@ -200,6 +200,17 @@ function removeAllSpanText() {
   childText.forEach((element) => { parent.removeChild(element); });
 }
 
+// ---- Hover換圖網址函數 -----
+
+function hover(element, url) {
+  element.setAttribute('src', url);
+}
+
+function unhover(element, url) {
+  element.setAttribute('src', url);
+}
+
+
 // ---- 加入事件監聽函數 -----
 
 // 點選產品後，取得產品資料，並顯示
