@@ -119,13 +119,30 @@ function setProduct(parsedData) {
 function setBulletImg(parsedData) {
   for (let i = 0; i < parsedData.data.length; i++) {
     // 加入發燒產品圖片
-    const bulletHref = document.querySelectorAll('.item-3x3 a')[i];
-    bulletHref.href = "#";
-    bulletHref.querySelector('div').style.backgroundImage = `url("https://${hostName}${parsedData.data[i].picture}")`;
+    const bulletA = document.querySelectorAll('.item-3x3 a')[i];
+    bulletA.href = "#";
+    bulletA.querySelector('div').style.backgroundImage = `url("https://${hostName}${parsedData.data[i].picture}")`;
+
+    // 加入發燒產品文字
+    const imgContentArray = parsedData.data[i].story.split("\r\n");
+    const bulletTextDiv = document.querySelectorAll('.item-3x1 div')[i];
+    createPoet(imgContentArray, bulletTextDiv);
   }
 }
 
-
+function createPoet(imgTextArray, HTMLelement) {
+  for (let i = 0; i < imgTextArray.length; i++) {
+    if (i < imgTextArray.length - 1) {
+      let p = HTMLelement.querySelector('.imgWords-1');
+      p.innerHTML += `${imgTextArray[i]}`;
+      p.appendChild(document.createElement("br"));
+    } else {
+      let pp = HTMLelement.querySelector('.imgWords-2');
+      pp.appendChild(document.createElement("br"));
+      pp.innerHTML += `${imgTextArray[i]}`;
+    }
+  }
+}
 
 
 
@@ -346,7 +363,7 @@ circleUl.addEventListener('click', (e) => {
   const bulletImgDisplayTime = getComputedStyle(document.documentElement).
     getPropertyValue('--bullet-img-display-time').substring(1, 2);
 
-    // 重設每張圖片的delay time，讓動畫從點選的圖片開始撥放
+  // 重設每張圖片的delay time，讓動畫從點選的圖片開始撥放
   if (e.target.className == 2) {
     bulletImgA[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
     bulletImgA[1].style.animationDelay = '0s';
@@ -358,7 +375,7 @@ circleUl.addEventListener('click', (e) => {
   }
 
   // 移除動畫的class，再新增完全一樣的class，讓動畫能重新撥放
-  for (let i =0 ; i < bulletImgA.length ; i++) {
+  for (let i = 0; i < bulletImgA.length; i++) {
     // 1. 移除動畫的class
     bulletImgA[i].classList.remove("item-3x3-a");
     // 2. 網頁說明: 缺少下面这句不会运行。尝试删除这句，动画不会被再次触发

@@ -150,6 +150,7 @@ p{
   /* 當圖片數量增加，影片長度需更改，變為播放秒數(10s)x圖片數量(3) */
   animation: silder var(--bullet-img-display-timex3) linear infinite;
 }
+
 .item-3x3 > a > div { 
   height: 100%; 
   width: 100%;
@@ -184,9 +185,29 @@ p{
 .item-3x3 > a:nth-child(3) {
   animation-delay: var(--bullet-img-display-timex2);
 }
-/* 滑入時停止播放 */
+/*  -- 滑入時停止播放 -- 取消此效果，避免文字不同步
 .item-3x3:hover > a {
   animation-play-state: paused;
+}
+*/
+
+/* -- 文字輪播動畫設定 -- */
+
+.item-3x1 > div {
+  position: absolute;
+  left: 6.38%;  /* 23/360=6.38% */
+  top: 19.5%; /* 36/185=19.5% */
+  white-space: nowrap;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  animation: silder var(--bullet-img-display-timex3) linear infinite;
+}
+
+.item-3x1 > div:nth-child(2) {
+  animation-delay: var(--bullet-img-display-time);
+}
+.item-3x1 > div:nth-child(3) {
+  animation-delay: var(--bullet-img-display-timex2);
 }
 
 /* ---- Carousel Dot ---- */
