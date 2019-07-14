@@ -22,7 +22,7 @@ function ajax(src, callback) {
 }
 
 ajax(`${productListURL}/all`, setProduct);
-ajax(`${bulletURL}`, setBulletImg);
+ajax(`${bulletURL}`, setBullet);
 
 function getWomenProduct() {
   ajax(`${productListURL}/women`, setProduct);
@@ -116,7 +116,7 @@ function setProduct(parsedData) {
   window.addEventListener('scroll', handleScroll);
 }
 
-function setBulletImg(parsedData) {
+function setBullet(parsedData) {
   for (let i = 0; i < parsedData.data.length; i++) {
     // 加入發燒產品圖片
     const bulletA = document.querySelectorAll('.item-3x3 a')[i];
@@ -352,35 +352,47 @@ function setExtProduct(parsedData) {
   }
 }
 
-// 點擊跑馬燈圓圈後，切換發燒圖片
+// 加入跑馬燈圓圈事件監聽，點擊跑馬燈圓圈後，切換發燒圖片
 
-const circleLi = document.querySelectorAll('.dot > ul > li');
-const bulletImgA = document.querySelectorAll('.item-3x3 > a');
 const circleUl = document.querySelector('.dot ul');
 
 circleUl.addEventListener('click', (e) => {
+  const bulletImgA = document.querySelectorAll('.item-3x3 > a');
+  const bulletWordsDiv = document.querySelectorAll('.item-3x1 > div');
 
   const bulletImgDisplayTime = getComputedStyle(document.documentElement).
     getPropertyValue('--bullet-img-display-time').substring(1, 2);
 
-  // 重設每張圖片的delay time，讓動畫從點選的圖片開始撥放
+  // 重設每張圖片(及文字)的delay time，讓動畫從點選的圖片開始撥放
   if (e.target.className == 2) {
     bulletImgA[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
     bulletImgA[1].style.animationDelay = '0s';
     bulletImgA[2].style.animationDelay = `${bulletImgDisplayTime}s`;
+
+    bulletWordsDiv[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
+    bulletWordsDiv[1].style.animationDelay = '0s';
+    bulletWordsDiv[2].style.animationDelay = `${bulletImgDisplayTime}s`;
+
   } else if (e.target.className == 3) {
     bulletImgA[0].style.animationDelay = `-${bulletImgDisplayTime * 2}s`;
     bulletImgA[1].style.animationDelay = `-${bulletImgDisplayTime * 1}s`;
     bulletImgA[2].style.animationDelay = '0s';
+
+    bulletWordsDiv[0].style.animationDelay = `-${bulletImgDisplayTime * 2}s`;
+    bulletWordsDiv[1].style.animationDelay = `-${bulletImgDisplayTime * 1}s`;
+    bulletWordsDiv[2].style.animationDelay = '0s';
   }
 
   // 移除動畫的class，再新增完全一樣的class，讓動畫能重新撥放
   for (let i = 0; i < bulletImgA.length; i++) {
     // 1. 移除動畫的class
     bulletImgA[i].classList.remove("item-3x3-a");
+    bulletWordsDiv[i].classList.remove("item-3x1-a");
     // 2. 網頁說明: 缺少下面这句不会运行。尝试删除这句，动画不会被再次触发
     bulletImgA[i].offsetWidth = bulletImgA[i].offsetWidth;
+    bulletWordsDiv[i].offsetWidth = bulletWordsDiv[i].offsetWidth;
     // 3. 重新添加class
     bulletImgA[i].classList.add("item-3x3-a");
+    bulletWordsDiv[i].classList.add("item-3x1-a");
   }
 });
