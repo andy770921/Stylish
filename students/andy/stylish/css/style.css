@@ -135,26 +135,28 @@ p{
   position: absolute;
   top: 0;
   left: 0;
+  z-index: -1;
 }
 .item-3x3 > a{
   position: absolute;
   top: 0;
   left: 0;
   height: 100%; 
+  width: 100%;
   display: block;
   opacity: 0;
   filter: alpha(opacity=0);
   /*當圖片數量增加，影片長度需更改，變為播放秒數(10s)x圖片數量(3)*/
   animation: silder var(--bullet-img-display-timex3) linear infinite;
-
+}
+.item-3x3 > a > div { 
+  height: 100%; 
+  width: 100%;
+  background-image: url("https://api.appworks-school.tw/assets/keyvisuals/201807202140.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
   /*---- 背景圖左右置中、上下置上，若四方置中可寫成 background-position: center; --也可設定位置百分比如 background-position: 20% 50%;-- */
-  z-index: -1;
-}
-.item-3x3 > a > img { 
-  height: 100%;
 }
 
 @keyframes silder {
@@ -191,13 +193,13 @@ p{
 }
 .dot ul li{
     list-style: none;
-    width: 4px;
-    height: 4px;
+    width: 10px;   /* ---- 原設計4px 過小---- */
+    height: 10px;  /* ---- 原設計4px 過小---- */
     border-radius: 100%;
-    opacity: 0.4;
+    opacity: 0.7;  /* ---- 原設計0.4 過淡---- */
     background-color: #fff;
     float: left;
-    margin: 18px 6.4px;
+    margin: 18px 8px;   /* ---- 原設計左右6.4px (圓點間距離12.8px)過小---- */
 }
 .dot ul li:hover{
     opacity: 1;
@@ -518,8 +520,9 @@ body {
 /* ---- Carousel Dot ---- */
 
   .dot ul li{
-    width: 10px;
-    height: 10px;
+    width: 15px;  /* ---- 原設計10px 過小---- */
+    height: 15px;  /* ---- 原設計10px 過小---- */
+    margin: 18px 17px;   /* ---- 原設計左右xxpx (圓點間距離xxpx)過小---- */
   }
 
 /* ---- Flexbox Container-4---- */
