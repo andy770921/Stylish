@@ -358,7 +358,7 @@ circleUl.addEventListener('click', (e) => {
   }
 
   // 移除動畫的class，再新增完全一樣的class，讓動畫能重新撥放
-  for (var i in bulletImgA) {
+  for (let i =0 ; i < bulletImgA.length ; i++) {
     // 1. 移除動畫的class
     bulletImgA[i].classList.remove("item-3x3-a");
     // 2. 網頁說明: 缺少下面这句不会运行。尝试删除这句，动画不会被再次触发
