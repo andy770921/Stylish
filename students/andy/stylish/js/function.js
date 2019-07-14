@@ -346,13 +346,12 @@ circleUl.addEventListener('click', (e) => {
   const bulletImgDisplayTime = getComputedStyle(document.documentElement).
     getPropertyValue('--bullet-img-display-time').substring(1, 2);
 
-  if (e.target.className == 2) {
     // 重設每張圖片的delay time，讓動畫從點選的圖片開始撥放
+  if (e.target.className == 2) {
     bulletImgA[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
     bulletImgA[1].style.animationDelay = '0s';
     bulletImgA[2].style.animationDelay = `${bulletImgDisplayTime}s`;
   } else if (e.target.className == 3) {
-    // 重設每張圖片的delay time，讓動畫從點選的圖片開始撥放
     bulletImgA[0].style.animationDelay = `-${bulletImgDisplayTime * 2}s`;
     bulletImgA[1].style.animationDelay = `-${bulletImgDisplayTime * 1}s`;
     bulletImgA[2].style.animationDelay = '0s';
