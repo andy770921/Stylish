@@ -22,7 +22,7 @@ function ajax(src, callback) {
 }
 
 ajax(`${productListURL}/all`, setProduct);
-//ajax(`${bulletURL}`, setBulletImg);
+ajax(`${bulletURL}`, setBulletImg);
 
 function getWomenProduct() {
   ajax(`${productListURL}/women`, setProduct);
@@ -119,8 +119,9 @@ function setProduct(parsedData) {
 function setBulletImg(parsedData) {
   for (let i = 0; i < parsedData.data.length; i++) {
     // 加入發燒產品圖片
-    const bulletImg = document.getElementsByClassName('item-3x3')[0];
-    bulletImg.style.backgroundImage = `url("https://${hostName}${parsedData.data[i].picture}")`;
+    const bulletHref = document.querySelectorAll('.item-3x3 a')[i];
+    bulletHref.href = "#";
+    bulletHref.querySelector('div').style.backgroundImage = `url("https://${hostName}${parsedData.data[i].picture}")`;
   }
 }
 
@@ -191,12 +192,12 @@ function createColor(colorClassName, colorNumber) {
 }
 
 function createNewIcon() {
-  const newProduct = document.getElementsByClassName('item-4x2')[0];
+  const newProduct = document.getElementsByClassName('item-4x1')[0];
   const newIconDiv = document.createElement('div');
   newIconDiv.className = 'new-icon';
   newProduct.appendChild(newIconDiv);
   const newIconP = document.createElement('p');
-  newIconP.className = 'new-icon-text';
+  newIconP.className = 'new-icon-text cancelCursor';
   newIconP.innerText = '新品';
   newIconDiv.appendChild(newIconP);
   newProduct.appendChild(newIconDiv);
@@ -287,7 +288,7 @@ let ticking = false;
 
 function handleScroll(e) {
   if (!ticking) {
-    window.requestAnimationFrame(function() {
+    window.requestAnimationFrame(function () {
       doAjaxGetExt();
       ticking = false;
     });
@@ -298,7 +299,7 @@ function handleScroll(e) {
 function doAjaxGetExt() {
   let windowHeight = window.innerHeight;
   let footerRemains = document.getElementsByClassName('container-5')[0].getBoundingClientRect().top;
-  if (footerRemains - windowHeight  < 0 ) {
+  if (footerRemains - windowHeight < 0) {
     ajax(`${productListURL}/${pageIndicator}?paging=1`, setExtProduct);
     window.removeEventListener('scroll', handleScroll);
   }
@@ -332,5 +333,38 @@ function setExtProduct(parsedData) {
     text.appendChild(document.createElement("br"));
     text.innerHTML += `TWD. ${parsedData.data[i].price}`;
   }
-
 }
+
+// 點擊跑馬燈圓圈後，切換發燒圖片
+
+const circleLi = document.querySelectorAll('.dot > ul > li');
+const bulletImgA = document.querySelectorAll('.item-3x3 > a');
+const circleUl = document.querySelector('.dot ul');
+
+circleUl.addEventListener('click', (e) => {
+
+  const bulletImgDisplayTime = getComputedStyle(document.documentElement).
+    getPropertyValue('--bullet-img-display-time').substring(1, 2);
+
+  if (e.target.className == 2) {
+    // 重設每張圖片的delay time，讓動畫從點選的圖片開始撥放
+    bulletImgA[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
+    bulletImgA[1].style.animationDelay = '0s';
+    bulletImgA[2].style.animationDelay = `${bulletImgDisplayTime}s`;
+  } else if (e.target.className == 3) {
+    // 重設每張圖片的delay time，讓動畫從點選的圖片開始撥放
+    bulletImgA[0].style.animationDelay = `-${bulletImgDisplayTime * 2}s`;
+    bulletImgA[1].style.animationDelay = `-${bulletImgDisplayTime * 1}s`;
+    bulletImgA[2].style.animationDelay = '0s';
+  }
+
+  // 移除動畫的class，再新增完全一樣的class，讓動畫能重新撥放
+  for (var i in bulletImgA) {
+    // 1. 移除動畫的class
+    bulletImgA[i].classList.remove("item-3x3-a");
+    // 2. 網頁說明: 缺少下面这句不会运行。尝试删除这句，动画不会被再次触发
+    bulletImgA[i].offsetWidth = bulletImgA[i].offsetWidth;
+    // 3. 重新添加class
+    bulletImgA[i].classList.add("item-3x3-a");
+  }
+});
