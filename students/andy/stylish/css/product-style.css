@@ -1,0 +1,55 @@
+/* ================================= 
+  Base Element Styles
+==================================== */
+@font-face {
+    font-family: "PingFangTC-Regular";
+    src: url(PingFang-TC-Regular.otf) format("opentype");
+  }
+  
+  
+  * {
+      box-sizing: border-box;
+  }
+  body {
+      font-family: PingFangTC-Regular, sans-serif;
+      line-height: 1.6;
+      letter-spacing: 0.08em;
+  }
+  
+  a { 
+      text-decoration: none;
+  }
+  
+  p{
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+  }
+
+  /* ================================= 
+  Base Layout Styles
+==================================== */
+
+
+/* ================================= 
+  Media Queries
+==================================== */
+
+@media (min-width: 701px) and (max-width: 1149px) {
+  
+    /* ---- Flexbox Container-4---- */
+  
+  
+  }
+
+@media (min-width: 1150px)  {
+  
+    /* ---- Flexbox Container-1---- */
+
+  
+    /* ---- container-4 max-width responsive ---- */
+    .container-4 {
+      max-width: 1240px;
+      margin-right: auto;
+      margin-left: auto;
+      }
+  }
