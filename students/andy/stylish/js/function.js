@@ -435,7 +435,7 @@ circleUl.addEventListener('click', (e) => {
   const dotLi = document.querySelectorAll('.dot > ul > li');
 
   const bulletImgDisplayTime = getComputedStyle(document.documentElement).
-    getPropertyValue('--bullet-img-display-time').substring(1, 2);
+    getPropertyValue('--bullet-img-display-time').slice(1).split('s')[0];
 
   // 重設每張圖片(及文字)的delay time，讓動畫從點選的圖片開始撥放
   if (e.target.className.substring(0, 1) == 1) {
