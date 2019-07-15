@@ -111,6 +111,7 @@ p{
     top: 19.5%; /* 36/185=19.5% */
     /*width: 80%;  143/360=39.7%  設定80會讓右邊出現空白，不滿版*/
     background-color: transparent;
+    z-index: 6;
 }
 .imgWords-1{
     font-size: 14px;
@@ -125,7 +126,7 @@ p{
   bottom: 20px; 
   width: 100%; 
   align-self: flex-end;
-  z-index: 1;
+  z-index: 6;
 }
 
 /* ---- 設定背景圖輪播動畫 ---- */
@@ -138,7 +139,7 @@ p{
   left: 0;
 }
 .item-3x3-a{
-  z-index: -1;
+  z-index: 1;
   position: absolute;
   top: 0;
   left: 0;
@@ -166,6 +167,7 @@ p{
   3% {
       opacity: 1;
       filter: alpha(opacity=100);
+      z-index: 5;
   }
   27% {
       opacity: 1;
@@ -335,7 +337,7 @@ p{
   width: 100%;
   left: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 10;
   height: 60px;
   background-color: var(--charcoal-grey);
   

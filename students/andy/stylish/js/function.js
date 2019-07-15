@@ -128,14 +128,24 @@ function setBullet(parsedData) {
   for (let i = 0; i < parsedData.data.length; i++) {
     // 加入發燒產品圖片
     const bulletA = document.querySelectorAll('.item-3x3 a')[i];
-    bulletA.href = "#";
+    const bulletTextDiv = document.querySelectorAll('.item-3x1 div')[i];
+
+    // 設定發燒產品id，給相應超連結a的href，及文字
+    bulletA.href = `#product?id=${parsedData.data[i].product_id}`;
+    bulletTextDiv.setAttribute ( 'onclick' , `window.location='#product?id=${parsedData.data[i].product_id}'`);
+
+    // 加入發燒產品圖片
     bulletA.querySelector('div').style.backgroundImage = `url("https://${hostName}${parsedData.data[i].picture}")`;
 
     // 加入發燒產品文字
     const imgContentArray = parsedData.data[i].story.split("\r\n");
-    const bulletTextDiv = document.querySelectorAll('.item-3x1 div')[i];
+    
     createPoet(imgContentArray, bulletTextDiv);
-  }
+    
+    // 設定發燒產品id，給相應超連結a的href
+
+
+  } 
 }
 
 function createPoet(imgTextArray, HTMLelement) {
