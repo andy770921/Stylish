@@ -399,12 +399,26 @@ const circleUl = document.querySelector('.dot ul');
 circleUl.addEventListener('click', (e) => {
   const bulletImgA = document.querySelectorAll('.item-3x3 > a');
   const bulletWordsDiv = document.querySelectorAll('.item-3x1 > div');
+  const dotLi = document.querySelectorAll('.dot > ul > li');
 
   const bulletImgDisplayTime = getComputedStyle(document.documentElement).
     getPropertyValue('--bullet-img-display-time').substring(1, 2);
 
   // 重設每張圖片(及文字)的delay time，讓動畫從點選的圖片開始撥放
-  if (e.target.className == 2) {
+  if (e.target.className.substring(0, 1) == 1) {
+    bulletImgA[0].style.animationDelay = '0s';
+    bulletImgA[1].style.animationDelay = `${bulletImgDisplayTime}s`;
+    bulletImgA[2].style.animationDelay = `${bulletImgDisplayTime * 2}s`;
+
+    bulletWordsDiv[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
+    bulletWordsDiv[1].style.animationDelay = '0s';
+    bulletWordsDiv[2].style.animationDelay = `${bulletImgDisplayTime}s`;
+
+    dotLi[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
+    dotLi[1].style.animationDelay = '0s';
+    dotLi[2].style.animationDelay = `${bulletImgDisplayTime}s`;
+
+  } else if (e.target.className.substring(0, 1) == 2) {
     bulletImgA[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
     bulletImgA[1].style.animationDelay = '0s';
     bulletImgA[2].style.animationDelay = `${bulletImgDisplayTime}s`;
@@ -413,7 +427,11 @@ circleUl.addEventListener('click', (e) => {
     bulletWordsDiv[1].style.animationDelay = '0s';
     bulletWordsDiv[2].style.animationDelay = `${bulletImgDisplayTime}s`;
 
-  } else if (e.target.className == 3) {
+    dotLi[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
+    dotLi[1].style.animationDelay = '0s';
+    dotLi[2].style.animationDelay = `${bulletImgDisplayTime}s`;
+
+  } else if (e.target.className.substring(0, 1) == 3) {
     bulletImgA[0].style.animationDelay = `-${bulletImgDisplayTime * 2}s`;
     bulletImgA[1].style.animationDelay = `-${bulletImgDisplayTime * 1}s`;
     bulletImgA[2].style.animationDelay = '0s';
@@ -421,6 +439,10 @@ circleUl.addEventListener('click', (e) => {
     bulletWordsDiv[0].style.animationDelay = `-${bulletImgDisplayTime * 2}s`;
     bulletWordsDiv[1].style.animationDelay = `-${bulletImgDisplayTime * 1}s`;
     bulletWordsDiv[2].style.animationDelay = '0s';
+
+    dotLi[0].style.animationDelay = `-${bulletImgDisplayTime * 2}s`;
+    dotLi[1].style.animationDelay = `-${bulletImgDisplayTime * 1}s`;
+    dotLi[2].style.animationDelay = '0s';
   }
 
   // 移除動畫的class，再新增完全一樣的class，讓動畫能重新撥放
@@ -428,11 +450,14 @@ circleUl.addEventListener('click', (e) => {
     // 1. 移除動畫的class
     bulletImgA[i].classList.remove("item-3x3-a");
     bulletWordsDiv[i].classList.remove("item-3x1-a");
+    dotLi[i].classList.remove("dot-a");
     // 2. 網頁說明: 缺少下面这句不会运行。尝试删除这句，动画不会被再次触发
     bulletImgA[i].offsetWidth = bulletImgA[i].offsetWidth;
     bulletWordsDiv[i].offsetWidth = bulletWordsDiv[i].offsetWidth;
+    dotLi[i].offsetWidth = dotLi[i].offsetWidth;
     // 3. 重新添加class
     bulletImgA[i].classList.add("item-3x3-a");
     bulletWordsDiv[i].classList.add("item-3x1-a");
+    dotLi[i].classList.add("dot-a");
   }
 });
