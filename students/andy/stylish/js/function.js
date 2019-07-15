@@ -442,7 +442,7 @@ circleUl.addEventListener('click', (e) => {
     bulletImgA[0].style.animationDelay = '0s';
     bulletImgA[1].style.animationDelay = `${bulletImgDisplayTime}s`;
     bulletImgA[2].style.animationDelay = `${bulletImgDisplayTime * 2}s`;
-
+    
     bulletWordsDiv[0].style.animationDelay = '0s';
     bulletWordsDiv[1].style.animationDelay = `${bulletImgDisplayTime}s`;
     bulletWordsDiv[2].style.animationDelay = `${bulletImgDisplayTime * 2}s`;
@@ -455,7 +455,7 @@ circleUl.addEventListener('click', (e) => {
     bulletImgA[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
     bulletImgA[1].style.animationDelay = '0s';
     bulletImgA[2].style.animationDelay = `${bulletImgDisplayTime}s`;
-
+    
     bulletWordsDiv[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
     bulletWordsDiv[1].style.animationDelay = '0s';
     bulletWordsDiv[2].style.animationDelay = `${bulletImgDisplayTime}s`;
@@ -468,7 +468,7 @@ circleUl.addEventListener('click', (e) => {
     bulletImgA[0].style.animationDelay = `-${bulletImgDisplayTime * 2}s`;
     bulletImgA[1].style.animationDelay = `-${bulletImgDisplayTime * 1}s`;
     bulletImgA[2].style.animationDelay = '0s';
-
+    
     bulletWordsDiv[0].style.animationDelay = `-${bulletImgDisplayTime * 2}s`;
     bulletWordsDiv[1].style.animationDelay = `-${bulletImgDisplayTime * 1}s`;
     bulletWordsDiv[2].style.animationDelay = '0s';
@@ -480,6 +480,7 @@ circleUl.addEventListener('click', (e) => {
 
   // 移除動畫的class，再新增完全一樣的class，讓動畫能重新撥放
   for (let i = 0; i < bulletImgA.length; i++) {
+    
     // 1. 移除動畫的class
     bulletImgA[i].classList.remove("item-3x3-a");
     bulletWordsDiv[i].classList.remove("item-3x1-a");

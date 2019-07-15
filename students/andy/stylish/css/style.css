@@ -37,9 +37,10 @@ p{
 
 :root {
   --charcoal-grey: #313538;
-  --bullet-img-display-time: 10s;
-  --bullet-img-display-timex2: 20s;
-  --bullet-img-display-timex3: 30s;
+  --bullet-img-display-time: 9.9s;
+  --bullet-img-display-timex2: 19.8s;
+  --bullet-img-display-timex3: 29.7s;
+  /* 動畫總時間(--bullet-img-display-timex3)不能>30秒，否則會有bug */
 }
 
 /* ---- Flexbox Container-1---- */
