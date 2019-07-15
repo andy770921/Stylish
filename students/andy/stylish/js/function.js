@@ -102,11 +102,11 @@ function setProduct(parsedData) {
   }
   //console.log(totalLi);
 
-  if (totalLi == 0 && document.querySelectorAll('.container-4 span').length == 0) {
+  if (totalLi == 0 ) {
     createText('未搜尋到關鍵字');
     removeAllNewIcon();
   }
-  else if (totalLi > 0 || document.querySelectorAll('.container-4 span').length > 0) {
+  else if (totalLi > 0 ) {
     removeAllSpanText();
   }
   // 加入監聽瀏覽器卷軸
@@ -316,7 +316,7 @@ accNavBar2.addEventListener('click', () => {
   getAccProduct();
 });
 
-// 點選放大鏡後，顯示搜尋Bar，按header外其他位置隱藏搜尋Bar
+// 點選放大鏡後，顯示搜尋Bar，按header外其他位置，隱藏搜尋Bar
 const magnifier = document.getElementsByClassName('item-1x2')[0];
 
 magnifier.addEventListener('click', () => {
@@ -326,7 +326,7 @@ magnifier.addEventListener('click', () => {
   });
 });
 
-// 打搜尋字串，再滑鼠點選放大鏡後，使用AJAX撈資料並顯示
+// 打搜尋字串，再滑鼠點選放大鏡後，使用AJAX撈資料並顯示。之後清除input text
 
 const searchBarBtn = document.getElementsByClassName('img-1x4')[0];
 
@@ -335,7 +335,7 @@ searchBarBtn.addEventListener('click', () => {
   console.log('userValue Updated');
   console.log(userValue);
   ajax(`${productListURL}/search?keyword=${userValue}`, setProduct);
-
+  document.getElementsByClassName('search-bar')[0].value = '';   //打userValue =  ''; 無效??
 });
 
 // 先監聽滑動事件，滑動到底時，使用AJAX再撈資料，顯示多撈到的產品，並取消監聽滑動事件
