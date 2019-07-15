@@ -410,13 +410,13 @@ circleUl.addEventListener('click', (e) => {
     bulletImgA[1].style.animationDelay = `${bulletImgDisplayTime}s`;
     bulletImgA[2].style.animationDelay = `${bulletImgDisplayTime * 2}s`;
 
-    bulletWordsDiv[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
-    bulletWordsDiv[1].style.animationDelay = '0s';
-    bulletWordsDiv[2].style.animationDelay = `${bulletImgDisplayTime}s`;
+    bulletWordsDiv[0].style.animationDelay = '0s';
+    bulletWordsDiv[1].style.animationDelay = `${bulletImgDisplayTime}s`;
+    bulletWordsDiv[2].style.animationDelay = `${bulletImgDisplayTime * 2}s`;
 
-    dotLi[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
-    dotLi[1].style.animationDelay = '0s';
-    dotLi[2].style.animationDelay = `${bulletImgDisplayTime}s`;
+    dotLi[0].style.animationDelay = '0s';
+    dotLi[1].style.animationDelay = `${bulletImgDisplayTime}s`;
+    dotLi[2].style.animationDelay = `${bulletImgDisplayTime * 2}s`;
 
   } else if (e.target.className.substring(0, 1) == 2) {
     bulletImgA[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
