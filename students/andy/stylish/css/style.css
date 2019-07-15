@@ -1,0 +1,738 @@
+/* ================================= 
+  Base Element Styles
+==================================== */
+@font-face {
+  font-family: "PingFangTC-Regular";
+  src: url(PingFang-TC-Regular.otf) format("opentype");
+}
+
+
+* {
+	box-sizing: border-box;
+}
+body {
+    font-family: PingFangTC-Regular, sans-serif;
+    line-height: 1.6;
+    letter-spacing: 0.08em;
+}
+
+a { 
+	text-decoration: none;
+}
+
+p{
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+.container-4 {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2.4px;
+  color: #3f3a3a;
+}
+
+/* ================================= 
+  Base Layout Styles
+==================================== */
+
+:root {
+  --charcoal-grey: #313538;
+  --bullet-img-display-time: 9.9s;
+  --bullet-img-display-timex2: 19.8s;
+  --bullet-img-display-timex3: 29.7s;
+  /* 動畫總時間(--bullet-img-display-timex3)不能>30秒，否則會有bug */
+}
+
+/* ---- Flexbox Container-1---- */
+
+
+.container-1 {
+    display: flex;
+    height: 76px;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    position: relative;
+}
+
+.item-1x1 {   
+    max-width: 151px;
+    position: absolute;
+}
+.item-1x2 {
+    margin-right: 10px;
+    max-width: 40px;
+    position: absolute;
+    right: 10px;
+}
+
+.item-1x3 ,.item-1x4 ,.item-1x5 {
+  display: none;
+}
+
+/* ---- Search bar css setting after clicking ----- */
+
+.item-1x4 {
+  justify-content: center;
+  position: absolute;
+  right: 9px;   
+  width: 300px;
+  max-width: 80%;
+  height: 40px;
+  border-style: solid;
+  border-color: #979797;
+  border-width: 1px;
+  border-radius:  20px;
+  background-color: #fff;
+}
+
+
+.search-bar {
+  margin-left: 1em;
+  letter-spacing: 0.5em;
+  border-style: none;
+  flex-grow: 50;
+  width: 70%;
+}
+.search-bar:focus {
+  outline: medium;
+}
+.img-1x4 {
+  flex-grow: 1;
+}
+.space {
+  flex-grow: 1;
+}
+/* ---- Flexbox Container-2---- */
+
+.container-2 {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    background-color: var(--charcoal-grey);
+    position: relative;
+}
+
+.item-2x1, .item-2x2, .item-2x3 {
+    display: flex;
+    color: #828282;
+    font-size: 16px;
+    flex-grow: 1;
+    flex-basis: 50px;
+    justify-content: center;
+}
+.vertical-line-2x1 {
+    position: absolute;
+    left: 33.33%;
+}
+.vertical-line-2x2 {
+    position: absolute;
+    left: 66.66%;
+}
+
+.barItem-1:hover, .barItem-2:hover, .barItem-3:hover {
+  color: #fff;
+}
+/* ---- Flexbox Container-3---- */
+
+.container-3 {
+    display: flex;
+    width: 100%;
+    height: 185px;
+    position: relative;
+}
+.item-3x1 {
+    position: absolute;
+    left: 6.38%;  /* 23/360=6.38% */
+    top: 19.5%; /* 36/185=19.5% */
+    /*width: 80%;  143/360=39.7%  設定80會讓右邊出現空白，不滿版*/
+    background-color: transparent;
+    z-index: 6;
+}
+.imgWords-1{
+    font-size: 14px;
+}
+.imgWords-2{
+    font-size: 10px;
+}
+
+.item-3x2 {
+  display: flex;
+  justify-content: center;
+  bottom: 20px; 
+  width: 100%; 
+  align-self: flex-end;
+  z-index: 6;
+}
+
+/* ---- 設定背景圖輪播動畫 ---- */
+
+.item-3x3 {
+  height: 100%; 
+  width: 100%; 
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.item-3x3-a{
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%; 
+  width: 100%;
+  display: block;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  /* 當圖片數量增加，影片長度需更改，變為播放秒數(10s)x圖片數量(3) */
+  animation: silder var(--bullet-img-display-timex3) linear infinite;
+}
+
+.item-3x3 > a > div { 
+  height: 100%; 
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+  /* 背景圖左右置中、上下置上，若四方置中可寫成 background-position: center; 
+     也可設定位置百分比如 background-position: 20% 50%; */
+  /* background-image: url("https://api.appworks-school.tw/assets/keyvisuals/201807202140.jpg"); */
+}
+
+@keyframes silder {
+  3% {
+      opacity: 1;
+      filter: alpha(opacity=100);
+      z-index: 5;
+  }
+  27% {
+      opacity: 1;
+      filter: alpha(opacity=100);
+  }
+  30% {
+      opacity: 0;
+      filter: alpha(opacity=0);
+  }
+}
+
+
+/* 設定未播放的圖延遲秒數。延遲秒數為圖片等待次序(1 or 2)x每個圖片各延遲秒數(10秒) */
+.item-3x3 > a:nth-child(2) {
+  animation-delay: var(--bullet-img-display-time);
+}
+.item-3x3 > a:nth-child(3) {
+  animation-delay: var(--bullet-img-display-timex2);
+}
+/*  -- 滑入時停止播放 -- 取消此效果，避免文字不同步
+.item-3x3:hover > a {
+  animation-play-state: paused;
+}
+*/
+
+/* -- 文字輪播動畫設定 -- */
+
+.item-3x1-a {
+  position: absolute;
+  left: 6.38%;  /* 23/360=6.38% */
+  top: 19.5%; /* 36/185=19.5% */
+  white-space: nowrap;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  animation: silder var(--bullet-img-display-timex3) linear infinite;
+}
+
+.item-3x1 > div:nth-child(2) {
+  animation-delay: var(--bullet-img-display-time);
+}
+.item-3x1 > div:nth-child(3) {
+  animation-delay: var(--bullet-img-display-timex2);
+}
+
+
+/* -- Carousel Dot  點輪播動畫設定 -- */
+.dot-a {
+  animation: silder-dot var(--bullet-img-display-timex3) step-start infinite;
+}
+.dot > ul > li:nth-child(2) {
+  animation-delay: var(--bullet-img-display-time);
+}
+.dot > ul > li:nth-child(3) {
+  animation-delay: var(--bullet-img-display-timex2);
+}
+
+@keyframes silder-dot {
+
+  3% {
+      opacity: 1;
+      filter: alpha(opacity=100);
+      background-color: rgb(68, 64, 64);
+  }
+  27% {
+      opacity: 1;
+      filter: alpha(opacity=100);
+      background-color: rgb(68, 64, 64);
+  }
+  30% {
+      opacity: 0.7;  /* ---- 要與Carousel Dot opacity值相同  ---- */
+      filter: alpha(opacity=70);
+      background-color: #fff;
+  }
+
+}
+
+
+/* ---- Carousel Dot ---- */
+
+.dot ul li{
+    list-style: none;
+    width: 10px;   /* ---- 原設計4px 過小---- */
+    height: 10px;  /* ---- 原設計4px 過小---- */
+    border-radius: 100%;
+    opacity: 0.7;   /* ---- 原設計0.4 過淡---- */
+    background-color: #fff;
+    float: left;
+    margin: 18px 8px;   /* ---- 原設計左右6.4px (圓點間距離12.8px)過小---- */
+}
+.dot ul li:hover{
+    opacity: 1;
+    background-color: #8b572a;
+}
+
+/* ---- Flexbox Container-4---- */
+
+.container-4 {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+.container-4 span{
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.item-product{
+  margin: 15px 6px 0px 6px;
+  width: 45%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.img-product {
+  width: 100%; 
+  height: auto;
+}
+
+.color-product li{
+  width: 3.33vw; /* 12px/360px=3.33% */
+  height: 3.33vw;
+  max-width: 24px;
+  max-height: 24px;
+  min-width: 12px;
+  min-height: 12px;
+  list-style: none;
+  float: left;
+  margin: 8px 6px 8px 0px;
+  border: solid;
+  border-color: lightgray;
+  border-width: 1px;
+  border-radius: 3px;
+  /* background-color: red; */
+}
+
+/* ---- New  Icon ---- */
+.new-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  background-color: #c49871;
+  position: absolute;
+  top: 10px;
+  right: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.new-icon-text {
+  font-family: PingFangTC-Regular, sans-serif;
+  font-size: 14px;
+  color: #fff;
+}
+
+/* ---- sticky ---- */
+
+.sticky {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+  height: 60px;
+  background-color: var(--charcoal-grey);
+  
+}
+.item-s{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  flex-basis: 100px;
+  position: relative;
+}
+
+.img-s {
+  margin-right: 10px;
+  max-width: 40px;
+}
+
+.text-s {
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.vertical-line-s {
+  position: absolute;
+  left:99.2%;
+  color: #ffffff;
+  font-size: 30px;
+}
+
+
+/* ================================= 
+  Footer
+==================================== */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+} 
+
+.container-5 {
+  display: flex;
+  width: 100%;
+  height: 208px;  /* ---- 148+60 ---- */
+  background-color: var(--charcoal-grey);
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 30px;
+}
+.item-5x1 {
+  display: flex;
+  position: absolute;
+  top: 23px;
+  bottom: 109px; /* ---- 20+14+15+60 ---- */
+  left: 40px; 
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.text-5x1 {
+  font-size: 14px;
+  text-align: left;
+  color: #f5f5f5;
+  display: block;
+  margin: 0 35px 0 0;
+  flex-basis: 30%;
+}
+.item-5x2 {
+  position: absolute;
+  top: 41px;
+  right: 6.67%; /* ---- 24/360=6.67% ---- */
+}
+.img-5x2{
+  width: 35px; 
+}
+.img-5x2:not(:last-child) {
+  margin: 0 14px 0 0; 
+}
+.item-5x3 {
+  position: absolute;
+  bottom: 80px;   /* ---- 20+60 ---- */
+  font-size: 10px;
+  color: #828282;
+  letter-spacing: 0em;
+}
+
+/* ================================= 
+        Change Cursor to Pointer
+==================================== */
+.addCursor {
+  cursor: pointer;
+}
+
+.cancelCursor {
+  cursor: default;
+}
+/* ================================= 
+             switch Display 
+ ==================================== */
+.display-switch {
+  display: flex;
+}
+
+
+/* ================================= 
+  Media Queries
+==================================== */
+
+@media (min-width: 701px) and (max-width: 1149px) {
+  
+  /* ---- Flexbox Container-4---- */
+
+  .container-4 {
+    font-size: 15px;
+  }
+
+  .item-product{
+    margin: 30px 10px 0px 10px;
+    width: 27%;
+  }
+  .img-product {
+    width: 100%; 
+    height: auto;
+  }
+
+}
+@media (min-width: 1150px)  {
+
+  /* ---- Flexbox Container-1---- */
+
+  .container-1 {
+    height: 100px;
+  }
+
+  .item-1x1 {   
+    max-width: 258px;
+    left: 60px;  
+  }
+  .item-1x2 {
+    display: none;
+  }
+  .item-1x3 {
+    display: flex;
+    position: absolute;
+    top: 44px;
+    left: 414px;   
+    min-width: 19.73%;  /* ----379/1920 ----- */
+    letter-spacing: 1em;
+  }
+  /* ---- Nav bar changes into item-1x3 ----- */
+  .item-2x1, .item-2x2, .item-2x3 {
+    color: #3f3a3a;
+    font-size: 20px;
+    flex-grow: 1;
+ 
+  }
+  .barItem-1, .barItem-2, .barItem-3 {
+    margin-left: 1em;
+  }
+  .vertical-line-2x1, .vertical-line-2x2 {
+    letter-spacing: 0;
+  }
+  /* ---- Search bar into item-1x4 ----- */
+  .item-1x4 {
+    display: flex;
+    /* justify-content: center;
+    position: absolute; */
+    bottom: 26px; 
+    right: 226px;   
+    width: 214px;
+    /*height: 40px;
+    border-style: solid;
+    border-color: #979797;
+    border-width: 1px;
+    border-radius:  20px; */
+  }
+
+  /*
+  .search-bar {
+    margin-left: 1em;
+    letter-spacing: 0.5em;
+    border-style: none;
+    width: 70%; 
+    flex-grow: 50;
+  }
+
+  .search-bar:focus {
+    outline: medium;
+  }
+  .img-1x4 {
+    flex-grow: 1;
+  }
+  .space {
+    flex-grow: 1;
+  }
+  */
+
+ /* ---- Icon item-1x5 ----- */
+ .item-1x5 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 24px;
+    right: 12px;    /*---- 54 - margin 42 = 12 ---- */
+  }
+  .img-1x5 {
+    width: 44px;
+    margin: 0 42px 0 0;  
+  }
+
+  /* ---- Flexbox Container-2---- */
+
+  .container-2 {
+    height: 40px;
+  }
+  .barItem-1:hover, .barItem-2:hover, .barItem-3:hover {
+    color: #8b572a;
+  }
+
+/* ---- Flexbox Container-3---- */
+
+  .container-3 {
+    height: 500px;
+  }
+  .item-3x1 {
+    position: absolute;
+    left: 21.19%;  /* 407/1920=21.19% */
+    top: 33.2%; /* 166/500=19.5% */
+  }
+  .imgWords-1{
+    font-size: 30px;
+  }
+  .imgWords-2{
+    font-size: 20px;
+  }
+
+  .item-3x2 {
+  bottom: 34px; 
+  }
+
+/* ---- Carousel Dot ---- */
+
+  .dot ul li{
+    width: 15px;  /* ---- 原設計10px 過小---- */
+    height: 15px;  /* ---- 原設計10px 過小---- */
+    margin: 18px 17px;   /* ---- 原設計左右xxpx (圓點間距離xxpx)過小---- */
+  }
+
+/* ---- Flexbox Container-4---- */
+
+  .container-4 {
+    font-size: 20px;
+  }
+
+  .item-product{
+    margin: 70px 20px 0px 20px;
+    width: 28%;
+  }
+  /* 
+  .img-product {
+    width: 100%; 
+    height: auto;
+  }
+  .color-product li{
+    width: 24px;
+    height: 24px;
+    margin: 20px 10px 20px 0px;
+  }
+*/
+  /* ---- New  Icon ---- */
+  .new-icon {
+    width: 64px;
+    height: 64px;
+    top: 20px;
+    right: 20px;
+    justify-content: center;
+  }
+  .new-icon-text {
+    font-size: 20px;
+    margin-left: 4%;
+  }
+
+  /* ---- cancel sticky ---- */
+
+  .sticky {
+    display: none;
+  }
+
+/* ================================= 
+  Footer
+==================================== */
+
+.container-5 {
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  height: 115px;
+}
+.item-5x1 {
+  position: static;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  width: 60%;  /* 670px */
+  bottom: auto;
+  flex-grow: 1;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.text-5x1 {
+  font-size: 16px;
+  color: #f5f5f5;
+  display: block;
+  margin: 0;
+  text-align: center;
+}
+.text-5x1:not(:last-child) {
+  border-style: none solid none none;
+  border-color: #828282;
+  border-width: 1.0px;
+}
+.item-5x2 {
+  position: static;
+  top: auto;
+  right: 10%; /* ---- 562/1920=29.27% ---- */
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+  margin-right: 5%;
+}
+.img-5x2{
+  width: 50px;
+}
+.img-5x2:not(:last-child) {
+  margin: 0 30px 0 0; /* ----30px/1920=1.56% ---- */
+}
+.item-5x3 {
+  position: static;
+  bottom: auto;
+  right: 3%;
+  font-size: 12px;
+  color: #828282;
+  flex-grow: 1;
+  margin-right: 5%;
+}
+ /* ----  switch Display ---- */
+ .display-switch {
+  display: none;
+}
+
+ /* ---- container-4 max-width responsive ---- */
+  .container-4 {
+    max-width: 1240px;
+    margin-right: auto;
+    margin-left: auto;
+	}
+}
