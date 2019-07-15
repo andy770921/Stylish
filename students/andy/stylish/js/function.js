@@ -44,55 +44,56 @@ function setProduct(parsedData) {
   //console.log(parsedData);
   //console.log(parsedData.data[0].colors[0].code);
   pageNumberNow = 0;
+  if (parsedData.data) {
+    for (let i = 0; i < parsedData.data.length; i++) {
+      // 加入產品圖片
+      const img = document.getElementsByClassName(`img-4x${i + 1}`)[0];
+      img.src = parsedData.data[i].main_image;
 
-  for (let i = 0; i < parsedData.data.length; i++) {
-    // 加入產品圖片
-    const img = document.getElementsByClassName(`img-4x${i + 1}`)[0];
-    img.src = parsedData.data[i].main_image;
-
-    // 加入產品顏色，兩步驟 1.先移除所有產品顏色 2.再新增顏色
-    // 1. 先移除所有產品顏色
-    const colorClassName = `color-4x${i + 1}`;
-    const noColorUl = document.getElementsByClassName(colorClassName)[0];
-    const li = document.querySelectorAll(`.${colorClassName} li`);
-    li.forEach((element) => { noColorUl.removeChild(element); });
-
-    // 2.再新增所有產品顏色
-    for (let j = 0; j < parsedData.data[i].colors.length; j++) {
-      const colorCode = parsedData.data[i].colors[j].code;
-      createColor(colorClassName, colorCode);
-    }
-
-    // 加入產品文字及價錢
-    const text = document.getElementsByClassName(`text-4x${i + 1}`)[0]
-    text.innerHTML = `${parsedData.data[i].title}`;
-    text.appendChild(document.createElement("br"));
-    text.innerHTML += `TWD. ${parsedData.data[i].price}`;
-  }
-
-  // 當產品數量小於6，清除圖片、顏色、文字
-
-  const numOfItem = 6;
-  if (parsedData.data.length < numOfItem) {
-    for (let i = 0; i < numOfItem - parsedData.data.length; i++) {
-      // 移除多餘產品圖片
-      const noImg = document.getElementsByClassName(`img-4x${parsedData.data.length + i + 1}`)[0];
-      noImg.src = "";
-      // 移除多餘產品顏色
-      const noColorUl = document.getElementsByClassName(`color-4x${parsedData.data.length + i + 1}`)[0];
-      const li = document.querySelectorAll(`.color-4x${parsedData.data.length + i + 1} li`);
+      // 加入產品顏色，兩步驟 1.先移除所有產品顏色 2.再新增顏色
+      // 1. 先移除所有產品顏色
+      const colorClassName = `color-4x${i + 1}`;
+      const noColorUl = document.getElementsByClassName(colorClassName)[0];
+      const li = document.querySelectorAll(`.${colorClassName} li`);
       li.forEach((element) => { noColorUl.removeChild(element); });
-      // 移除多餘產品文字及價錢
-      const text = document.getElementsByClassName(`text-4x${parsedData.data.length + i + 1}`)[0]
-      text.innerHTML = "";
+
+      // 2.再新增所有產品顏色
+      for (let j = 0; j < parsedData.data[i].colors.length; j++) {
+        const colorCode = parsedData.data[i].colors[j].code;
+        createColor(colorClassName, colorCode);
+      }
+
+      // 加入產品文字及價錢
+      const text = document.getElementsByClassName(`text-4x${i + 1}`)[0]
+      text.innerHTML = `${parsedData.data[i].title}`;
+      text.appendChild(document.createElement("br"));
+      text.innerHTML += `TWD. ${parsedData.data[i].price}`;
     }
-  }
-  // 清除第7個以上，展開的產品
-  const presentItem = document.querySelectorAll('.item-product');
-  if (presentItem.length > numOfItem) {
-    for (let i = numOfItem; i < presentItem.length; i++) {
-      // 移除產品Div
-      document.querySelector('.container-4').removeChild(presentItem[i]);
+
+    // 當產品數量小於6，清除圖片、顏色、文字
+
+    const numOfItem = 6;
+    if (parsedData.data.length < numOfItem) {
+      for (let i = 0; i < numOfItem - parsedData.data.length; i++) {
+        // 移除多餘產品圖片
+        const noImg = document.getElementsByClassName(`img-4x${parsedData.data.length + i + 1}`)[0];
+        noImg.src = "";
+        // 移除多餘產品顏色
+        const noColorUl = document.getElementsByClassName(`color-4x${parsedData.data.length + i + 1}`)[0];
+        const li = document.querySelectorAll(`.color-4x${parsedData.data.length + i + 1} li`);
+        li.forEach((element) => { noColorUl.removeChild(element); });
+        // 移除多餘產品文字及價錢
+        const text = document.getElementsByClassName(`text-4x${parsedData.data.length + i + 1}`)[0]
+        text.innerHTML = "";
+      }
+    }
+    // 清除第7個以上，展開的產品
+    const presentItem = document.querySelectorAll('.item-product');
+    if (presentItem.length > numOfItem) {
+      for (let i = numOfItem; i < presentItem.length; i++) {
+        // 移除產品Div
+        document.querySelector('.container-4').removeChild(presentItem[i]);
+      }
     }
   }
   // 當產品數量等於0(無任何顏色框框): 顯示字"未搜尋到關鍵字"，及移除產品圖示。大於0，移除字
@@ -102,11 +103,11 @@ function setProduct(parsedData) {
   }
   //console.log(totalLi);
 
-  if (totalLi == 0 ) {
+  if (totalLi == 0) {
     createText('未搜尋到關鍵字');
     removeAllNewIcon();
   }
-  else if (totalLi > 0 ) {
+  else if (totalLi > 0) {
     removeAllSpanText();
   }
   // 加入監聽瀏覽器卷軸
@@ -132,16 +133,16 @@ function setBullet(parsedData) {
 
     // 設定發燒產品id，給相應超連結a的href，及文字
     bulletA.href = `#product?id=${parsedData.data[i].product_id}`;
-    bulletTextDiv.setAttribute ( 'onclick' , `window.location='#product?id=${parsedData.data[i].product_id}'`);
+    bulletTextDiv.setAttribute('onclick', `window.location='#product?id=${parsedData.data[i].product_id}'`);
 
     // 加入發燒產品圖片
     bulletA.querySelector('div').style.backgroundImage = `url("https://${hostName}${parsedData.data[i].picture}")`;
 
     // 加入發燒產品文字
     const imgContentArray = parsedData.data[i].story.split("\r\n");
-    
+
     createPoet(imgContentArray, bulletTextDiv);
-  } 
+  }
 }
 
 function createPoet(imgTextArray, HTMLelement) {
@@ -260,12 +261,12 @@ function removeAllSpanText() {
 
 function showSearchBar() {
   const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
-  searchBarDiv.style.display ='flex';
+  searchBarDiv.style.display = 'flex';
 }
 
 function hideSearchBar() {
   const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
-  searchBarDiv.style.display ='none';
+  searchBarDiv.style.display = 'none';
 }
 
 // ---- Hover換圖網址函數 -----
@@ -366,7 +367,7 @@ function doAjaxGetExt() {
 
 
 function setExtProduct(parsedData) {
-  pageNumberNow ++;
+  pageNumberNow++;
   // 加入瀏覽器卷軸滑動到底時，要引入下頁的URL，並加入已被移除的卷軸監聽。若無下頁，則設定URL為空
   if (parsedData.paging !== undefined) {
     extPageURL = `${productListURL}/${pageIndicator}?paging=${parsedData.paging}`;
