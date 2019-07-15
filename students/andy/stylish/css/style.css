@@ -37,9 +37,9 @@ p{
 
 :root {
   --charcoal-grey: #313538;
-  --bullet-img-display-time: 3s;
-  --bullet-img-display-timex2: 6s;
-  --bullet-img-display-timex3: 9s;
+  --bullet-img-display-time: 10s;
+  --bullet-img-display-timex2: 20s;
+  --bullet-img-display-timex3: 30s;
 }
 
 /* ---- Flexbox Container-1---- */
@@ -69,7 +69,39 @@ p{
   display: none;
 }
 
+/* ---- Search bar css setting after clicking ----- */
 
+.item-1x4 {
+  justify-content: center;
+  position: absolute;
+  right: 9px;   
+  width: 300px;
+  max-width: 80%;
+  height: 40px;
+  border-style: solid;
+  border-color: #979797;
+  border-width: 1px;
+  border-radius:  20px;
+  background-color: #fff;
+}
+
+
+.search-bar {
+  margin-left: 1em;
+  letter-spacing: 0.5em;
+  border-style: none;
+  flex-grow: 50;
+  width: 70%;
+}
+.search-bar:focus {
+  outline: medium;
+}
+.img-1x4 {
+  flex-grow: 1;
+}
+.space {
+  flex-grow: 1;
+}
 /* ---- Flexbox Container-2---- */
 
 .container-2 {
@@ -97,6 +129,9 @@ p{
     left: 66.66%;
 }
 
+.barItem-1:hover, .barItem-2:hover, .barItem-3:hover {
+  color: #fff;
+}
 /* ---- Flexbox Container-3---- */
 
 .container-3 {
@@ -509,24 +544,27 @@ body {
   /* ---- Search bar into item-1x4 ----- */
   .item-1x4 {
     display: flex;
-    justify-content: center;
-    position: absolute;
-    bottom: 26px;
+    /* justify-content: center;
+    position: absolute; */
+    bottom: 26px; 
     right: 226px;   
     width: 214px;
-    height: 40px;
+    /*height: 40px;
     border-style: solid;
     border-color: #979797;
     border-width: 1px;
-    border-radius:  20px;
+    border-radius:  20px; */
   }
+
+  /*
   .search-bar {
     margin-left: 1em;
     letter-spacing: 0.5em;
     border-style: none;
-    flex-grow: 1;
-    width: 70%;
+    width: 70%; 
+    flex-grow: 50;
   }
+
   .search-bar:focus {
     outline: medium;
   }
@@ -536,13 +574,15 @@ body {
   .space {
     flex-grow: 1;
   }
+  */
+
  /* ---- Icon item-1x5 ----- */
  .item-1x5 {
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    bottom: 26px;
+    bottom: 24px;
     right: 12px;    /*---- 54 - margin 42 = 12 ---- */
   }
   .img-1x5 {
@@ -555,7 +595,9 @@ body {
   .container-2 {
     height: 40px;
   }
-
+  .barItem-1:hover, .barItem-2:hover, .barItem-3:hover {
+    color: #8b572a;
+  }
 
 /* ---- Flexbox Container-3---- */
 

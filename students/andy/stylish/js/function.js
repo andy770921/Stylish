@@ -141,10 +141,6 @@ function setBullet(parsedData) {
     const imgContentArray = parsedData.data[i].story.split("\r\n");
     
     createPoet(imgContentArray, bulletTextDiv);
-    
-    // 設定發燒產品id，給相應超連結a的href
-
-
   } 
 }
 
@@ -217,6 +213,12 @@ const resetCursor = (event) => {
   event.target.style.cursor = "default";
 };
  
+function createSearchInput() {
+  const parent = document.getElementsByClassName('container-1')[0];
+  const childInput = document.createElement('input');
+  parent.appendChild(childInput);
+}
+
 */
 
 function createColor(colorClassName, colorNumber) {
@@ -254,6 +256,16 @@ function removeAllSpanText() {
   const parent = document.getElementsByClassName('container-4')[0];
   const childText = document.querySelectorAll('.container-4 span');
   childText.forEach((element) => { parent.removeChild(element); });
+}
+
+function showSearchBar() {
+  const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
+  searchBarDiv.style.display ='flex';
+}
+
+function hideSearchBar() {
+  const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
+  searchBarDiv.style.display ='none';
 }
 
 // ---- Hover換圖網址函數 -----
@@ -302,6 +314,16 @@ accNavBar.addEventListener('click', () => {
 
 accNavBar2.addEventListener('click', () => {
   getAccProduct();
+});
+
+// 點選放大鏡後，顯示搜尋Bar，按header外其他位置隱藏搜尋Bar
+const magnifier = document.getElementsByClassName('item-1x2')[0];
+
+magnifier.addEventListener('click', () => {
+  showSearchBar();
+  document.getElementsByTagName('section')[0].addEventListener('click', () => {
+    hideSearchBar();
+  });
 });
 
 // 打搜尋字串，再滑鼠點選放大鏡後，使用AJAX撈資料並顯示
@@ -471,3 +493,5 @@ circleUl.addEventListener('click', (e) => {
     dotLi[i].classList.add("dot-a");
   }
 });
+
+
