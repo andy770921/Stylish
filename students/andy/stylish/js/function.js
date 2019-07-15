@@ -5,6 +5,7 @@ const productListURL = `https://${hostName}/api/${ApiVersion}/products`;
 const bulletURL = `https://${hostName}/api/${ApiVersion}/marketing/campaigns`;
 let pageIndicator = "all";
 let extPageURL = "";
+let pageNumberNow = "0";
 
 //加入新產品Icon
 createNewIcon();
@@ -42,6 +43,8 @@ function getAccProduct() {
 function setProduct(parsedData) {
   //console.log(parsedData);
   //console.log(parsedData.data[0].colors[0].code);
+  pageNumberNow = 0;
+
   for (let i = 0; i < parsedData.data.length; i++) {
     // 加入產品圖片
     const img = document.getElementsByClassName(`img-4x${i + 1}`)[0];
@@ -109,12 +112,13 @@ function setProduct(parsedData) {
   // 加入監聽瀏覽器卷軸
   window.addEventListener('scroll', handleScroll);
 
-  // 加入瀏覽器卷軸滑動到底時，要引入下頁的URL。若無下頁，則移除監聽，並設定URL為空
+  // 加入瀏覽器卷軸滑動到底時，要引入下頁的URL，並加入已被移除的卷軸監聽。若無下頁，則設定URL為空，並移除卷軸監聽
   if (parsedData.paging !== undefined) {
     extPageURL = `${productListURL}/${pageIndicator}?paging=${parsedData.paging}`;
+    window.addEventListener('scroll', handleScroll);
   } else {
     extPageURL = '';
-    window.removeEventListener('scroll', handleScroll)
+    window.removeEventListener('scroll', handleScroll);
   }
 
 }
@@ -330,18 +334,18 @@ function doAjaxGetExt() {
 
 
 function setExtProduct(parsedData) {
-
-  // 加入瀏覽器卷軸滑動到底時，要引入下頁的URL。若無下頁，則移除監聽，並設定URL為空
+  pageNumberNow ++;
+  // 加入瀏覽器卷軸滑動到底時，要引入下頁的URL，並加入已被移除的卷軸監聽。若無下頁，則設定URL為空
   if (parsedData.paging !== undefined) {
     extPageURL = `${productListURL}/${pageIndicator}?paging=${parsedData.paging}`;
+    window.addEventListener('scroll', handleScroll);
   } else {
     extPageURL = '';
-    window.removeEventListener('scroll', handleScroll)
   }
 
   // 創造產品Div、加入JSON物件資料
 
-  const numOfItem = 6;
+  const numOfItem = 6 * pageNumberNow;
   const Parent = document.getElementsByClassName('container-4')[0];
 
   for (let i = 0; i < parsedData.data.length; i++) {
@@ -385,6 +389,7 @@ function setExtProduct(parsedData) {
     text.appendChild(document.createElement("br"));
     text.innerHTML += `TWD. ${parsedData.data[i].price}`;
   }
+
 }
 
 // 加入跑馬燈圓圈事件監聽，點擊跑馬燈圓圈後，切換發燒圖片
