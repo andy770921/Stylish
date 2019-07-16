@@ -16,4 +16,37 @@ function hover(element, url) {
     element.setAttribute('src', url);
   }
 
+// 點選放大鏡後，顯示搜尋Bar，按header外其他位置，隱藏搜尋Bar
 
+
+function showSearchBar() {
+  const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
+  searchBarDiv.style.display = 'flex';
+}
+
+function hideSearchBar() {
+  const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
+  searchBarDiv.style.display = 'none';
+}
+
+const magnifier = document.getElementsByClassName('item-1x2')[0];
+
+magnifier.addEventListener('click', () => {
+  showSearchBar();
+  document.getElementsByTagName('section')[0].addEventListener('click', () => {
+    hideSearchBar();
+  });
+});
+
+// 改變視窗大小時，搜尋Bar會因相對應大小，正確顯示or消失
+function mq() {
+  var query = Modernizr.mq('(max-width: 1149px)');
+  if (query) {
+    hideSearchBar();
+  } else {
+    showSearchBar();
+  }
+};
+window.onresize = function () {
+  mq();
+};
