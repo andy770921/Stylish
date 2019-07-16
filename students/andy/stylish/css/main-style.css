@@ -2,13 +2,6 @@
   Base Element Styles
 ==================================== */
 
-.container-4 {
-  font-family: 'Noto Sans TC', sans-serif;
-  font-size: 14px;
-  letter-spacing: 2.4px;
-  color: #3f3a3a;
-}
-
 
 /* ================================= 
   Base Layout Styles
@@ -270,10 +263,14 @@
     width: 100%; 
     height: auto;
   }
-
+  .container-4 span{
+    font-size: 18px;
+  }
 }
 @media (min-width: 1150px)  {
-
+  .container-4 span{
+    font-size: 26px;
+  }
 /* ---- Flexbox Container-3---- */
 
   .container-3 {

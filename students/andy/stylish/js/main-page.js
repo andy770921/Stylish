@@ -246,12 +246,13 @@ const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
 
 searchBarDiv.addEventListener('submit', (e) => {
   e.preventDefault();
-  userValue = document.getElementsByClassName('search-bar')[0].value;
+  userInput = document.getElementsByClassName('search-bar')[0];
+  userValue = userInput.value;
   console.log('userValue Updated');
   console.log(userValue);
   pageNumberNow = 0;
   ajax(`${productListURL}/search?keyword=${userValue}&paging=${userValue}`, setProduct);
-  document.getElementsByClassName('search-bar')[0].value = '';   //打userValue =  ''; 無效??
+  userInput.value = '';
 });
 
 // 先監聽滑動事件，滑動到底時，使用AJAX再撈資料，顯示多撈到的產品，並取消監聽滑動事件
