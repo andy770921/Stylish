@@ -5,7 +5,7 @@ const productListURL = `https://${hostName}/api/${ApiVersion}/products`;
 const bulletURL = `https://${hostName}/api/${ApiVersion}/marketing/campaigns`;
 let pageIndicator = "all";
 let extPageURL = "";
-let pageNumberNow = "0";
+let pageNumberNow = 0;
 
 //----與連線遠端，取得JSON相關----
 
@@ -13,7 +13,13 @@ function ajax(src, callback) {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status == 200) {
-      callback(JSON.parse(xhr.responseText));
+      //如果JSON可讀值，但是回收的JSON錯誤，加入判斷式
+      if (JSON.parse(xhr.responseText) == "Wrong Request") {
+        console.log('something wrong in ajax function response');
+        console.log(xhr.responseText);
+      } else {
+        callback(JSON.parse(xhr.responseText));
+      }
     }
   };
   xhr.open('GET', src);
@@ -242,7 +248,8 @@ searchBarBtn.addEventListener('click', () => {
   userValue = document.getElementsByClassName('search-bar')[0].value;
   console.log('userValue Updated');
   console.log(userValue);
-  ajax(`${productListURL}/search?keyword=${userValue}`, setProduct);
+  pageNumberNow = 0;
+  ajax(`${productListURL}/search?keyword=${userValue}&paging=${userValue}`, setProduct);
   document.getElementsByClassName('search-bar')[0].value = '';   //打userValue =  ''; 無效??
 });
 
