@@ -28,7 +28,17 @@
   /* ================================= 
   Base Layout Styles
 ==================================== */
+.container-3{  
+  display: flex;
+}
 
+.item-3x1{
+  flex-grow: 1;
+}
+
+.item-3x1 img{  
+  width:100%;
+}
 
 /* ================================= 
   Media Queries

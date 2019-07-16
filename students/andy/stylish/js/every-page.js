@@ -33,7 +33,7 @@ const magnifier = document.getElementsByClassName('item-1x2')[0];
 
 magnifier.addEventListener('click', () => {
   showSearchBar();
-  document.getElementsByTagName('section')[0].addEventListener('click', () => {
+  document.getElementsByTagName('main')[0].addEventListener('click', () => {
     hideSearchBar();
   });
 });
