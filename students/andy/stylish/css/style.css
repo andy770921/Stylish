@@ -1,3 +1,14 @@
+/* ================================= 
+  Base Element Styles
+==================================== */
+
+.container-4 {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2.4px;
+  color: #3f3a3a;
+}
+
 
 /* ================================= 
   Base Layout Styles
@@ -238,17 +249,6 @@
   color: #fff;
 }
 
-
-/* ================================= 
-        Change Cursor to Pointer
-==================================== */
-.addCursor {
-  cursor: pointer;
-}
-
-.cancelCursor {
-  cursor: default;
-}
 
 /* ================================= 
   Media Queries

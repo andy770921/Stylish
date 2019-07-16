@@ -233,7 +233,17 @@
     color: #828282;
     letter-spacing: 0em;
   }
+/* ================================= 
+        Change Cursor to Pointer
+==================================== */
+
+.addCursor {
+    cursor: pointer;
+  }
   
+.cancelCursor {
+    cursor: default;
+  }
 /* ================================= 
              switch Display 
  ==================================== */

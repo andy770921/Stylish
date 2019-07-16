@@ -7,10 +7,7 @@ let pageIndicator = "all";
 let extPageURL = "";
 let pageNumberNow = "0";
 
-//加入新產品Icon
-createNewIcon();
-
-//與連線遠端，取得JSON相關
+//----與連線遠端，取得JSON相關----
 
 function ajax(src, callback) {
   var xhr = new XMLHttpRequest();
@@ -46,6 +43,9 @@ function setProduct(parsedData) {
   pageNumberNow = 0;
   if (parsedData.data) {
     for (let i = 0; i < parsedData.data.length; i++) {
+
+      //加入新產品Icon
+      createNewIcon();
       // 加入產品圖片
       const img = document.getElementsByClassName(`img-4x${i + 1}`)[0];
       img.src = parsedData.data[i].main_image;
@@ -110,16 +110,13 @@ function setProduct(parsedData) {
   else if (totalLi > 0) {
     removeAllSpanText();
   }
-  // 加入監聽瀏覽器卷軸
-  window.addEventListener('scroll', handleScroll);
 
-  // 加入瀏覽器卷軸滑動到底時，要引入下頁的URL，並加入已被移除的卷軸監聽。若無下頁，則設定URL為空，並移除卷軸監聽
+  // 若有下一頁，加入瀏覽器卷軸滑動到底時，定出下頁的URL，並加入卷軸監聽。若在首頁發現無下頁，則設定URL為空，並不加入卷軸監聽
   if (parsedData.paging !== undefined) {
     extPageURL = `${productListURL}/${pageIndicator}?paging=${parsedData.paging}`;
     window.addEventListener('scroll', handleScroll);
   } else {
     extPageURL = '';
-    window.removeEventListener('scroll', handleScroll);
   }
 
 }
@@ -145,6 +142,8 @@ function setBullet(parsedData) {
   }
 }
 
+// ----創造與移除元素----
+
 function createPoet(imgTextArray, HTMLelement) {
   for (let i = 0; i < imgTextArray.length; i++) {
     if (i < imgTextArray.length - 1) {
@@ -158,69 +157,6 @@ function createPoet(imgTextArray, HTMLelement) {
     }
   }
 }
-
-
-
-/*  實驗之函數
-//ajax("https://api.appworks-school.tw/api/1.0/marketing/hots", setJSONObject);
- 
-function setJSONObject(parsedData) {
-  //console.log(parsedData.data[0].products[0].images[0]);
-  //a = parsedData.data[0].products[0].images[1];
-  //createImg(a);
-  console.log(parsedData);
-  console.log(parsedData.data[0].products[0].main_image);
-  //設定主頁宣傳圖
-  document.getElementsByClassName('container-3')[0].style.backgroundImage = `url(${parsedData.data[0].products[0].main_image})`;
-  //設定產品圖
-  //document.getElementsByClassName('img-4x2')[0].src = parsedData.data[0].products[0].images[1];
-  //設定產品顏色
-  //createColor(`#${parsedData.data[0].products[0].colors[0].code}`);
-  //設定產品名稱與價錢
-  document.getElementsByClassName('text-product')[0].innerHTML = `${parsedData.data[0].products[0].title}`;
-  document.getElementsByClassName('text-product')[0].appendChild(document.createElement("br"));
-  document.getElementsByClassName('text-product')[0].innerHTML += `TWD.${parsedData.data[0].products[0].price}`;
- 
-  document.getElementsByClassName('text-product')[1].innerHTML = `${parsedData.data[0].products[0].title}`;
-  document.getElementsByClassName('text-product')[1].appendChild(document.createElement("br"));
-  document.getElementsByClassName('text-product')[1].innerHTML += `TWD.${parsedData.data[0].products[0].price}`;
- 
-  document.getElementsByClassName('text-product')[2].innerHTML = `${parsedData.data[0].products[0].title}`;
-  document.getElementsByClassName('text-product')[2].appendChild(document.createElement("br"));
-  document.getElementsByClassName('text-product')[2].innerHTML += `TWD.${parsedData.data[0].products[0].price}`;
- 
-  document.getElementsByClassName('text-product')[3].innerHTML = `${parsedData.data[0].products[0].title}`;
-  document.getElementsByClassName('text-product')[3].appendChild(document.createElement("br"));
-  document.getElementsByClassName('text-product')[3].innerHTML += `TWD.${parsedData.data[0].products[0].price}`;
- 
-  document.getElementsByClassName('text-product')[4].innerHTML = `${parsedData.data[0].products[0].title}`;
-  document.getElementsByClassName('text-product')[4].appendChild(document.createElement("br"));
-  document.getElementsByClassName('text-product')[4].innerHTML += `TWD.${parsedData.data[0].products[0].price}`;
- 
-  document.getElementsByClassName('text-product')[5].innerHTML = `${parsedData.data[0].products[0].title}`;
-  document.getElementsByClassName('text-product')[5].appendChild(document.createElement("br"));
-  document.getElementsByClassName('text-product')[5].innerHTML += `TWD.${parsedData.data[0].products[0].price}`;
- 
-}
- 
-function createImg(url) {
-  const body = document.getElementsByTagName('body')[0];
-  const img = document.createElement('img');
-  img.src = url;
-  body.appendChild(img);
-}
- 
-const resetCursor = (event) => {
-  event.target.style.cursor = "default";
-};
- 
-function createSearchInput() {
-  const parent = document.getElementsByClassName('container-1')[0];
-  const childInput = document.createElement('input');
-  parent.appendChild(childInput);
-}
-
-*/
 
 function createColor(colorClassName, colorNumber) {
   const ul = document.getElementsByClassName(`${colorClassName}`)[0];
@@ -348,21 +284,18 @@ let ticking = false;
 function handleScroll(e) {
   if (!ticking) {
     window.requestAnimationFrame(function () {
-      doAjaxGetExt();
+      let windowHeight = window.innerHeight;
+      let footerRemains = document.getElementsByClassName('container-5')[0].getBoundingClientRect().top;
+      if (footerRemains - windowHeight < 0) {
+        // 先移除卷軸監聽。若有下頁資料，再在setExtProduct函數中加回卷軸監聽
+        window.removeEventListener('scroll', handleScroll);
+        // 抓下頁資料
+        ajax(extPageURL, setExtProduct);
+      }
       ticking = false;
     });
   }
   ticking = true;
-}
-
-function doAjaxGetExt() {
-  let windowHeight = window.innerHeight;
-  let footerRemains = document.getElementsByClassName('container-5')[0].getBoundingClientRect().top;
-  if (footerRemains - windowHeight < 0) {
-    ajax(extPageURL, setExtProduct);
-    // 先移除卷軸監聽。若有下頁資料，再在setExtProduct函數中加回卷軸監聽
-    window.removeEventListener('scroll', handleScroll);
-  }
 }
 
 
@@ -502,11 +435,8 @@ function mq() {
   var query = Modernizr.mq('(max-width: 1149px)');
   if (query) {
     hideSearchBar();
-    console.log('small');
   } else {
-
     showSearchBar();
-    console.log('large');
   }
 };
 window.onresize = function () {
