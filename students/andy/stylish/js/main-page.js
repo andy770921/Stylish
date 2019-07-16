@@ -242,9 +242,10 @@ accNavBar2.addEventListener('click', () => {
 
 // 打搜尋字串，再滑鼠點選放大鏡後，使用AJAX撈資料並顯示。之後清除input text
 
-const searchBarBtn = document.getElementsByClassName('img-1x4')[0];
+const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
 
-searchBarBtn.addEventListener('click', () => {
+searchBarDiv.addEventListener('submit', (e) => {
+  e.preventDefault();
   userValue = document.getElementsByClassName('search-bar')[0].value;
   console.log('userValue Updated');
   console.log(userValue);
