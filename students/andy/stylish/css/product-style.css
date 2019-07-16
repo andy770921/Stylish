@@ -2,28 +2,160 @@
   Base Element Styles
 ==================================== */
 
-.container-3 {
+.container-3,
+.container-4 {
   font-family: 'Noto Sans TC', sans-serif;
-  font-size: 14px;
   letter-spacing: 2.4px;
   color: #3f3a3a;
 }
-
+.container-3 {
+  font-size: 20px;
+}
+.container-4 {
+  font-size: 14px;
+}
 /* ================================= 
   Base Layout Styles
 ==================================== */
-.container-3{  
+
+/* ---- Flexbox Container-3 ---- */
+
+.container-3 {  
   display: flex;
+  flex-direction: column;
 }
 
-.item-3x1{
-  flex-grow: 1;
+/* ---- Container-3 picture and Container-4 picture---- */
+
+.item-3x1,
+.item-4x3 {
+  flex: 1;
 }
 
-.item-3x1 img{  
+.item-3x1 img,
+.item-4x3 img {  
   width:100%;
 }
 
+/* ---- Container-3 text content  ---- */
+
+.item-3x2 {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 0px 6.66% 0px; /* 24/360=  */
+}
+
+.name-3x2 {
+  letter-spacing: 4px;
+  margin-top: 16px;
+}
+
+.id-3x2 {
+  font-size: 16px;
+  color: #bababa;
+  margin-top: 10px;
+}
+
+.price-3x2 {
+  margin-top: 20px;
+  padding-bottom: 10px;
+  border-style: none none solid none;
+  border-color: #3f3a3a;
+  border-width: 1px;
+}
+
+.item-3x2-c, .item-3x2-s {
+  display: flex;
+  font-size: 14px;
+  letter-spacing: 2.8px;
+}
+.item-3x2-c p:first-child, .item-3x2-s p:first-child{
+  margin-right: 10px;
+}
+
+.item-3x2-c {
+  margin-top: 30px;
+}
+
+.item-3x2-s{
+  margin-top: 30px;
+}
+
+.amount-3x2{
+  margin-top: 30px;
+}
+
+.add-3x2{
+  margin-top: 10px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+}
+.add-3x2 button{
+  height: 47px;
+  letter-spacing: 3.2px;
+  font-size: 18px;  /* 原: 16px */
+}
+
+.item-3x2-d{
+  margin-top: 28px;
+}
+
+/* ---- Flexbox Container-4  ---- */
+
+.container-4 {  
+  display: flex;
+  flex-direction: column;
+  margin: 0px 6.66%; /* 24/360= 6.66% */
+}
+
+.item-4x1 {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  margin-top: 23px;
+}
+
+.text-4x1 {
+  color: #8b572a;
+  font-size: 16px;
+  letter-spacing: 3.2px;
+  flex: 24;  /* 77px, 35px, 200px >> 77px/312px = 24.68%*/
+}
+
+.space {
+  flex: 11; /* 77px, 35px, 200px >> 35px/312px = 11.21%*/
+}
+
+.line {
+  display: flex;
+  flex-direction: column;
+  flex: 64;  /* 77px, 35px, 200px >> 200px/312px = 64.1%*/
+}
+.line div:first-child {
+  flex: 1;
+  border-style: none none solid none;
+  border-color: #3f3a3a;
+  border-width: 1px;
+}
+.line div:last-child {
+  flex: 1;
+}
+
+
+.text-4x2 {
+  margin-top: 12px;
+  flex: 1;
+  font-size: 14px;
+}
+
+.item-4x3 img {  
+  margin-top: 25px;
+}
+.item-4x3 img:last-child {  
+  margin-bottom: 1.5px;  /* 31.5px - 30px = 1.5px  */
+}
 
 /* ================================= 
   Media Queries

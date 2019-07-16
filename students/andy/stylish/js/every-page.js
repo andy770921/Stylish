@@ -6,13 +6,33 @@ for (let i = 0; i < navBarWords.length; i++) {
     document.getElementsByClassName(`barItem-${i+1}`)[1].textContent = navBarWords[i];
 }
 
+//----與連線遠端，取得JSON相關----
+
+function ajax(src, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status == 200) {
+      //如果JSON可讀值，但是回收的JSON錯誤，加入判斷式
+      if (JSON.parse(xhr.responseText) == "Wrong Request") {
+        console.log('something wrong in ajax function response');
+        console.log(xhr.responseText);
+      } else {
+        callback(JSON.parse(xhr.responseText));
+      }
+    }
+  };
+  xhr.open('GET', src);
+  xhr.send();
+}
+
+
 // ---- Hover換圖網址函數 -----
 
 function hover(element, url) {
     element.setAttribute('src', url);
   }
   
-  function unhover(element, url) {
+function unhover(element, url) {
     element.setAttribute('src', url);
   }
 
@@ -50,3 +70,10 @@ function mq() {
 window.onresize = function () {
   mq();
 };
+
+function createColor(colorClassName, colorNumber) {
+  const ul = document.getElementsByClassName(`${colorClassName}`)[0];
+  const li = document.createElement('li');
+  li.style.backgroundColor = `#${colorNumber}`;
+  ul.appendChild(li);
+}

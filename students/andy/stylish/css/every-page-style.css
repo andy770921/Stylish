@@ -31,12 +31,7 @@
     outline: none;   
     background-color: transparent;
   }
-  .container-4 {
-    font-family: 'Noto Sans TC', sans-serif;
-    font-size: 14px;
-    letter-spacing: 2.4px;
-    color: #3f3a3a;
-  }
+
  
   /* 拉下預選字選單 不顯示藍底 可以換掉白色 */
 input:-webkit-autofill,

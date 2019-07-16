@@ -13,6 +13,7 @@
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <!-- 加入響應式控制的Javascript套件modernizr，偵測視窗大小改變時，Search Bar正確顯示 -->
+
 </head>
 
 <body>
@@ -71,15 +72,15 @@
                 <div class="id-3x2">03050</div>
                 <div class="price-3x2">TWD. 999</div>
                 <div class="item-3x2-c">
-                    <p>顏色</p>
-                    <div class="color-3x2"></div>
+                    <p>顏色</p><div>|</div>
+                    <ul class="color-3x2"></ul>
                 </div>
                 <div class="item-3x2-s">
-                    <p>尺寸</p>
-                    <div class="size-3x2"></div>
+                    <p>尺寸</p><div>|</div>
+                    <ul class="size-3x2"></ul>
                 </div>
                 <div class="amount-3x2"></div>
-                <button class="add-3x2">加入購物車</button>
+                <div class="add-3x2"><button>加入購物車</button></div>
                 <div class="item-3x2-d">
                     <p class="detail-3x2">xxx</p>
                 </div>
@@ -90,15 +91,12 @@
                 <div class="text-4x1">細部說明</div>
                 <div class="space"></div>
                 <div class="line">
-                    <hr />
+                    <div class="line-border"></div>
+                    <div></div>
                 </div>
             </div>
             <div class="item-4x2">
                 <p class="text-4x2">xxxxx</p>
-                <div class="space"></div>
-                <div class="line">
-                    <hr />
-                </div>
             </div>
             <div class="item-4x3">
                 <img src="https://api.appworks-school.tw/assets/201807242228/main.jpg">
@@ -136,8 +134,9 @@
             <span class="item-5x3">&copy; 2018. All rights reserved.</span>
         </div>
     </footer>
-    <script type="text/javascript" src="js/product-page.js"></script>
+    <script type="module" src="js/product-page.js"></script>
     <script type="text/javascript" src="js/every-page.js"></script>
+
 </body>
 
 

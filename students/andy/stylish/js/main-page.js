@@ -9,22 +9,22 @@ let pageNumberNow = 0;
 
 //----與連線遠端，取得JSON相關----
 
-function ajax(src, callback) {
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status == 200) {
-      //如果JSON可讀值，但是回收的JSON錯誤，加入判斷式
-      if (JSON.parse(xhr.responseText) == "Wrong Request") {
-        console.log('something wrong in ajax function response');
-        console.log(xhr.responseText);
-      } else {
-        callback(JSON.parse(xhr.responseText));
-      }
-    }
-  };
-  xhr.open('GET', src);
-  xhr.send();
-}
+// function ajax(src, callback) {
+//   var xhr = new XMLHttpRequest();
+//   xhr.onreadystatechange = function () {
+//     if (xhr.readyState === 4 && xhr.status == 200) {
+//       //如果JSON可讀值，但是回收的JSON錯誤，加入判斷式
+//       if (JSON.parse(xhr.responseText) == "Wrong Request") {
+//         console.log('something wrong in ajax function response');
+//         console.log(xhr.responseText);
+//       } else {
+//         callback(JSON.parse(xhr.responseText));
+//       }
+//     }
+//   };
+//   xhr.open('GET', src);
+//   xhr.send();
+// }
 
 ajax(`${productListURL}/all`, setProduct);
 ajax(`${bulletURL}`, setBullet);
@@ -164,12 +164,12 @@ function createPoet(imgTextArray, HTMLelement) {
   }
 }
 
-function createColor(colorClassName, colorNumber) {
-  const ul = document.getElementsByClassName(`${colorClassName}`)[0];
-  const li = document.createElement('li');
-  li.style.backgroundColor = `#${colorNumber}`;
-  ul.appendChild(li);
-}
+// function createColor(colorClassName, colorNumber) {
+//   const ul = document.getElementsByClassName(`${colorClassName}`)[0];
+//   const li = document.createElement('li');
+//   li.style.backgroundColor = `#${colorNumber}`;
+//   ul.appendChild(li);
+// }
 
 function createNewIcon() {
   const newProduct = document.getElementsByClassName('item-4x1')[0];
@@ -242,9 +242,9 @@ accNavBar2.addEventListener('click', () => {
 
 // 打搜尋字串，再滑鼠點選放大鏡後，使用AJAX撈資料並顯示。之後清除input text
 
-const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
+const searchBarForm = document.getElementsByClassName('item-1x4')[0];
 
-searchBarDiv.addEventListener('submit', (e) => {
+searchBarForm.addEventListener('submit', (e) => {
   e.preventDefault();
   userInput = document.getElementsByClassName('search-bar')[0];
   userValue = userInput.value;
@@ -408,6 +408,4 @@ circleUl.addEventListener('click', (e) => {
     dotLi[i].classList.add("dot-a");
   }
 });
-
-
 
