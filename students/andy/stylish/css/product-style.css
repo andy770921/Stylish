@@ -307,14 +307,14 @@
   Media Queries
 ==================================== */
 
-/* 待改字體大小
-@media (min-width: 581px) and (max-width: 930px) {
+/* 可切第三段
+@media (min-width: 581px)  and (max-width: 931px)   {
     
-} 
 
+}
 */
 
-@media (min-width: 830px)  {
+@media (min-width: 831px)  {
   
     main{
       display: flex;
