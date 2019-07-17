@@ -71,9 +71,30 @@ window.onresize = function () {
   mq();
 };
 
+//----創建元素相關----
+
 function createColor(colorClassName, colorNumber) {
   const ul = document.getElementsByClassName(`${colorClassName}`)[0];
   const li = document.createElement('li');
   li.style.backgroundColor = `#${colorNumber}`;
   ul.appendChild(li);
+}
+
+function createAppendText(parentClassName, childElementType, text) {
+  const parent = document.getElementsByClassName(parentClassName)[0];
+  const childP = document.createElement(childElementType);
+  childP.innerHTML = text;
+  parent.appendChild(childP);
+}
+
+function createAppendImg(parentClassName, src) {
+  const parent = document.getElementsByClassName(parentClassName)[0];
+  const childImg = document.createElement('img');
+  childImg.src = src;
+  parent.appendChild(childImg);
+}
+
+function addNewClassName(parentClassName, newName) {
+  const parent = document.getElementsByClassName(parentClassName)[0];
+  parent.setAttribute('class', newName);
 }

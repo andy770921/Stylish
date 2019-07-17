@@ -63,6 +63,7 @@
   border-style: none none solid none;
   border-color: #3f3a3a;
   border-width: 1px;
+  display: flex;
 }
 
 .item-3x2-c {
@@ -97,7 +98,7 @@
   width: 20px;    
 }
 .line-after-words-s{
-  width: 20px;  /* 20px - box-shadow (6+1)= 13px */
+  width: 19px;  /* 20px - box-shadow (6+1)= 13px */
 }
 
 /* ---- 線條寬  ---- */
@@ -111,9 +112,9 @@
 
 /* ---- 顏色方框設定 ---- */
 
-.item-3x2-c li{
-  width: 6.66vw; /* 24px/360px=6.66% */
-  height: 6.66vw;
+.color-3x2 li{
+  width: 24px; /* 24px/360px=6.66% */
+  height: 24px;
   max-width: 32px;
   max-height: 32px;
   list-style: none;
@@ -122,11 +123,15 @@
   border: solid;
   border-color: lightgray;
   border-width: 1px;
-  border-radius: 0px;
+  border-radius: 0.1px;
 }
 
-.item-3x2-c li:hover {
+.color-3x2 li:hover {
   box-shadow: 0 0 0 6px white, 0 0 0 7px #979797;
+}
+
+.color-highlight {
+  box-shadow: 0 0 0 6px white, 0 0 0 7px #979797 !important;
 }
 
 /* ---- 尺寸圓形設定 ---- */
@@ -135,38 +140,84 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
-  width: 34px; /* 34px/360px=9.44% */
-  height: 34px;
-  max-width: 34px;
-  max-height: 34px;
+  width: 38px; /* 34px/360px=9.44% */
+  height: 38px;
   list-style: none;
   float: left;
-  margin: 0px 15px;  
+  margin: 0px 9.5px;  
   color: #3f3a3a;
   background-color: #ececec;
   border-radius: 100%;
+  letter-spacing: 0;
+  font-size: 20px;
 }
 
+.size-3x2 li:hover{
+  color: white;
+  background-color: #8b572a;
+  opacity: 0.8;
+}
 
-.amount-3x2{
+.size-highlight {
+  color: white !important;
+  background-color: #313538 !important;
+}
+
+/* ---- 數量方框設定 ---- */
+
+.item-3x2-a{
   margin-top: 30px;
+  width: 100%;
+  height: 44px;
+  border: solid 1px #979797;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.item-3x2-a div{
+  align-items: center;
+  justify-content: center;
 }
 
+.item-3x2-a div:first-child, .item-3x2-a div:last-child{
+  flex: 1;
+  display: flex;
+  cursor: pointer;
+}
+
+.amount-3x2 {
+  flex: 3.5;
+  display: flex;
+}
+
+.item-3x2-a div:first-child:hover, .item-3x2-a div:last-child:hover{
+  color: white;
+  background-color: #8b572a;
+  opacity: 0.8;
+}
+
+.amount-highlight {
+  color: white !important;
+  background-color: #313538 !important;
+}
+
+/* ----購物車方框按鈕設定 ---- */
 .add-3x2{
   margin-top: 10px;
   background-color: black;
   color: #fff;
   text-align: center;
-}
-.add-3x2 button{
-  height: 47px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 47px; 
   letter-spacing: 3.2px;
-  font-size: 18px;  /* 原: 16px */
+  font-size: 18px;  /*原: 16px */
 }
 
 .item-3x2-d{
   margin-top: 28px;
+  font-size: 14px;
+  line-height: 1.71;
 }
 
 /* ---- Flexbox Container-4  ---- */
@@ -211,10 +262,12 @@
 }
 
 
-.text-4x2 {
+.item-4x2 p{
   margin-top: 12px;
   flex: 1;
   font-size: 14px;
+  line-height: 1.71;
+  letter-spacing: 1px;
 }
 
 .item-4x3 img {  
