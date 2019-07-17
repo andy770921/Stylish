@@ -28,7 +28,7 @@ function setDetail(parsedData) {
       // 2.再新增所有產品顏色、尺寸
       for (let i = 0; i < parsedData.data.colors.length; i++) {
         const colorCode = parsedData.data.colors[i].code;
-        createSize(colorClassName, colorCode);
+        createColor(colorClassName, colorCode);
       }
       for (let i = 0; i < parsedData.data.colors.length; i++) {
         const sizeCode = parsedData.data.sizes[i];
@@ -48,6 +48,6 @@ function setDetail(parsedData) {
 function createSize(sizeClassName, sizeNumber) {
   const ul = document.getElementsByClassName(`${sizeClassName}`)[0];
   const li = document.createElement('li');
-  li.innerText = `${sizeNumber} `;
+  li.innerText = `${sizeNumber}`;
   ul.appendChild(li);
 }
