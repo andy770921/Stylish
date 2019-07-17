@@ -154,13 +154,18 @@
 
 .size-3x2 li:hover{
   color: white;
-  background-color: #8b572a;
+  background-color: #313538;
   opacity: 0.8;
+}
+
+.size-3x2 li:active{
+  opacity: 1;
 }
 
 .size-highlight {
   color: white !important;
   background-color: #313538 !important;
+  opacity: 0.8;
 }
 
 /* ---- 數量方框設定 ---- */
@@ -173,34 +178,40 @@
   display: flex;
   flex-wrap: nowrap;
 }
-.item-3x2-a div{
-  align-items: center;
-  justify-content: center;
-}
 
-.item-3x2-a div:first-child, .item-3x2-a div:last-child{
+.item-3x2-a button{
   flex: 1;
   display: flex;
-  cursor: pointer;
+  justify-content: center;
+  opacity: 0.8;
 }
 
 .amount-3x2 {
+  align-items: center;
+  justify-content: center;
   flex: 3.5;
   display: flex;
 }
 
-.item-3x2-a div:first-child:hover, .item-3x2-a div:last-child:hover{
+.item-3x2-a button:hover{
   color: white;
   background-color: #8b572a;
   opacity: 0.8;
 }
 
+.item-3x2-a button:active{
+  color: white;
+  background-color: #8b572a;
+  opacity: 1;
+}
+
 .amount-highlight {
   color: white !important;
-  background-color: #313538 !important;
+  background-color: #8b572a !important;
 }
 
 /* ----購物車方框按鈕設定 ---- */
+
 .add-3x2{
   margin-top: 10px;
   background-color: black;
@@ -212,6 +223,14 @@
   height: 47px; 
   letter-spacing: 3.2px;
   font-size: 18px;  /*原: 16px */
+  opacity: 1;
+}
+
+.add-3x2:hover{
+  opacity: 0.8;
+}
+.add-3x2:active{
+  opacity: 1;
 }
 
 .item-3x2-d{

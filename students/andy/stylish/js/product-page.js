@@ -91,18 +91,6 @@ function clickSetOnlyOneClass(setClassName, parentClassName, clickEvent) {
   }
 }
 
-function clickSetOnlyOneClassForInside(setClassName, parentClassName, clickEvent) {
-  if (clickEvent.target.parentNode.className !== parentClassName) {
-    if (document.getElementsByClassName(setClassName).length === 0) {
-      clickEvent.target.parentNode.setAttribute('class', setClassName);
-    } else {
-      for (let i = 0; i < event.target.parentNode.parentNode.childElementCount; i++) {
-        clickEvent.target.parentNode.parentNode.children[i].classList.remove(setClassName);
-      }
-    }
-    clickEvent.target.parentNode.setAttribute('class', setClassName);
-  }
-}
 
 colorUl.addEventListener('click', (e) => {
   clickSetOnlyOneClass('color-highlight', 'color-3x2', e);
@@ -122,7 +110,6 @@ const amountDiv = document.getElementsByClassName('item-3x2-a')[0];
 
 amountDiv.addEventListener('click', (e) => {
   if (e.target.className !== 'amount-3x2' ) {
-    if (e.target.tagName !== 'P' ) {clickSetOnlyOneClass('size-highlight', 'item-3x2-a', e);}
-    else{clickSetOnlyOneClassForInside('size-highlight', 'item-3x2-a', e);}
+    clickSetOnlyOneClass('amount-highlight', 'item-3x2-a', e);
   }
 });
