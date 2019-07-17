@@ -43,7 +43,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  margin: 0px 6.66% 0px; /* 24/360=  */
+  margin: 0px 6.66% 0px; /* 24/360= 6.66% */
 }
 
 .name-3x2 {
@@ -307,22 +307,53 @@
   Media Queries
 ==================================== */
 
-@media (min-width: 701px) and (max-width: 1149px) {
-  
-    /* ---- Flexbox Container-4---- */
-  
-  
-  }
+/* 待改字體大小
+@media (min-width: 581px) and (max-width: 930px) {
+    
+} 
 
-@media (min-width: 1150px)  {
-  
-    /* ---- Flexbox Container-1---- */
+*/
 
+@media (min-width: 830px)  {
   
-    /* ---- container-4 max-width responsive ---- */
+    main{
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+    }
+    .large-screen-content {
+      max-width: 960px;  /* 480 white - 960 - 480 white  */
+      margin: 65px 5% 19px;  /* 49-30 =19px  */
+      align-self: center;
+    }
+    .container-3 {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+    .item-3x1 {
+      flex: 58.33;  /* 560 img - 400 text  560/960=58.33%  */
+    }
+    .item-3x2 {
+      flex: 41.66;  /* 560 img - 400 text  400/960=41.66%  */
+      margin: 0px 0px 0px 40px; /* 40/400= 10% */
+    }
     .container-4 {
-      max-width: 1240px;
-      margin-right: auto;
-      margin-left: auto;
-      }
+      margin: 0; 
+      align-self: center;
+    }
+
+    .text-4x1 {
+      flex: 10;  /* 96px, 64px, 800px >> 96px/960px = 10%*/
+    }
+    
+    .space {
+      flex: 6.66; /* 96px, 64px, 800px >> 64px/960px = 6.66%*/
+    }
+    
+    .line {
+      flex: 83.33;  /* 96px, 64px, 800px >> 800px/960px = 83.33%*/
+    }
+    
   }

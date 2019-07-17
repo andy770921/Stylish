@@ -87,6 +87,12 @@ function createAppendText(parentClassName, childElementType, text) {
   parent.appendChild(childP);
 }
 
+function removeAppendText(parentClassName, childElementType) {
+  const parent = document.getElementsByClassName(parentClassName)[0];
+  const childP = document.createElement(childElementType);
+  parent.removeChild(childP);
+}
+
 function createAppendImg(parentClassName, src) {
   const parent = document.getElementsByClassName(parentClassName)[0];
   const childImg = document.createElement('img');
