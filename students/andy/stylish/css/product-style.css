@@ -233,6 +233,11 @@
   opacity: 1;
 }
 
+button:disabled{
+  background-color: lightgray;
+  opacity: 0.8;
+}
+
 .item-3x2-d{
   margin-top: 28px;
   font-size: 14px;
