@@ -307,23 +307,148 @@
   Media Queries
 ==================================== */
 
-/* 可切第三段
-@media (min-width: 581px)  and (max-width: 931px)   {
-    
 
+
+@media (min-width: 751px) and (max-width:1100px)   {
+    /* ---- container-3 and 4 max-width mobile responsive ---- */
+
+    /* .container-3, .container-4 {
+    max-width: 501px;
+    margin-right: auto;
+    margin-left: auto;
+  } */
+
+   /* ---- container-3 and 4 webview responsive ---- */
+
+  main{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+  .large-screen-content {
+    max-width: 960px;  /* 480 white - 960 - 480 white  */
+    margin: 65px 5% 19px;  /* 49-30 =19px  */
+    align-self: center;
+  }
+  .container-3 {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  .item-3x1 img{  
+  width: 365px;
 }
-*/
+  .item-3x1 {
+    flex: 58.33;  /* 560 img - 400 text  560/960=58.33%  */
+    display: flex;
+    justify-content: center;
+  }
+  .item-3x2 {
+    flex: 41.66;  /* 560 img - 400 text  400/960=41.66%  */
+    margin: 0px 0px 0px 40px; /* 40/400= 10% */
+  }
+  .container-4 {
+    margin: 0; 
+    align-self: center;
+    flex-wrap: nowrap;
+  }
 
-@media (min-width: 831px)  {
+  .text-4x1 {
+    flex: 10 50px;  /* 96px, 64px, 800px >> 96px/960px = 10%*/
+  }
   
+  .space {
+    flex: 6.66; /* 96px, 64px, 800px >> 64px/960px = 6.66%*/
+  }
+  
+  .line {
+    flex: 83.33;  /* 96px, 64px, 800px >> 800px/960px = 83.33%*/
+  }
+
+  /* ---- font size and margin---- */
+
+  .name-3x2 {
+    font-size: 16px;
+    margin-top: 8px;
+  }
+  
+  .id-3x2 {
+    font-size: 16px;
+    color: #bababa;
+    margin-top: 5px;
+  }
+  
+  .price-3x2 {
+    font-size: 16px;
+    margin-top: 10px;
+    padding-bottom: 5px;
+  }
+  
+  .item-3x2-c {
+    margin-top: 20px;
+  }
+  
+  .item-3x2-s{
+    margin-top: 20px;
+  }
+
+  .item-3x2-c p:first-child, .item-3x2-s p:first-child{
+    margin-right: 7px;
+  }
+  
+  /* ---- 線條離右距離  ---- */
+  .line-after-words-c{
+    width: 10px;    
+  }
+  .line-after-words-s{
+    width: 9px;  
+  }
+  .color-3x2 li{
+    width: 24px; 
+    height: 24px;
+    margin: 0px 8px; 
+  }
+  .size-3x2 li{
+    width: 28px; 
+    height: 28px;
+    margin: 0px 7px;  
+    font-size: 16px;
+  }
+
+  .item-3x2-a{
+    margin-top: 15px;
+    height: 35px;
+    font-size: 16px;
+  }
+  .amount-3x2 {
+    flex: 2.5;
+  }
+  .add-3x2{
+    margin-top: 15px;
+    height: 40px; 
+    font-size: 16px; 
+  }
+
+  .item-3x2-d{
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}
+
+
+@media (min-width:1101px)  {
+
+
+  /*  ----原始大螢幕設定---- */
     main{
       display: flex;
       justify-content: flex-start;
       flex-direction: column;
     }
     .large-screen-content {
-      max-width: 960px;  /* 480 white - 960 - 480 white  */
-      margin: 65px 5% 19px;  /* 49-30 =19px  */
+      max-width: 960px;  
+      margin: 65px 5% 19px;  
       align-self: center;
     }
     .container-3 {
@@ -333,11 +458,15 @@
       flex-wrap: nowrap;
     }
     .item-3x1 {
-      flex: 58.33;  /* 560 img - 400 text  560/960=58.33%  */
+      flex: 58.33;  
     }
     .item-3x2 {
-      flex: 41.66;  /* 560 img - 400 text  400/960=41.66%  */
-      margin: 0px 0px 0px 40px; /* 40/400= 10% */
+      flex: 41.66;  
+      margin: 0px 0px 0px 40px; 
+    }
+    .item-3x2-d{
+      font-size: 20px;
+      line-height: 1.5;
     }
     .container-4 {
       margin: 0; 
@@ -355,5 +484,5 @@
     .line {
       flex: 83.33;  /* 96px, 64px, 800px >> 800px/960px = 83.33%*/
     }
-    
+   
   }
