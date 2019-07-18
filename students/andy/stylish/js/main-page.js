@@ -31,7 +31,6 @@ function setProduct(parsedData) {
 
       // 加入產品超連結
       const productA = document.querySelector(`.item-4x${i + 1} a`);
-  
       productA.href = `product.html?id=${parsedData.data[i].id}`;
 
       // 加入產品顏色，兩步驟 1.先移除所有產品顏色 2.再新增顏色
@@ -299,6 +298,10 @@ function setExtProduct(parsedData) {
 
     const img = document.getElementsByClassName(`img-4x${numOfItem + i + 1}`)[0];
     img.src = parsedData.data[i].main_image;
+
+    // 加入產品超連結
+    const productA = document.querySelector(`.item-4x${numOfItem + i + 1} a`);
+    productA.href = `product.html?id=${parsedData.data[i].id}`;
 
     // 加入產品顏色，兩步驟 1.先移除所有產品顏色 2.再新增顏色
     // 1. 先移除所有產品顏色

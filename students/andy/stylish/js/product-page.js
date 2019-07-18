@@ -45,8 +45,8 @@ function setDetail(parsedData) {
       const colorCode = parsedData.data.colors[i].code;
       createColor(colorClassName, colorCode);
     }
-    for (let i = 0; i < parsedData.data.colors.length; i++) {
-      const sizeCode = parsedData.data.sizes[i];
+    for (let j = 0; j < parsedData.data.sizes.length; j++) {
+      const sizeCode = parsedData.data.sizes[j];
       createSize(sizeClassName, sizeCode);
     }
 
