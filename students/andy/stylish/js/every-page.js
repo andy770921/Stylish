@@ -1,4 +1,17 @@
 
+const hostName = "api.appworks-school.tw";
+const ApiVersion = "1.0";
+const productListURL = `https://${hostName}/api/${ApiVersion}/products`;
+const bulletURL = `https://${hostName}/api/${ApiVersion}/marketing/campaigns`;
+//let productId = 0; //201807242228
+const productDetailURL = `https://${hostName}/api/${ApiVersion}/products/details?id=`;
+let pageIndicator = "all";
+let extPageURL = "";
+let pageNumberNow = 0;
+
+
+//----HTML文字設定---
+
 const navBarWords = ['女裝','男裝','配件'];
 
 for (let i = 0; i < navBarWords.length; i++) {
@@ -25,6 +38,23 @@ function ajax(src, callback) {
   xhr.send();
 }
 
+//----取得網址後問號的Query字串相關----
+
+function getQueryValueByName(name, url) {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+// query string: ?foo=lorem&bar=&baz
+//var foo = getQueryValueByName('foo'); // "lorem"
+//var bar = getQueryValueByName('bar'); // "" (present with empty value)
+//var baz = getQueryValueByName('baz'); // "" (present with no value)
+//var qux = getQueryValueByName('qux'); // null (absent)
 
 // ---- Hover換圖網址函數 -----
 

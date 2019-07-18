@@ -1,31 +1,4 @@
 
-const hostName = "api.appworks-school.tw";
-const ApiVersion = "1.0";
-const productListURL = `https://${hostName}/api/${ApiVersion}/products`;
-const bulletURL = `https://${hostName}/api/${ApiVersion}/marketing/campaigns`;
-let pageIndicator = "all";
-let extPageURL = "";
-let pageNumberNow = 0;
-
-//----與連線遠端，取得JSON相關----
-
-// function ajax(src, callback) {
-//   var xhr = new XMLHttpRequest();
-//   xhr.onreadystatechange = function () {
-//     if (xhr.readyState === 4 && xhr.status == 200) {
-//       //如果JSON可讀值，但是回收的JSON錯誤，加入判斷式
-//       if (JSON.parse(xhr.responseText) == "Wrong Request") {
-//         console.log('something wrong in ajax function response');
-//         console.log(xhr.responseText);
-//       } else {
-//         callback(JSON.parse(xhr.responseText));
-//       }
-//     }
-//   };
-//   xhr.open('GET', src);
-//   xhr.send();
-// }
-
 ajax(`${productListURL}/all`, setProduct);
 ajax(`${bulletURL}`, setBullet);
 
@@ -56,6 +29,11 @@ function setProduct(parsedData) {
       const img = document.getElementsByClassName(`img-4x${i + 1}`)[0];
       img.src = parsedData.data[i].main_image;
 
+      // 加入產品超連結
+      const productA = document.querySelector(`.item-4x${i + 1} a`);
+  
+      productA.href = `product.html?id=${parsedData.data[i].id}`;
+
       // 加入產品顏色，兩步驟 1.先移除所有產品顏色 2.再新增顏色
       // 1. 先移除所有產品顏色
       const colorClassName = `color-4x${i + 1}`;
@@ -84,6 +62,9 @@ function setProduct(parsedData) {
         // 移除多餘產品圖片
         const noImg = document.getElementsByClassName(`img-4x${parsedData.data.length + i + 1}`)[0];
         noImg.src = "";
+        // 移除多餘產品超連結
+        const noA = document.getElementsByClassName(`item-4x${parsedData.data.length + i + 1} a`)[0];
+        noA.href = "";
         // 移除多餘產品顏色
         const noColorUl = document.getElementsByClassName(`color-4x${parsedData.data.length + i + 1}`)[0];
         const li = document.querySelectorAll(`.color-4x${parsedData.data.length + i + 1} li`);
@@ -130,13 +111,14 @@ function setProduct(parsedData) {
 
 function setBullet(parsedData) {
   for (let i = 0; i < parsedData.data.length; i++) {
-    // 加入發燒產品圖片
+    
     const bulletA = document.querySelectorAll('.item-3x3 a')[i];
     const bulletTextDiv = document.querySelectorAll('.item-3x1 div')[i];
 
     // 設定發燒產品id，給相應超連結a的href，及文字
-    bulletA.href = `#product?id=${parsedData.data[i].product_id}`;
-    bulletTextDiv.setAttribute('onclick', `window.location='#product?id=${parsedData.data[i].product_id}'`);
+
+    bulletA.href = `product.html?id=${parsedData.data[i].product_id}`;
+    bulletTextDiv.setAttribute('onclick', `javascript:location.href='product.html?id=${parsedData.data[i].product_id}'`);
 
     // 加入發燒產品圖片
     bulletA.querySelector('div').style.backgroundImage = `url("https://${hostName}${parsedData.data[i].picture}")`;
@@ -300,6 +282,7 @@ function setExtProduct(parsedData) {
 
     const newItemDiv = document.createElement('div');
     newItemDiv.setAttribute('class', `item-4x${numOfItem + i + 1} item-product`);
+    const newItemA = document.createElement('a');
     const newItemImg = document.createElement('img');
     newItemImg.setAttribute('class', `img-4x${numOfItem + i + 1} img-product`);
     const newColorUl = document.createElement('ul');
@@ -307,7 +290,8 @@ function setExtProduct(parsedData) {
     const newText = document.createElement('p');
     newText.setAttribute('class', `text-4x${numOfItem + i + 1} text-product`);
     Parent.appendChild(newItemDiv);
-    newItemDiv.appendChild(newItemImg);
+    newItemDiv.appendChild(newItemA);
+    newItemA.appendChild(newItemImg);
     newItemDiv.appendChild(newColorUl);
     newItemDiv.appendChild(newText);
 
@@ -409,3 +393,19 @@ circleUl.addEventListener('click', (e) => {
   }
 });
 
+
+// ---加入點擊跑馬燈圖片監聽，可設定跳轉後頁面的AJAX網址，展開寫法，目前直接加在第一次讀取的迴圈中---
+
+/*
+for (let i = 0; i < document.querySelectorAll('.item-3x3 a').length; i++) {
+  const bulletA = document.querySelectorAll('.item-3x3 a')[i];
+  const bulletTextDiv = document.querySelectorAll('.item-3x1 div')[i];
+  bulletA.addEventListener('click', (e) => {
+    bulletA.href = `product.html?id=${bulletA.id}`;
+  });
+
+  bulletTextDiv.addEventListener('click', (e) => {
+    window.location.href=`product.html?id=${bulletA.id}`;
+  });
+}
+*/

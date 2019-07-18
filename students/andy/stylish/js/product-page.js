@@ -1,9 +1,5 @@
-const hostName = "api.appworks-school.tw";
-const ApiVersion = "1.0";
-const productListURL = `https://${hostName}/api/${ApiVersion}/products`;
-let productId = 201807242228;
 
-ajax(`${productListURL}/details?id=${productId}`, setDetail);
+ajax(`${productDetailURL}${getQueryValueByName('id')}`, setDetail);
 
 function setDetail(parsedData) {
 
@@ -108,7 +104,7 @@ sizeUl.addEventListener('click', (e) => {
 const amountDiv = document.getElementsByClassName('item-3x2-a')[0];
 
 amountDiv.addEventListener('click', (e) => {
-  if (e.target.className !== 'amount-3x2' ) {
+  if (e.target.className !== 'amount-3x2') {
     clickSetOnlyOneClass('amount-highlight', 'item-3x2-a', e);
   }
 });
