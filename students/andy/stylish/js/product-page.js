@@ -3,6 +3,7 @@ let pageNow = 0;
 let colorNow = 0;
 let sizeNow = 0;
 let remainStocks = -10;
+let userAmount = 0;
 
 ajax(`${productDetailURL}${getQueryValueByName('id')}`, setDetail);
 
@@ -115,11 +116,15 @@ function clickSetOnlyOneClass(setClassName, parentClassName, clickEvent) {
 
 
 colorUl.addEventListener('click', (e) => {
+  // 加入切換class函數，讓點選後保持顏色
   clickSetOnlyOneClass('color-highlight', 'color-3x2', e);
-  colorNow = rgb2hex(e.target.style.backgroundColor).toUpperCase();
-  // 加入判斷式，取出庫存數值
-  if (sizeNow != 0) {
-    ajax(`${productDetailURL}${getQueryValueByName('id')}`, getStocks);
+
+  if (e.target.tagName !== 'UL') {
+    colorNow = rgb2hex(e.target.style.backgroundColor).toUpperCase();
+    // 加入判斷式，取出庫存數值
+    if (sizeNow != 0) {
+      ajax(`${productDetailURL}${getQueryValueByName('id')}`, getStocks);
+    }
   }
 });
 
@@ -127,25 +132,42 @@ colorUl.addEventListener('click', (e) => {
 const sizeUl = document.getElementsByClassName('size-3x2')[0];
 
 sizeUl.addEventListener('click', (e) => {
+  // 加入切換class函數，讓點選後保持顏色
   clickSetOnlyOneClass('size-highlight', 'size-3x2', e);
-  sizeNow = e.target.innerText;
-  // 加入判斷式，取出庫存數值
-  if (colorNow != 0) {
-    ajax(`${productDetailURL}${getQueryValueByName('id')}`, getStocks);
-  }
 
+  if (e.target.tagName !== 'UL') {
+    sizeNow = e.target.innerText;
+    // 加入判斷式，取出庫存數值
+    if (colorNow != 0) {
+      ajax(`${productDetailURL}${getQueryValueByName('id')}`, getStocks);
+    }
+  }
 });
 
 function getStocks(parsedData) {
   parsedData.data.variants.forEach((element) => {
     if (element.color_code == colorNow && element.size == sizeNow) {
       remainStocks = element.stock;
-      console.log(remainStocks);
-      if (document.querySelectorAll('.remains-3x2 p').length > 0) { 
-        removeAppendText('remains-3x2', 'p'); 
+      console.log(element.stock);
+      // 如果庫存為0，先讓購物車按鈕不能按
+      if (remainStocks == 0) {
+        document.querySelector('.add-3x2').disabled = true;
       }
+      else {
+        // 如果庫存不為0，啟動購物車按鈕
+        document.querySelector('.add-3x2').disabled = false;
+      }
+
+      // 如果多餘一個數字的<p>，先清除數字
+      if (document.querySelectorAll('.remains-3x2 p').length > 0) {
+        removeAppendText('remains-3x2', 'p');
+      }
+      // 再加入數字與庫存字樣
       document.querySelector('.remains-3x2').innerText = '庫存：';
       createAppendText('remains-3x2', 'p', remainStocks);
+      // 清除畫面顯示的欲購買數量，以及設定user點選加或減的值為0
+      userAmount = 0;
+      document.querySelector('.amount-3x2').innerText = 0;
     }
   });
 }
@@ -158,8 +180,13 @@ function getStocks(parsedData) {
 const amountDiv = document.getElementsByClassName('item-3x2-a')[0];
 
 amountDiv.addEventListener('click', (e) => {
-  if (e.target.className !== 'amount-3x2') {
-    clickSetOnlyOneClass('amount-highlight', 'item-3x2-a', e);
-  }
+  if (e.target.className !== 'amount-3x2' && colorNow !== 0 && sizeNow !== 0) {
+      clickSetOnlyOneClass('amount-high l ight', 'item-3x2- a ',  e ); 
+      if(e.target.id == 'plus' && userAmount <= remainStocks -1 ) { userAmount++; } 
+      else if (e.target.id == 'minus' && userAmount >= 1) { userAmount--; }
+      document.querySelector ('.amount-3x2').innerText = userAmount; 
+    } else if(colorNow == 0 || sizeNow == 0 ){ 
+alert("please select color and size first");
+    }
 });
 
