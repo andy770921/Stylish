@@ -239,6 +239,15 @@
   line-height: 1.71;
 }
 
+.remains-3x2 {
+  margin-left:auto;
+  align-self: flex-end;
+  font-size: 14px;
+  color: lightgray;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
 /* ---- Flexbox Container-4  ---- */
 
 .container-4 {  

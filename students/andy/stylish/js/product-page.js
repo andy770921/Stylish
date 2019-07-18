@@ -1,7 +1,16 @@
 
+let pageNow = 0;
+let colorNow = 0;
+let sizeNow = 0;
+let remainStocks = -10;
+
 ajax(`${productDetailURL}${getQueryValueByName('id')}`, setDetail);
 
 function setDetail(parsedData) {
+  pageNow = `${productDetailURL}${getQueryValueByName('id')}`;
+  colorNow = 0;
+  sizeNow = 0;
+  remainStocks = -10;
 
   if (parsedData.data) {
 
@@ -67,9 +76,26 @@ function createSize(sizeClassName, sizeNumber) {
   ul.appendChild(li);
 }
 
+
+// ---- 轉換色碼函數，無井字號 -----
+
+var hexDigits = new Array
+  ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
+
+//Function to convert rgb color to hex format
+
+function hex(x) {
+  return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+}
+
+function rgb2hex(rgb) {
+  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+  return hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
 // ---- 加入事件監聽函數 -----
 
-// 點選顏色後，標出色塊，並取出資料
+// 點選顏色後，標出色塊，並取出資料。轉成色碼後，給變數colorNow
 
 const colorUl = document.getElementsByClassName('color-3x2')[0];
 
@@ -87,17 +113,45 @@ function clickSetOnlyOneClass(setClassName, parentClassName, clickEvent) {
 }
 
 
+
 colorUl.addEventListener('click', (e) => {
   clickSetOnlyOneClass('color-highlight', 'color-3x2', e);
+  colorNow = rgb2hex(e.target.style.backgroundColor).toUpperCase();
+  // 加入判斷式，取出庫存數值
+  if (sizeNow != 0) {
+    ajax(`${productDetailURL}${getQueryValueByName('id')}`, getStocks);
+  }
 });
 
-// 點選尺寸後，切換顯示圖像，並取出資料
-
+// 點選尺寸後，切換顯示圖像，並取出資料。給變數sizeNow
 const sizeUl = document.getElementsByClassName('size-3x2')[0];
 
 sizeUl.addEventListener('click', (e) => {
   clickSetOnlyOneClass('size-highlight', 'size-3x2', e);
+  sizeNow = e.target.innerText;
+  // 加入判斷式，取出庫存數值
+  if (colorNow != 0) {
+    ajax(`${productDetailURL}${getQueryValueByName('id')}`, getStocks);
+  }
+
 });
+
+function getStocks(parsedData) {
+  parsedData.data.variants.forEach((element) => {
+    if (element.color_code == colorNow && element.size == sizeNow) {
+      remainStocks = element.stock;
+      console.log(remainStocks);
+      if (document.querySelectorAll('.remains-3x2 p').length > 0) { 
+        removeAppendText('remains-3x2', 'p'); 
+      }
+      document.querySelector('.remains-3x2').innerText = '庫存：';
+      createAppendText('remains-3x2', 'p', remainStocks);
+    }
+  });
+}
+
+
+
 
 // 點選加減鈕後，切換顯示圖像，並取出資料
 
@@ -108,3 +162,4 @@ amountDiv.addEventListener('click', (e) => {
     clickSetOnlyOneClass('amount-highlight', 'item-3x2-a', e);
   }
 });
+

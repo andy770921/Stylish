@@ -119,7 +119,7 @@ function createAppendText(parentClassName, childElementType, text) {
 
 function removeAppendText(parentClassName, childElementType) {
   const parent = document.getElementsByClassName(parentClassName)[0];
-  const childP = document.createElement(childElementType);
+  const childP = document.querySelector(`.${parentClassName} ${childElementType}`);
   parent.removeChild(childP);
 }
 
