@@ -1,5 +1,6 @@
 
 let pageNow = 0;
+let idLastClickAddCart = 0;
 let colorNow = 0;
 let sizeNow = 0;
 let remainStocks = -10;
@@ -11,6 +12,7 @@ ajax(`${productDetailURL}${getQueryValueByName('id')}`, setDetail);
 
 function setDetail(parsedData) {
   pageNow = `${productDetailURL}${getQueryValueByName('id')}`;
+  idLastClickAddCart = 0;
   colorNow = 0;
   sizeNow = 0;
   remainStocks = -10;
@@ -62,15 +64,43 @@ function setDetail(parsedData) {
       const sizeCode = parsedData.data.sizes[j];
       createSize(sizeClassName, sizeCode);
     }
-
-    // 加入產品文字及價錢
-    // const text = document.getElementsByClassName(`text-4x${i + 1}`)[0]
-    // text.innerHTML = `${parsedData.data[i].title}`;
-    // text.appendChild(document.createElement("br"));
-    // text.innerHTML += `TWD. ${parsedData.data[i].price}`;
   }
-
 }
+
+// 送出指令給server，得到解析後的JSON後，取得庫存的函數如下
+
+function getStocks(parsedData) {
+  const colorNameRef = parsedData.data.colors;
+  parsedData.data.variants.forEach((element) => {
+    if (element.color_code == colorNow && element.size == sizeNow) {
+      //取得 sever 端庫存 element.stock ，再扣掉目前購物車內有的數量
+      remainStocks = element.stock;
+      remainStocksAfterBuy = element.stock - checkCartRemains(parsedData.data.id, element.color_code, element.size, orderJSON.list);
+      console.log('R');
+      console.log(remainStocksAfterBuy);
+
+      // 如果庫存為 0，先讓購物車按鈕不能按
+      checkRmainsDisableBtn(remainStocks, '.add-3x2');
+      // 如果多餘一個數字的<p>，先清除數字
+      if (document.querySelectorAll('.remains-3x2 p').length > 0) {
+        removeAppendText('remains-3x2', 'p');
+      }
+      // 再加入數字與庫存字樣
+      document.querySelector('.remains-3x2').innerText = '庫存：';
+      createAppendText('remains-3x2', 'p', remainStocksAfterBuy);
+      // 清除畫面顯示的欲購買數量，以及設定user點選加或減的值為 0
+      userAmount = 0;
+      document.querySelector('.amount-3x2').innerText = 0;
+      
+      // 將訂購產品資訊，除訂購數量外，加入user order物件。要先判斷顏色的中文名稱
+      let colorName = "";
+      colorNameRef.forEach((el) => { if (element.color_code == el.code) { colorName = el.name; }});
+      userOrder = new orderList(parsedData.data.id, parsedData.data.title, parsedData.data.price, 
+        element.color_code, colorName, element.size, 0);
+    }
+  });
+}
+
 
 
 function createSize(sizeClassName, sizeNumber) {
@@ -148,48 +178,11 @@ sizeUl.addEventListener('click', (e) => {
 });
 
 
-// 送出指令給server，得到解析後的JSON後，取得庫存的函數如下
-
-function getStocks(parsedData) {
-  const colorNameRef = parsedData.data.colors;
-  parsedData.data.variants.forEach((element) => {
-    if (element.color_code == colorNow && element.size == sizeNow) {
-      //取得 sever 端庫存 element.stock ，再扣掉目前購物車內有的數量
-      console.log(parsedData.data.id);
-      console.log(orderJSON);
-      remainStocks = element.stock;
-      remainStocksAfterBuy = element.stock - 5; //checkCartRemains(parsedData.data.id, orderJSON.list);
-
-      // 如果庫存為 0，先讓購物車按鈕不能按
-      checkRmainsDisableBtn(remainStocks, '.add-3x2');
-      // 如果多餘一個數字的<p>，先清除數字
-      if (document.querySelectorAll('.remains-3x2 p').length > 0) {
-        removeAppendText('remains-3x2', 'p');
-      }
-      // 再加入數字與庫存字樣
-      document.querySelector('.remains-3x2').innerText = '庫存：';
-      createAppendText('remains-3x2', 'p', remainStocks);
-      // 清除畫面顯示的欲購買數量，以及設定user點選加或減的值為 0
-      userAmount = 0;
-      document.querySelector('.amount-3x2').innerText = 0;
-      
-      // 將訂購產品資訊，除訂購數量外，加入user order物件。要先判斷顏色的中文名稱
-      let colorName = "";
-      colorNameRef.forEach((el) => { if (element.color_code == el.code) { colorName = el.name; }});
-      userOrder = new orderList(parsedData.data.id, parsedData.data.title, parsedData.data.price, 
-        element.color_code, colorName, element.size, 0);
-    }
-  });
-}
-
 // 點選加減鈕後，要取資料出來，預先準備使用的函數
 
-function checkCartRemains(searchProductID, dataArray) {
-  let foundRemains = "";
-  console.log(searchProductID);
-  console.log(dataArray);
-  dataArray.forEach((el) => { if (searchProductID == el.id) { foundRemains = el.qty; } });
-  console.log(foundRemains);
+function checkCartRemains(searchProductID, searchedColor, searchedSize, dataArray) {
+  let foundRemains = 0;
+  dataArray.forEach((el) => { if (searchProductID == el.id && searchedColor == el.color.code && searchedSize == el.size) { foundRemains = el.qty; } });
   return foundRemains;
 }
 
@@ -224,8 +217,6 @@ amountDiv.addEventListener('click', (e) => {
       let userAmountAfterClick = clickPlusMinusCalculate(userAmount, remainStocksAfterBuy, e);
       document.querySelector ('.amount-3x2').innerText = userAmountAfterClick;
       userAmount = userAmountAfterClick;
-      console.log("A");
-      console.log(userAmount);
     } 
    else if(colorNow == 0 || sizeNow == 0 ){ 
       alert("please select color and size first");
@@ -241,14 +232,40 @@ addBtn.addEventListener('click', (e) => {
   
   //---與使用者購買數量相關---
   //將訂購數量，加入user order物件，再將user order加入orderJSON物件
+  let x = orderJSON.list.length;
+  let haveSameItem = false;
+  // if (idLastClickAddCart == userOrder.id) {  //若原先就有物件，將local JSON數量，加進使用者數字
 
-  userOrder.qty = userAmount;
-
-  let i = orderJSON.list.length;
-  orderJSON.list[i] = userOrder;
-
+  // } else  //將創造的物件，指定進local JSON
+  // { 
+  //   userOrder.qty = userAmount;
+  //   orderJSON.list[x] = userOrder;
+  //   console.log("b");
+  //   console.log(orderJSON.list[x]);
+  //   console.log(orderJSON.list[x].qty);
+  // }
+  for (let i = 0; i < x; i++){
+    if (orderJSON.list[i].id == userOrder.id && orderJSON.list[i].color.code == colorNow && orderJSON.list[i].size == sizeNow) { //若原先就有物件，將local JSON數量，加進使用者數字
+        orderJSON.list[i].qty = orderJSON.list[i].qty + userAmount;
+        console.log("a");
+        console.log(orderJSON.list);
+        console.log(orderJSON.list[i]);
+        console.log(orderJSON.list[i].qty);
+        haveSameItem = true;
+      }
+    } 
+    
+  if (!haveSameItem){  //將創造的物件，指定進local JSON
+      userOrder.qty = userAmount;
+      orderJSON.list[x] = userOrder;
+      console.log("b");
+      console.log(orderJSON.list);
+      console.log(orderJSON.list[x]);
+      console.log(orderJSON.list[x].qty);
+    }
+    
   //---與剩餘庫存相關---
-  
+
   //先將庫存數字扣掉，存進remainStocksAfterBuy全域變數，後續按鈕點擊加減的event監聽要用到 (amountDiv.addEventListener)
   remainStocksAfterBuy = document.querySelector('.remains-3x2 p').innerText - userAmount;
   //用扣完後的庫存數字，刷新螢幕顯示值，再更新userAmount參數
@@ -262,6 +279,8 @@ addBtn.addEventListener('click', (e) => {
   userAmount = 0;
   document.querySelector ('.amount-3x2').innerText = 0;
     
+  //加入
+  idLastClickAddCart = userOrder.id;
   //清除使用者訂單---不能清，否則馬上重複購買會有問題
   //userOrder = new orderList("", "", 0, "", "", "", 0);
 
