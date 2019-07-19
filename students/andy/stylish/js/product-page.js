@@ -145,21 +145,17 @@ sizeUl.addEventListener('click', (e) => {
   }
 });
 
+
+// 送出指令給server，得到解析後的JSON後，取得庫存的函數如下
+
 function getStocks(parsedData) {
   const colorNameRef = parsedData.data.colors;
   parsedData.data.variants.forEach((element) => {
     if (element.color_code == colorNow && element.size == sizeNow) {
       remainStocks = element.stock;
-      console.log(element.stock);
+      
       // 如果庫存為0，先讓購物車按鈕不能按
-      if (remainStocks == 0) {
-        document.querySelector('.add-3x2').disabled = true;
-      }
-      else {
-        // 如果庫存不為0，啟動購物車按鈕
-        document.querySelector('.add-3x2').disabled = false;
-      }
-
+      checkRmainsDisableBtn(remainStocks, '.add-3x2');
       // 如果多餘一個數字的<p>，先清除數字
       if (document.querySelectorAll('.remains-3x2 p').length > 0) {
         removeAppendText('remains-3x2', 'p');
@@ -182,14 +178,35 @@ function getStocks(parsedData) {
 
 // 點選加減鈕後，切換顯示圖像，並取出資料
 
+function checkRmainsDisableBtn(remains, btnClassName) {
+  // 如果庫存為0，先讓購物車按鈕不能按
+  if (remains == 0) {
+     document.querySelector(btnClassName).disabled = true;
+   }
+  else {
+  // 如果庫存不為0，啟動購物車按鈕
+    document.querySelector(btnClassName).disabled = false;
+  }
+}
+
+function clickPlusMinusCalculate(number, remains, clickEvent){
+  let numberAfter = number;
+  if(clickEvent.target.id == 'plus' && number <= remains -1 ) { numberAfter = number + 1; } 
+  else if (clickEvent.target.id == 'minus' && number >= 1) { numberAfter = number - 1; }
+  return numberAfter; 
+}
+
+
 const amountDiv = document.getElementsByClassName('item-3x2-a')[0];
 
 amountDiv.addEventListener('click', (e) => {
   if (e.target.className !== 'amount-3x2' && colorNow !== 0 && sizeNow !== 0) {
+      //設定css 變色class
       clickSetOnlyOneClass('amount-highlight', 'item-3x2-a',  e ); 
-      if(e.target.id == 'plus' && userAmount <= remainStocks -1 ) { userAmount++; } 
-      else if (e.target.id == 'minus' && userAmount >= 1) { userAmount--; }
-      document.querySelector ('.amount-3x2').innerText = userAmount; 
+      //先刷新螢幕顯示值，再更新userAmount參數
+      let userAmountAfterClick = clickPlusMinusCalculate(userAmount, remainStocks, e);
+      document.querySelector ('.amount-3x2').innerText = userAmountAfterClick;
+      userAmount = userAmountAfterClick;
     } 
    else if(colorNow == 0 || sizeNow == 0 ){ 
       alert("please select color and size first");
@@ -203,19 +220,25 @@ const addBtn = document.getElementsByClassName('add-3x2')[0];
 
 addBtn.addEventListener('click', (e) => {
   //先將庫存數字扣掉
-  document.querySelector('.remains-3x2 p').innerText = document.querySelector('.remains-3x2 p').innerText - userAmount;
+  let remainStocksAfter = document.querySelector('.remains-3x2 p').innerText - userAmount;
+  //用扣完後的庫存數字，刷新螢幕顯示值，再更新userAmount參數
+  document.querySelector('.remains-3x2 p').innerText = remainStocksAfter;
+  userAmount = remainStocksAfter;
+  // 如果庫存為0，讓購物車按鈕不能按
+  checkRmainsDisableBtn(remainStocksAfter, '.add-3x2');
+
+
   //將訂購數量，加入user order物件，再將user order加入orderJSON物件
 
   userOrder.qty = userAmount;
 
   let i = orderJSON.list.length;
-  //console.log(i);
   orderJSON.list[i] = userOrder;
-  //console.log(userOrder);
-  //console.log(orderJSON);
+
   //清除使用者數字
   userAmount = 0;
   document.querySelector ('.amount-3x2').innerText = 0;
+  
   //清除使用者訂單---不能清，否則馬上重複購買會有問題
   //userOrder = new orderList("", "", 0, "", "", "", 0);
 });
