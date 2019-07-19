@@ -181,7 +181,7 @@ const amountDiv = document.getElementsByClassName('item-3x2-a')[0];
 
 amountDiv.addEventListener('click', (e) => {
   if (e.target.className !== 'amount-3x2' && colorNow !== 0 && sizeNow !== 0) {
-      clickSetOnlyOneClass('amount-high l ight', 'item-3x2- a ',  e ); 
+      clickSetOnlyOneClass('amount-highlight', 'item-3x2-a ',  e ); 
       if(e.target.id == 'plus' && userAmount <= remainStocks -1 ) { userAmount++; } 
       else if (e.target.id == 'minus' && userAmount >= 1) { userAmount--; }
       document.querySelector ('.amount-3x2').innerText = userAmount; 
