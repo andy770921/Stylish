@@ -172,21 +172,19 @@ function getStocks(parsedData) {
   });
 }
 
-
-
-
 // 點選加減鈕後，切換顯示圖像，並取出資料
 
 const amountDiv = document.getElementsByClassName('item-3x2-a')[0];
 
 amountDiv.addEventListener('click', (e) => {
   if (e.target.className !== 'amount-3x2' && colorNow !== 0 && sizeNow !== 0) {
-      clickSetOnlyOneClass('amount-highlight', 'item-3x2-a ',  e ); 
+      clickSetOnlyOneClass('amount-highlight', 'item-3x2-a',  e ); 
       if(e.target.id == 'plus' && userAmount <= remainStocks -1 ) { userAmount++; } 
       else if (e.target.id == 'minus' && userAmount >= 1) { userAmount--; }
       document.querySelector ('.amount-3x2').innerText = userAmount; 
-    } else if(colorNow == 0 || sizeNow == 0 ){ 
-alert("please select color and size first");
+    } 
+   else if(colorNow == 0 || sizeNow == 0 ){ 
+      alert("please select color and size first");
     }
 });
 
