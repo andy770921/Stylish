@@ -4,6 +4,7 @@ let colorNow = 0;
 let sizeNow = 0;
 let remainStocks = -10;
 let userAmount = 0;
+let userOrder = new orderList("", "", 0, "", "", "", 0);
 
 ajax(`${productDetailURL}${getQueryValueByName('id')}`, setDetail);
 
@@ -145,6 +146,7 @@ sizeUl.addEventListener('click', (e) => {
 });
 
 function getStocks(parsedData) {
+  const colorNameRef = parsedData.data.colors;
   parsedData.data.variants.forEach((element) => {
     if (element.color_code == colorNow && element.size == sizeNow) {
       remainStocks = element.stock;
@@ -168,6 +170,12 @@ function getStocks(parsedData) {
       // 清除畫面顯示的欲購買數量，以及設定user點選加或減的值為0
       userAmount = 0;
       document.querySelector('.amount-3x2').innerText = 0;
+      
+      // 將訂購產品資訊，除訂購數量外，加入user order物件。要先判斷顏色的中文名稱
+      let colorName = "";
+      colorNameRef.forEach((el) => { if (element.color_code == el.code) { colorName = el.name; }});
+      userOrder = new orderList(parsedData.data.id, parsedData.data.title, parsedData.data.price, 
+        element.color_code, colorName, element.size, 0);
     }
   });
 }
@@ -188,3 +196,26 @@ amountDiv.addEventListener('click', (e) => {
     }
 });
 
+// 點選購物車後，讓庫存數量減少，並創物件，取出資料
+// 要在顯示Remain庫存那邊，秀出來之前先掃過orderList JSON，然後再顯示
+
+const addBtn = document.getElementsByClassName('add-3x2')[0];
+
+addBtn.addEventListener('click', (e) => {
+  //先將庫存數字扣掉
+  document.querySelector('.remains-3x2 p').innerText = document.querySelector('.remains-3x2 p').innerText - userAmount;
+  //將訂購數量，加入user order物件，再將user order加入orderJSON物件
+
+  userOrder.qty = userAmount;
+
+  let i = orderJSON.list.length;
+  //console.log(i);
+  orderJSON.list[i] = userOrder;
+  //console.log(userOrder);
+  //console.log(orderJSON);
+  //清除使用者數字
+  userAmount = 0;
+  document.querySelector ('.amount-3x2').innerText = 0;
+  //清除使用者訂單---不能清，否則馬上重複購買會有問題
+  //userOrder = new orderList("", "", 0, "", "", "", 0);
+});

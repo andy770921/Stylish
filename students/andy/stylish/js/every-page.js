@@ -3,13 +3,28 @@ const hostName = "api.appworks-school.tw";
 const ApiVersion = "1.0";
 const productListURL = `https://${hostName}/api/${ApiVersion}/products`;
 const bulletURL = `https://${hostName}/api/${ApiVersion}/marketing/campaigns`;
-//let productId = 0; //201807242228
 const productDetailURL = `https://${hostName}/api/${ApiVersion}/products/details?id=`;
 let pageIndicator = "all";
 let extPageURL = "";
 let pageNumberNow = 0;
 
+let orderJSON = {"prime": "", "order": {}, "list": []};
+class orderList {
+  constructor(id, name, price, colorCode, colorName, size, quantity) {
+    this.id = id;
+    this.name = name;
+    this.price = price;
+    this.color = {
+      "code": colorCode,
+      "name": colorName
+    };
+    this.size = size;
+    this.qty = quantity;
+  }
+};
+  //let userOrder = new orderList("201807202157", "活力花紋長筒牛仔褲", 1299, "DDF0FF", "淺藍", "M", 1);
 
+  
 //----HTML文字設定---
 
 const navBarWords = ['女裝','男裝','配件'];
