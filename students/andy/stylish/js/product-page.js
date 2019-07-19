@@ -3,6 +3,7 @@ let pageNow = 0;
 let colorNow = 0;
 let sizeNow = 0;
 let remainStocks = -10;
+let remainStocksAfterBuy = -10;
 let userAmount = 0;
 let userOrder = new orderList("", "", 0, "", "", "", 0);
 
@@ -13,6 +14,7 @@ function setDetail(parsedData) {
   colorNow = 0;
   sizeNow = 0;
   remainStocks = -10;
+  remainStocksAfterBuy = -10;
 
   if (parsedData.data) {
 
@@ -152,9 +154,13 @@ function getStocks(parsedData) {
   const colorNameRef = parsedData.data.colors;
   parsedData.data.variants.forEach((element) => {
     if (element.color_code == colorNow && element.size == sizeNow) {
+      //取得 sever 端庫存 element.stock ，再扣掉目前購物車內有的數量
+      console.log(parsedData.data.id);
+      console.log(orderJSON);
       remainStocks = element.stock;
-      
-      // 如果庫存為0，先讓購物車按鈕不能按
+      remainStocksAfterBuy = element.stock - 5; //checkCartRemains(parsedData.data.id, orderJSON.list);
+
+      // 如果庫存為 0，先讓購物車按鈕不能按
       checkRmainsDisableBtn(remainStocks, '.add-3x2');
       // 如果多餘一個數字的<p>，先清除數字
       if (document.querySelectorAll('.remains-3x2 p').length > 0) {
@@ -163,7 +169,7 @@ function getStocks(parsedData) {
       // 再加入數字與庫存字樣
       document.querySelector('.remains-3x2').innerText = '庫存：';
       createAppendText('remains-3x2', 'p', remainStocks);
-      // 清除畫面顯示的欲購買數量，以及設定user點選加或減的值為0
+      // 清除畫面顯示的欲購買數量，以及設定user點選加或減的值為 0
       userAmount = 0;
       document.querySelector('.amount-3x2').innerText = 0;
       
@@ -176,7 +182,16 @@ function getStocks(parsedData) {
   });
 }
 
-// 點選加減鈕後，切換顯示圖像，並取出資料
+// 點選加減鈕後，要取資料出來，預先準備使用的函數
+
+function checkCartRemains(searchProductID, dataArray) {
+  let foundRemains = "";
+  console.log(searchProductID);
+  console.log(dataArray);
+  dataArray.forEach((el) => { if (searchProductID == el.id) { foundRemains = el.qty; } });
+  console.log(foundRemains);
+  return foundRemains;
+}
 
 function checkRmainsDisableBtn(remains, btnClassName) {
   // 如果庫存為0，先讓購物車按鈕不能按
@@ -189,6 +204,7 @@ function checkRmainsDisableBtn(remains, btnClassName) {
   }
 }
 
+// 數量為0時，讓減號不能再讓數字低於 0。 數量等於庫存時，讓加號不能加超過庫存
 function clickPlusMinusCalculate(number, remains, clickEvent){
   let numberAfter = number;
   if(clickEvent.target.id == 'plus' && number <= remains -1 ) { numberAfter = number + 1; } 
@@ -196,6 +212,7 @@ function clickPlusMinusCalculate(number, remains, clickEvent){
   return numberAfter; 
 }
 
+// 點選加減鈕後，切換顯示圖像，並取出資料
 
 const amountDiv = document.getElementsByClassName('item-3x2-a')[0];
 
@@ -204,9 +221,11 @@ amountDiv.addEventListener('click', (e) => {
       //設定css 變色class
       clickSetOnlyOneClass('amount-highlight', 'item-3x2-a',  e ); 
       //先刷新螢幕顯示值，再更新userAmount參數
-      let userAmountAfterClick = clickPlusMinusCalculate(userAmount, remainStocks, e);
+      let userAmountAfterClick = clickPlusMinusCalculate(userAmount, remainStocksAfterBuy, e);
       document.querySelector ('.amount-3x2').innerText = userAmountAfterClick;
       userAmount = userAmountAfterClick;
+      console.log("A");
+      console.log(userAmount);
     } 
    else if(colorNow == 0 || sizeNow == 0 ){ 
       alert("please select color and size first");
@@ -219,15 +238,8 @@ amountDiv.addEventListener('click', (e) => {
 const addBtn = document.getElementsByClassName('add-3x2')[0];
 
 addBtn.addEventListener('click', (e) => {
-  //先將庫存數字扣掉
-  let remainStocksAfter = document.querySelector('.remains-3x2 p').innerText - userAmount;
-  //用扣完後的庫存數字，刷新螢幕顯示值，再更新userAmount參數
-  document.querySelector('.remains-3x2 p').innerText = remainStocksAfter;
-  userAmount = remainStocksAfter;
-  // 如果庫存為0，讓購物車按鈕不能按
-  checkRmainsDisableBtn(remainStocksAfter, '.add-3x2');
-
-
+  
+  //---與使用者購買數量相關---
   //將訂購數量，加入user order物件，再將user order加入orderJSON物件
 
   userOrder.qty = userAmount;
@@ -235,10 +247,22 @@ addBtn.addEventListener('click', (e) => {
   let i = orderJSON.list.length;
   orderJSON.list[i] = userOrder;
 
+  //---與剩餘庫存相關---
+  
+  //先將庫存數字扣掉，存進remainStocksAfterBuy全域變數，後續按鈕點擊加減的event監聽要用到 (amountDiv.addEventListener)
+  remainStocksAfterBuy = document.querySelector('.remains-3x2 p').innerText - userAmount;
+  //用扣完後的庫存數字，刷新螢幕顯示值，再更新userAmount參數
+  document.querySelector('.remains-3x2 p').innerText = remainStocksAfterBuy;
+  // 如果庫存為0，讓購物車按鈕不能按
+  checkRmainsDisableBtn(remainStocksAfterBuy, '.add-3x2');
+
+
+  //---與清除使用者購買數量相關---
   //清除使用者數字
   userAmount = 0;
   document.querySelector ('.amount-3x2').innerText = 0;
-  
+    
   //清除使用者訂單---不能清，否則馬上重複購買會有問題
   //userOrder = new orderList("", "", 0, "", "", "", 0);
+
 });
