@@ -228,6 +228,9 @@ input:-webkit-autofill:active  {
     margin: 0 35px 0 0;
     flex-basis: 30%;
   }
+  .text-5x1:hover {
+    color: #c49871;
+  }
   .item-5x2 {
     position: absolute;
     top: 41px;
@@ -366,6 +369,7 @@ input:-webkit-autofill:active  {
     margin: 0;
     text-align: center;
   }
+
   .text-5x1:not(:last-child) {
     border-style: none solid none none;
     border-color: #828282;
