@@ -101,7 +101,7 @@ function getStocks(parsedData) {
   });
 }
 
-
+// ---- 創造元素相關 -----
 
 function createSize(sizeClassName, sizeNumber) {
   const ul = document.getElementsByClassName(`${sizeClassName}`)[0];
@@ -111,6 +111,19 @@ function createSize(sizeClassName, sizeNumber) {
 }
 
 
+function createCartNumIcon(parentClassName, iconClassName, initialNum) {
+  for (let i = 0; i < document.getElementsByClassName(parentClassName).length ; i++) {
+    const parent = document.getElementsByClassName(parentClassName)[i];
+    const newIconDiv = document.createElement('div');
+    newIconDiv.className = iconClassName;
+    parent.appendChild(newIconDiv);
+
+    const newIconP = document.createElement('p');
+    newIconP.className = 'addCursor';
+    newIconP.innerText = initialNum;
+    newIconDiv.appendChild(newIconP);
+  }
+}
 
 // ---- 轉換色碼函數，無井字號 -----
 
@@ -215,8 +228,10 @@ function setCartNum(cartClassName, dataArray) {
   if (dataArray.length !== undefined) {
     num = dataArray.length;
     if (document.querySelector(`.${cartClassName} p`) !== null) {
-      const pChild = document.querySelector(`.${cartClassName} p`);
-      pChild.innerText = num;
+      for ( let i = 0; i < document.querySelectorAll(`.${cartClassName} p`).length ; i++){
+        const pChild = document.querySelectorAll(`.${cartClassName} p`)[i];
+        pChild.innerText = num;
+      }
     }else {
       console.log("no cart number icon, so don't need to set cart number");
     }
@@ -260,18 +275,18 @@ addBtn.addEventListener('click', (e) => {
       }
     } 
     
-  if (!haveSameItem){  //將創造的物件，指定進local JSON
+  if (!haveSameItem) {  //將創造的物件，指定進local JSON
       userOrder.qty = userAmount;
       orderJSON.list[x] = userOrder;
 
-      //-- 創造購物車圓點、重設數字 ---
+      //--- 創造購物車圓點、重設數字 ---
     if (document.querySelectorAll('.cart-num p').length == 0) {
-      createCartNumIcon('cart-a', 'cart-num', 1);
-    }
+      createCartNumIcon('cart', 'cart-num', 1);
+      }
       setCartNum('cart-num', orderJSON.list);
     }
 
-  //-- 與剩餘庫存相關 ---
+  //--- 與剩餘庫存相關 ---
 
   //先將庫存數字扣掉，存進remainStocksMinusCart全域變數，後續按鈕點擊加減的event監聽要用到 (amountDiv.addEventListener)
   remainStocksMinusCart = document.querySelector('.remains-3x2 p').innerText - userAmount;
@@ -288,5 +303,4 @@ addBtn.addEventListener('click', (e) => {
 
   //清除使用者訂單---不能清，否則馬上重複購買會有問題
   //userOrder = new orderList("", "", 0, "", "", "", 0);
-
 });

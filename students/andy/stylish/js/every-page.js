@@ -149,15 +149,3 @@ function addNewClassName(parentClassName, newName) {
   const parent = document.getElementsByClassName(parentClassName)[0];
   parent.setAttribute('class', newName);
 }
-
-function createCartNumIcon(parentClassName, iconClassName, initialNum) {
-  const parent = document.getElementsByClassName(parentClassName)[0];
-  const newIconDiv = document.createElement('div');
-  newIconDiv.className = iconClassName;
-  parent.appendChild(newIconDiv);
-
-  const newIconP = document.createElement('p');
-  newIconP.className = 'addCursor';
-  newIconP.innerText = initialNum;
-  newIconDiv.appendChild(newIconP);
-}
