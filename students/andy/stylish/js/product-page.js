@@ -71,13 +71,14 @@ function getStocks(parsedData) {
   const colorNameRef = parsedData.data.colors;
   parsedData.data.variants.forEach((element) => {
     if (element.color_code == colorNow && element.size == sizeNow) {
+
       //取得 sever 端庫存 element.stock ，再扣掉目前購物車內有的數量。
       remainStocks = element.stock;
       remainStocksMinusCart = element.stock - getCartRemains(parsedData.data.id, element.color_code, element.size, orderJSON.list);
 
       // 如果庫存為 0，先讓購物車按鈕不能按
       checkRmainsDisableBtn(remainStocksMinusCart, '.add-3x2');
-      // 如果多餘一個數字的<p>，先清除數字
+      // 如果多於一個數字的<p>，先清除數字
       if (document.querySelectorAll('.remains-3x2 p').length > 0) {
         removeAppendText('remains-3x2', 'p');
       }
@@ -93,6 +94,9 @@ function getStocks(parsedData) {
       colorNameRef.forEach((el) => { if (element.color_code == el.code) { colorName = el.name; }});
       userOrder = new orderList(parsedData.data.id, parsedData.data.title, parsedData.data.price, 
         element.color_code, colorName, element.size, 0);
+      
+      //購物車數量圓點更新，含判斷有無圓點創出
+      setCartNum('cart-num', orderJSON.list);
     }
   });
 }
@@ -105,6 +109,7 @@ function createSize(sizeClassName, sizeNumber) {
   li.innerText = `${sizeNumber}`;
   ul.appendChild(li);
 }
+
 
 
 // ---- 轉換色碼函數，無井字號 -----
@@ -203,6 +208,21 @@ function clickPlusMinusCalculate(number, remains, clickEvent){
   return numberAfter; 
 }
 
+// 掃描local storage JSON，若圓點被創出，則重設購物車圓點數量
+
+function setCartNum(cartClassName, dataArray) {
+  let num = 0;
+  if (dataArray.length !== undefined) {
+    num = dataArray.length;
+    if (document.querySelector(`.${cartClassName} p`) !== null) {
+      const pChild = document.querySelector(`.${cartClassName} p`);
+      pChild.innerText = num;
+    }else {
+      console.log("no cart number icon, so don't need to set cart number");
+    }
+  }
+}
+
 // 點選加減鈕後，切換顯示圖像，並取出資料
 
 const amountDiv = document.getElementsByClassName('item-3x2-a')[0];
@@ -236,10 +256,6 @@ addBtn.addEventListener('click', (e) => {
   for (let i = 0; i < x; i++){
     if (orderJSON.list[i].id == userOrder.id && orderJSON.list[i].color.code == colorNow && orderJSON.list[i].size == sizeNow) { //若原先就有物件，將local JSON數量，加進使用者數字
         orderJSON.list[i].qty = orderJSON.list[i].qty + userAmount;
-        console.log("a");
-        console.log(orderJSON.list);
-        console.log(orderJSON.list[i]);
-        console.log(orderJSON.list[i].qty);
         haveSameItem = true;
       }
     } 
@@ -247,13 +263,15 @@ addBtn.addEventListener('click', (e) => {
   if (!haveSameItem){  //將創造的物件，指定進local JSON
       userOrder.qty = userAmount;
       orderJSON.list[x] = userOrder;
-      console.log("b");
-      console.log(orderJSON.list);
-      console.log(orderJSON.list[x]);
-      console.log(orderJSON.list[x].qty);
+
+      //-- 創造購物車圓點、重設數字 ---
+    if (document.querySelectorAll('.cart-num p').length == 0) {
+      createCartNumIcon('cart-a', 'cart-num', 1);
     }
-    
-  //---與剩餘庫存相關---
+      setCartNum('cart-num', orderJSON.list);
+    }
+
+  //-- 與剩餘庫存相關 ---
 
   //先將庫存數字扣掉，存進remainStocksMinusCart全域變數，後續按鈕點擊加減的event監聽要用到 (amountDiv.addEventListener)
   remainStocksMinusCart = document.querySelector('.remains-3x2 p').innerText - userAmount;

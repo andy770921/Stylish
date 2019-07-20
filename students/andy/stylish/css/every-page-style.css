@@ -322,14 +322,32 @@ input:-webkit-autofill:active  {
       justify-content: center;
       align-items: center;
       position: absolute;
-      bottom: 24px;
+      bottom: 16px;
       right: 12px;    /*---- 54 - margin 42 = 12 ---- */
     }
     .img-1x5 {
       width: 44px;
       margin: 0 42px 0 0;  
     }
-  
+  /* ---- Cart Icon ---- */
+  .cart-num {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: #c49871;
+    position: absolute;
+    top: 20px;
+    left: 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.46), 1px 1px 5px rgba(0, 0, 0, 0.63);
+  }
+  .cart-num p {
+    font-family: PingFangTC-Regular, sans-serif;
+    font-size: 14px;
+    color: #fff;
+  }
     /* ---- Flexbox Container-2---- */
   
     .container-2 {
