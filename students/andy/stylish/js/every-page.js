@@ -149,3 +149,63 @@ function addNewClassName(parentClassName, newName) {
   const parent = document.getElementsByClassName(parentClassName)[0];
   parent.setAttribute('class', newName);
 }
+
+// Nav Bar 相關
+
+// 點選產品後，跳轉到首頁，並附帶 query string，在首頁取得產品資料，並顯示
+
+function getWomenProduct() {
+  location.href='index.html?section=women';
+}
+function getMenProduct() {
+  location.href='index.html?section=men';
+}
+function getAccProduct() {
+  location.href='index.html?section=accessories';
+}
+
+
+const womenNavBar = document.getElementsByClassName('item-2x1')[0];
+const womenNavBar2 = document.getElementsByClassName('item-2x1')[1];
+
+womenNavBar.addEventListener('click', () => {
+  getWomenProduct();
+});
+
+womenNavBar2.addEventListener('click', () => {
+  getWomenProduct();
+});
+
+const menNavBar = document.getElementsByClassName('item-2x2')[0];
+const menNavBar2 = document.getElementsByClassName('item-2x2')[1];
+
+menNavBar.addEventListener('click', () => {
+  getMenProduct();
+});
+
+menNavBar2.addEventListener('click', () => {
+  getMenProduct();
+});
+
+const accNavBar = document.getElementsByClassName('item-2x3')[0];
+const accNavBar2 = document.getElementsByClassName('item-2x3')[1];
+
+accNavBar.addEventListener('click', () => {
+  getAccProduct();
+});
+
+accNavBar2.addEventListener('click', () => {
+  getAccProduct();
+});
+
+// 打搜尋字串，再滑鼠點選放大鏡後，跳轉到首頁並附帶 query string
+// 在首頁使用AJAX撈資料並顯示。因為頁面跳轉，不需清除input text
+
+const searchBarForm = document.getElementsByClassName('item-1x4')[0];
+
+searchBarForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let userInput = document.getElementsByClassName('search-bar')[0];
+  userValue = userInput.value;
+  location.href=`index.html?section=search&keyword=${userValue}`
+});

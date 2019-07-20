@@ -1,24 +1,29 @@
 
-ajax(`${productListURL}/all`, setProduct);
+switch (getQueryValueByName("section")) {
+  case "women":
+    ajax(`${productListURL}/women`, setProduct);
+    pageIndicator = "women";
+    break;
+  case "men":
+    ajax(`${productListURL}/men`, setProduct);
+    pageIndicator = "men";
+    break;
+  case "accessories":
+    ajax(`${productListURL}/accessories`, setProduct);
+    pageIndicator = "accessories";
+    break;
+  case "search":
+    ajax(`${productListURL}/search?keyword=${getQueryValueByName("keyword")}`, setProduct);
+    pageIndicator = `search?keyword=${getQueryValueByName("keyword")}`;
+    break;
+  default:
+    ajax(`${productListURL}/all`, setProduct);
+}
+
 ajax(`${bulletURL}`, setBullet);
 
-function getWomenProduct() {
-  ajax(`${productListURL}/women`, setProduct);
-  pageIndicator = "women";
-}
-function getMenProduct() {
-  ajax(`${productListURL}/men`, setProduct);
-  pageIndicator = "men";
-}
-function getAccProduct() {
-  ajax(`${productListURL}/accessories`, setProduct);
-  pageIndicator = "accessories";
-}
-
-
 function setProduct(parsedData) {
-  //console.log(parsedData);
-  //console.log(parsedData.data[0].colors[0].code);
+
   pageNumberNow = 0;
   if (parsedData.data) {
     for (let i = 0; i < parsedData.data.length; i++) {
@@ -62,7 +67,7 @@ function setProduct(parsedData) {
         const noImg = document.getElementsByClassName(`img-4x${parsedData.data.length + i + 1}`)[0];
         noImg.src = "";
         // 移除多餘產品超連結
-        const noA = document.getElementsByClassName(`item-4x${parsedData.data.length + i + 1} a`)[0];
+        const noA = document.querySelector(`.item-4x${parsedData.data.length + i + 1} a`);
         noA.href = "";
         // 移除多餘產品顏色
         const noColorUl = document.getElementsByClassName(`color-4x${parsedData.data.length + i + 1}`)[0];
@@ -145,13 +150,6 @@ function createPoet(imgTextArray, HTMLelement) {
   }
 }
 
-// function createColor(colorClassName, colorNumber) {
-//   const ul = document.getElementsByClassName(`${colorClassName}`)[0];
-//   const li = document.createElement('li');
-//   li.style.backgroundColor = `#${colorNumber}`;
-//   ul.appendChild(li);
-// }
-
 function createNewIcon() {
   const newProduct = document.getElementsByClassName('item-4x1')[0];
   const newIconDiv = document.createElement('div');
@@ -184,57 +182,21 @@ function removeAllSpanText() {
 
 // ---- 加入事件監聽函數 -----
 
-// 點選產品後，取得產品資料，並顯示
-
-const womenNavBar = document.getElementsByClassName('item-2x1')[0];
-const womenNavBar2 = document.getElementsByClassName('item-2x1')[1];
-
-womenNavBar.addEventListener('click', () => {
-  getWomenProduct();
-});
-
-womenNavBar2.addEventListener('click', () => {
-  getWomenProduct();
-});
-
-const menNavBar = document.getElementsByClassName('item-2x2')[0];
-const menNavBar2 = document.getElementsByClassName('item-2x2')[1];
-
-menNavBar.addEventListener('click', () => {
-  getMenProduct();
-});
-
-menNavBar2.addEventListener('click', () => {
-  getMenProduct();
-});
-
-const accNavBar = document.getElementsByClassName('item-2x3')[0];
-const accNavBar2 = document.getElementsByClassName('item-2x3')[1];
-
-accNavBar.addEventListener('click', () => {
-  getAccProduct();
-});
-
-accNavBar2.addEventListener('click', () => {
-  getAccProduct();
-});
-
-
 
 // 打搜尋字串，再滑鼠點選放大鏡後，使用AJAX撈資料並顯示。之後清除input text
 
-const searchBarForm = document.getElementsByClassName('item-1x4')[0];
+// const searchBarForm = document.getElementsByClassName('item-1x4')[0];
 
-searchBarForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  userInput = document.getElementsByClassName('search-bar')[0];
-  userValue = userInput.value;
-  console.log('userValue Updated');
-  console.log(userValue);
-  pageNumberNow = 0;
-  ajax(`${productListURL}/search?keyword=${userValue}&paging=${userValue}`, setProduct);
-  userInput.value = '';
-});
+// searchBarForm.addEventListener('submit', (e) => {
+//   e.preventDefault();
+//   userInput = document.getElementsByClassName('search-bar')[0];
+//   userValue = userInput.value;
+//   console.log('userValue Updated');
+//   console.log(userValue);
+//   pageNumberNow = 0;
+//   ajax(`${productListURL}/search?keyword=${userValue}&paging=${userValue}`, setProduct);
+//   userInput.value = '';
+// });
 
 // 先監聽滑動事件，滑動到底時，使用AJAX再撈資料，顯示多撈到的產品，並取消監聽滑動事件
 // 要監聽時，再加入 window.addEventListener('scroll', handleScroll);
@@ -264,7 +226,11 @@ function setExtProduct(parsedData) {
   pageNumberNow++;
   // 加入瀏覽器卷軸滑動到底時，要引入下頁的URL，並加入已被移除的卷軸監聽。若無下頁，則設定URL為空
   if (parsedData.paging !== undefined) {
-    extPageURL = `${productListURL}/${pageIndicator}?paging=${parsedData.paging}`;
+    if (pageIndicator.substr(0,6) == "search"){
+      extPageURL = `${productListURL}/${pageIndicator}&paging=${parsedData.paging}`;
+    } else {
+      extPageURL = `${productListURL}/${pageIndicator}?paging=${parsedData.paging}`;
+    }    
     window.addEventListener('scroll', handleScroll);
   } else {
     extPageURL = '';
