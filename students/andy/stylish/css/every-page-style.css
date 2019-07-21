@@ -304,6 +304,7 @@ input:-webkit-autofill:active  {
 @media (min-width: 451px) and (max-width: 1149px) {
   
   /* ----Footer---- */
+  
   .item-5x1 {
     left: 11.11%;  /* ---- 40/360=11.11% ---- */
   }

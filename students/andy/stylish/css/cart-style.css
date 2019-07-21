@@ -1,29 +1,184 @@
+/* ================================= 
+  Base Element Styles
+==================================== */
 
+body {
+    line-height: 0;
+  }
+  
+.container-3 {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 14px;
+  letter-spacing: normal;
+  color: #3f3a3a;
+}
+  
+  /* ================================= 
+    Base Layout Styles
+  ==================================== */
+.container-3 {
+    width: 90%;  /* 1160/1960 = 59.18%; */
+    max-width: 1160px;
+    margin: 0 auto 0;
+    display: flex;
+    flex-direction: column;
+}
 
+/* 開頭文字 */
 
+.text-3x1-1 {
+    margin-top: 47px;
+    flex: 1;
+    display: none;
+}
+.text-3x1-2 {
+    margin-top: 20px;
+    flex: 1;
+    display: flex; 
+    margin-bottom: 10px;   
+}
+
+.text-3x1-2 div:first-child {
+    font-weight: bold;
+    font-size: 16px;
+    flex: 10;  
+}
+.text-3x1-2 div:nth-child(2) {
+    flex: 1;  
+    display: none;
+}
+.text-3x1-2 div:nth-child(3) {
+    flex: 1;  
+    display: none;
+}
+.text-3x1-2 div:nth-child(4) {
+    flex: 1;  
+    display: none;
+}
+.text-3x1-2 div:last-child {
+    flex: 3;  
+    display: none;
+}
+
+/* 商品列表方框 */
+
+.item-3x2 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+
+.cart-product-1 {
+    padding-top: 10px; 
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    border-style: solid none none none;
+    border-color: #3f3a3a;
+    border-width: 1.0px;
+}
+.cart-product-1 {
+    border-bottom: solid;
+    border-color: #3f3a3a;
+    border-width: 1.0px;
+}
+
+.img-1 {
+    width: 31.66%;  /* 114px / 360px = 31.66% */
+    min-width: 114px;
+}
+
+/* 配送國家方框 */
+
+.item-3x3 {
+    margin-top: 20px;
+    flex: 1;
+    height: 164px;
+    background-color: #e8e8e8;
+  }
+
+/* 提醒資訊 */
+
+.item-3x4 {
+  margin-top: 10px;
+  flex: 1;
+  height: 169px;  /* 130 + 20 + 19 = 169px */
+}
+
+.item-3x4 div:last-child {
+  font-weight: bold;
+  font-size: 16px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: solid;
+  border-color: #3f3a3a;
+  border-width: 1.0px;
+}
 
 /* ----確認付款按鈕設定 ---- */
 
-.add-3x2{
-    margin-top: 10px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 47px; 
-    letter-spacing: 3.2px;
-    font-size: 18px;  /*原: 16px */
-    opacity: 1;
-  }
+.add-3x2 {
+  margin-top: 10px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 47px; 
+  letter-spacing: 3.2px;
+  font-size: 18px;  /*原: 16px */
+  opacity: 1;
+}
   
-  .add-3x2:hover{
-    opacity: 0.8;
-  }
-  .add-3x2:active{
-    opacity: 1;
+.add-3x2:hover {
+  opacity: 0.8;
+}
+.add-3x2:active {
+  opacity: 1;
+}
+
+
+/* ================================= 
+  Media Queries
+==================================== */
+
+@media (min-width: 1150px)  {
+
+    /* 開頭文字 */
+  .text-3x1-1 {
+    display: flex;
   }
 
-  
-  
+  .text-3x1-2 {
+    margin-top: 51px;
+    margin-bottom: 16px;   
+  }
+    
+  .text-3x1-2 div{
+    display: flex;
+  }
+
+  .item-3x1, .item-3x2 {
+    font-size: 16px;
+  }
+
+    /* 商品列表方框 */
+
+  .item-3x2 {
+    border: solid 1px #979797;
+  }
+
+    /* ================================= 
+    Footer
+    ==================================== */
+
+
+   /*===================================
+     switch Display 
+   ==================================== */
+  .display-switch {
+    display: none;
+  }
+}  
