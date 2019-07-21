@@ -207,5 +207,9 @@ searchBarForm.addEventListener('submit', (e) => {
   e.preventDefault();
   let userInput = document.getElementsByClassName('search-bar')[0];
   userValue = userInput.value;
-  location.href=`index.html?section=search&keyword=${userValue}`
+  if (userValue !== "") {
+    location.href=`index.html?section=search&keyword=${userValue}`;
+  } else {
+    hideSearchBar();
+  }
 });
