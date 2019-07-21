@@ -273,8 +273,8 @@ input:-webkit-autofill:active  {
     width: 30px; 
   }
 
- .img-5x2  /*:not(:last-child)*/ {
-    margin: 0 14px 7px 0; 
+ .img-5x2:not(:last-child) {
+    margin: 0 14px 0 0; 
   }
   
   .item-5x3 {

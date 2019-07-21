@@ -1,0 +1,29 @@
+
+
+
+
+/* ----確認付款按鈕設定 ---- */
+
+.add-3x2{
+    margin-top: 10px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 47px; 
+    letter-spacing: 3.2px;
+    font-size: 18px;  /*原: 16px */
+    opacity: 1;
+  }
+  
+  .add-3x2:hover{
+    opacity: 0.8;
+  }
+  .add-3x2:active{
+    opacity: 1;
+  }
+
+  
+  
