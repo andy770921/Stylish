@@ -264,10 +264,6 @@ input:-webkit-autofill:active  {
     position: absolute;
     top: 41px;
     right: 6.67%; /* ---- 24/360=6.67% ---- */
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    width: 33vw;
   }
   .img-5x2{
     width: 30px; 
