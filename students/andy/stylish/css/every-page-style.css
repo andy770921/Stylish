@@ -349,6 +349,7 @@ input:-webkit-autofill:active  {
       bottom: 26px; 
       right: 226px;   
       width: 214px;
+      animation: none;
     }
 
    /* ---- Icon item-1x5 ----- */
