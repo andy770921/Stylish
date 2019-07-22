@@ -24,6 +24,13 @@ class orderList {
 };
   //let userOrder = new orderList("201807202157", "活力花紋長筒牛仔褲", 1299, "DDF0FF", "淺藍", "M", 1);
 
+
+  //當localStorage有資料陣列，先讀取，並顯示在購物車原點
+  if (localStorage.getItem('orderJSONinLocal') !== null) {
+    orderJSON = JSON.parse(localStorage.getItem('orderJSONinLocal'));
+    createCartNumIcon('cart', 'cart-num', orderJSON.list.length);
+  }
+
   
 //----HTML文字設定---
 
@@ -149,6 +156,41 @@ function addNewClassName(parentClassName, newName) {
   const parent = document.getElementsByClassName(parentClassName)[0];
   parent.setAttribute('class', newName);
 }
+
+// 創建購物車圓點數量
+
+function createCartNumIcon(parentClassName, iconClassName, initialNum) {
+  for (let i = 0; i < document.getElementsByClassName(parentClassName).length ; i++) {
+    const parent = document.getElementsByClassName(parentClassName)[i];
+    const newIconDiv = document.createElement('div');
+    newIconDiv.className = iconClassName;
+    parent.appendChild(newIconDiv);
+
+    const newIconP = document.createElement('p');
+    newIconP.className = 'addCursor';
+    newIconP.innerText = initialNum;
+    newIconDiv.appendChild(newIconP);
+  }
+}
+
+// 掃描local storage JSON，若圓點被創出，則重設購物車圓點數量
+
+function setCartNum(cartClassName, dataArray) {
+  let num = 0;
+  if (dataArray.length !== undefined) {
+    num = dataArray.length;
+    if (document.querySelector(`.${cartClassName} p`) !== null) {
+      for ( let i = 0; i < document.querySelectorAll(`.${cartClassName} p`).length ; i++){
+        const pChild = document.querySelectorAll(`.${cartClassName} p`)[i];
+        pChild.innerText = num;
+      }
+    }else {
+      console.log("no cart number icon, so don't need to set cart number");
+    }
+  }
+}
+
+
 
 // Nav Bar 相關
 

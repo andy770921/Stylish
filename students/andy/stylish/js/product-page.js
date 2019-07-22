@@ -111,20 +111,6 @@ function createSize(sizeClassName, sizeNumber) {
 }
 
 
-function createCartNumIcon(parentClassName, iconClassName, initialNum) {
-  for (let i = 0; i < document.getElementsByClassName(parentClassName).length ; i++) {
-    const parent = document.getElementsByClassName(parentClassName)[i];
-    const newIconDiv = document.createElement('div');
-    newIconDiv.className = iconClassName;
-    parent.appendChild(newIconDiv);
-
-    const newIconP = document.createElement('p');
-    newIconP.className = 'addCursor';
-    newIconP.innerText = initialNum;
-    newIconDiv.appendChild(newIconP);
-  }
-}
-
 // ---- 轉換色碼函數，無井字號 -----
 
 var hexDigits = new Array
@@ -221,22 +207,6 @@ function clickPlusMinusCalculate(number, remains, clickEvent){
   return numberAfter; 
 }
 
-// 掃描local storage JSON，若圓點被創出，則重設購物車圓點數量
-
-function setCartNum(cartClassName, dataArray) {
-  let num = 0;
-  if (dataArray.length !== undefined) {
-    num = dataArray.length;
-    if (document.querySelector(`.${cartClassName} p`) !== null) {
-      for ( let i = 0; i < document.querySelectorAll(`.${cartClassName} p`).length ; i++){
-        const pChild = document.querySelectorAll(`.${cartClassName} p`)[i];
-        pChild.innerText = num;
-      }
-    }else {
-      console.log("no cart number icon, so don't need to set cart number");
-    }
-  }
-}
 
 // 點選加減鈕後，切換顯示圖像，並取出資料
 
@@ -285,6 +255,10 @@ addBtn.addEventListener('click', (e) => {
       }
       setCartNum('cart-num', orderJSON.list);
     }
+
+  //將訂購的物件，存入localStorage
+    localStorage.setItem('orderJSONinLocal', JSON.stringify(orderJSON));
+
 
   //--- 與剩餘庫存相關 ---
 
