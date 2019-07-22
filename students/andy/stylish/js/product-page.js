@@ -257,7 +257,7 @@ addBtn.addEventListener('click', (e) => {
     }
 
   //將訂購的物件，存入localStorage
-    sessionStorage.setItem('orderJSONinLocal', JSON.stringify(orderJSON));
+    localStorage.setItem('orderJSONinLocal', JSON.stringify(orderJSON));
 
 
   //--- 與剩餘庫存相關 ---
