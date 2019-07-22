@@ -26,8 +26,8 @@ class orderList {
 
 
   //當localStorage有資料陣列，先讀取，並顯示在購物車原點
-  if (localStorage.getItem('orderJSONinLocal') !== null) {
-    orderJSON = JSON.parse(localStorage.getItem('orderJSONinLocal'));
+  if (sessionStorage.getItem('orderJSONinLocal') !== null) {
+    orderJSON = JSON.parse(sessionStorage.getItem('orderJSONinLocal'));
     createCartNumIcon('cart', 'cart-num', orderJSON.list.length);
   }
 
