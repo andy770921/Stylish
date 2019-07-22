@@ -44,10 +44,12 @@
             <div class="space">&ensp;</div>
         </form>
         <div class="item-1x5">
-            <a href="#1" class="cart"><img class="img-1x5 addCursor" src="./image/cart.png" onmouseover="hover(this, './image/cart-hover.png')"
-                onmouseout="unhover(this, './image/cart.png')"></a>
+            <a href="#1" class="cart"><img class="img-1x5 addCursor" src="./image/cart.png"
+                    onmouseover="hover(this, './image/cart-hover.png')"
+                    onmouseout="unhover(this, './image/cart.png')"></a>
             <a href="#2" class="member"><img class="img-1x5 addCursor" src="./image/member.png"
-                onmouseover="hover(this, './image/member-hover.png')" onmouseout="unhover(this, './image/member.png')"></a>
+                    onmouseover="hover(this, './image/member-hover.png')"
+                    onmouseout="unhover(this, './image/member.png')"></a>
         </div>
     </div>
     </header>
@@ -67,8 +69,8 @@
         </nav>
         <div class="container-3">
             <div class="item-3x1">
-                <div class="text-3x1-1">HOME > BAG</div>
-                <div class="text-3x1-2">
+                <div class="text-3x1x1">HOME > BAG</div>
+                <div class="text-3x1x2">
                     <div>購物車(3)</div>
                     <div>數量</div>
                     <div>單價</div>
@@ -77,49 +79,94 @@
                 </div>
             </div>
             <div class="item-3x2">
-                <div class="cart-product-1">
-                    <div class="item-3x2x1"><img class="img-1" src="https://api.appworks-school.tw/assets/201807201824/main.jpg"></div>
-                    <div class="item-3x2x2"><p class="text-1"></p></div>
-                    <div class="item-3x2x3">
-                        <p>數量</p><div class="qty-1">方框</div>
+                <div class="cart-product-1 cart-product">
+                    <div class="row-or-column-1">
+                        <div class="cart-product-1x1"><img class="img-1 img-product"
+                                src="https://api.appworks-school.tw/assets/201807201824/main.jpg"></div>
+                        <div class="cart-product-1x2">
+                            <p class="text-1 text-product">xxx</p>
+                        </div>
                     </div>
-                    <div class="item-3x2x4">
-                        <p>單價</p><div class="price-1">NT. </div>
+                    <div class="row-or-column-2">
+                        <div class="cart-product-1x3">
+                            <p>數量</p>
+ 
+                                <select class="qty-1 qty-product">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+
+                        </div>
+                        <div class="cart-product-1x4">
+                            <p>單價</p>
+                            <div class="price-1 price-product">NT. </div>
+                        </div>
+                        <div class="cart-product-1x5">
+                            <p>小計</p>
+                            <div class="pxq-1 pxq-product">NT. </div>
+                        </div>
                     </div>
-                    <div class="item-3x2x5">
-                        <p>小計</p><div class="price-x-qty-1">NT. </div>
-                    </div>
-                    <div class="item-3x2x6"><img class="trash-can" src="./image/cart-remove.png"></div>
+                    <div class="cart-product-1x6"><img class="trash-can-1 trash-can-product"
+                            src="./image/cart-remove.png"></div>
                 </div>
             </div>
             <div class="item-3x3">
-                <div><p>配送國家</p><div>方框</div></div>
-                <div><p>付款方式</p><div>方框</div></div>
+                <div>
+                    <p>配送國家</p>
+                    <div>方框</div>
+                </div>
+                <div>
+                    <p>付款方式</p>
+                    <div>方框</div>
+                </div>
             </div>
             <div class="item-3x4">
                 <div>※ 提醒您：<br>
-                   ● 選擇宅配-請填寫正確收件人資訊，避免包裹配送不達<br>
-                   ● 選擇超商-請填寫正確收件人姓名(與證件相符)，避免無法領取</div>
+                    ● 選擇宅配-請填寫正確收件人資訊，避免包裹配送不達<br>
+                    ● 選擇超商-請填寫正確收件人姓名(與證件相符)，避免無法領取</div>
                 <div>訂購資料</div>
-            </div>   
+            </div>
             <div class="item-3x5">
-                <div><div>收件人姓名</div><div>方框</div></div>
+                <div>
+                    <div>收件人姓名</div>
+                    <div>方框</div>
+                </div>
                 <div>務必填寫完整收件人姓名，避免包裹無法順利簽收</div>
-                <div><div>手機</div><div>方框</div></div>
-                <div><div>地址</div><div>方框</div></div>
-                <div><div>配送時間</div><div>勾選</div></div>
+                <div>
+                    <div>手機</div>
+                    <div>方框</div>
+                </div>
+                <div>
+                    <div>地址</div>
+                    <div>方框</div>
+                </div>
+                <div>
+                    <div>配送時間</div>
+                    <div>勾選</div>
+                </div>
             </div>
             <div class="item-3x6">
-                <div><div>總金額</div><div>NT. </div></div>
-                <div><div>運費</div><div>NT. </div></div>
-                <div><div>應付金額</div><div>NT. </div></div>
-            </div> 
+                <div>
+                    <div>總金額</div>
+                    <div>NT. </div>
+                </div>
+                <div>
+                    <div>運費</div>
+                    <div>NT. </div>
+                </div>
+                <div>
+                    <div>應付金額</div>
+                    <div>NT. </div>
+                </div>
+            </div>
             <div class="item-3x6">
                 <button class="add-3x2">確認付款</button>
-            </div>   
+            </div>
         </div>
         <div class="sticky">
-            <div class="item-s addCursor"> 
+            <div class="item-s addCursor">
                 <div class="cart"><img class="img-s" src="./image/cart-mobile.png"></div>
                 <p class="text-s">購物車</p>
                 <p class="vertical-line-s">|</p>

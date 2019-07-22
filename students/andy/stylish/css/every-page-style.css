@@ -218,6 +218,8 @@ input:-webkit-autofill:active  {
     font-family: PingFangTC-Regular, sans-serif;
     font-size: 14px;
     color: #fff;
+    letter-spacing: -0.3px;
+    margin-right: 2px;
   }
   
   

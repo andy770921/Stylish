@@ -8,9 +8,9 @@ let pageIndicator = "all";
 let extPageURL = "";
 let pageNumberNow = 0;
 
-let orderJSON = {"prime": "", "order": {}, "list": []};
+let orderJSON = { "prime": "", "order": {}, "list": [] };
 class orderList {
-  constructor(id, name, price, colorCode, colorName, size, quantity) {
+  constructor(id, name, price, colorCode, colorName, size, quantity, imgSrc, stock) {
     this.id = id;
     this.name = name;
     this.price = price;
@@ -20,25 +20,27 @@ class orderList {
     };
     this.size = size;
     this.qty = quantity;
+    this.imgSrc = imgSrc;
+    this.stock = stock;
   }
 };
-  //let userOrder = new orderList("201807202157", "活力花紋長筒牛仔褲", 1299, "DDF0FF", "淺藍", "M", 1);
+//let userOrder = new orderList("201807202157", "活力花紋長筒牛仔褲", 1299, "DDF0FF", "淺藍", "M", 1);
 
 
-  //當localStorage有資料陣列，先讀取，並顯示在購物車原點
-  if (localStorage.getItem('orderJSONinLocal') !== null) {
-    orderJSON = JSON.parse(localStorage.getItem('orderJSONinLocal'));
-    createCartNumIcon('cart', 'cart-num', orderJSON.list.length);
-  }
+//當localStorage有資料陣列，先讀取，並顯示在購物車原點
+if (localStorage.getItem('orderJSONinLocal') !== null) {
+  orderJSON = JSON.parse(localStorage.getItem('orderJSONinLocal'));
+  createCartNumIcon('cart', 'cart-num', orderJSON.list.length);
+}
 
-  
+
 //----HTML文字設定---
 
-const navBarWords = ['女裝','男裝','配件'];
+const navBarWords = ['女裝', '男裝', '配件'];
 
 for (let i = 0; i < navBarWords.length; i++) {
-    document.getElementsByClassName(`barItem-${i+1}`)[0].textContent = navBarWords[i];
-    document.getElementsByClassName(`barItem-${i+1}`)[1].textContent = navBarWords[i];
+  document.getElementsByClassName(`barItem-${i + 1}`)[0].textContent = navBarWords[i];
+  document.getElementsByClassName(`barItem-${i + 1}`)[1].textContent = navBarWords[i];
 }
 
 //----與連線遠端，取得JSON相關----
@@ -66,7 +68,7 @@ function getQueryValueByName(name, url) {
   if (!url) url = window.location.href;
   name = name.replace(/[\[\]]/g, '\\$&');
   var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-      results = regex.exec(url);
+    results = regex.exec(url);
   if (!results) return null;
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
@@ -81,12 +83,12 @@ function getQueryValueByName(name, url) {
 // ---- Hover換圖網址函數 -----
 
 function hover(element, url) {
-    element.setAttribute('src', url);
-  }
-  
+  element.setAttribute('src', url);
+}
+
 function unhover(element, url) {
-    element.setAttribute('src', url);
-  }
+  element.setAttribute('src', url);
+}
 
 // 點選放大鏡後，顯示搜尋Bar，按header外其他位置，隱藏搜尋Bar
 
@@ -133,23 +135,41 @@ function createColor(colorClassName, colorNumber) {
 }
 
 function createAppendText(parentClassName, childElementType, text) {
-  const parent = document.getElementsByClassName(parentClassName)[0];
+  const parent = document.querySelector(`.${parentClassName}`);
   const childP = document.createElement(childElementType);
   childP.innerHTML = text;
   parent.appendChild(childP);
 }
 
 function removeAppendText(parentClassName, childElementType) {
-  const parent = document.getElementsByClassName(parentClassName)[0];
+  const parent = document.querySelector(`.${parentClassName}`);
   const childP = document.querySelector(`.${parentClassName} ${childElementType}`);
   parent.removeChild(childP);
 }
 
 function createAppendImg(parentClassName, src) {
-  const parent = document.getElementsByClassName(parentClassName)[0];
+  const parent = document.querySelector(`.${parentClassName}`);
   const childImg = document.createElement('img');
   childImg.src = src;
   parent.appendChild(childImg);
+}
+
+function createAppendDiv(parentClassName, childElementType, className) {
+  const parent = document.querySelector(`.${parentClassName}`);
+  const childP = document.createElement(childElementType);
+  childP.setAttribute('class', className);
+  parent.appendChild(childP);
+}
+
+function createAppendOption(parentClassName, maxNumber, selectedNumber) {
+  const parent = document.querySelector(`.${parentClassName}`);
+  for (i = 0; i < maxNumber; i++) {
+    const childP = document.createElement('option');
+    childP.setAttribute('value', i + 1);
+    childP.innerText = i + 1;
+    parent.appendChild(childP);
+    if (i == selectedNumber){ childP.setAttribute('selected', 'selected'); }
+  }
 }
 
 function addNewClassName(parentClassName, newName) {
@@ -160,7 +180,7 @@ function addNewClassName(parentClassName, newName) {
 // 創建購物車圓點數量
 
 function createCartNumIcon(parentClassName, iconClassName, initialNum) {
-  for (let i = 0; i < document.getElementsByClassName(parentClassName).length ; i++) {
+  for (let i = 0; i < document.getElementsByClassName(parentClassName).length; i++) {
     const parent = document.getElementsByClassName(parentClassName)[i];
     const newIconDiv = document.createElement('div');
     newIconDiv.className = iconClassName;
@@ -180,11 +200,11 @@ function setCartNum(cartClassName, dataArray) {
   if (dataArray.length !== undefined) {
     num = dataArray.length;
     if (document.querySelector(`.${cartClassName} p`) !== null) {
-      for ( let i = 0; i < document.querySelectorAll(`.${cartClassName} p`).length ; i++){
+      for (let i = 0; i < document.querySelectorAll(`.${cartClassName} p`).length; i++) {
         const pChild = document.querySelectorAll(`.${cartClassName} p`)[i];
         pChild.innerText = num;
       }
-    }else {
+    } else {
       console.log("no cart number icon, so don't need to set cart number");
     }
   }
@@ -197,13 +217,13 @@ function setCartNum(cartClassName, dataArray) {
 // 點選產品後，跳轉到首頁，並附帶 query string，在首頁取得產品資料，並顯示
 
 function getWomenProduct() {
-  location.href='index.html?section=women';
+  location.href = 'index.html?section=women';
 }
 function getMenProduct() {
-  location.href='index.html?section=men';
+  location.href = 'index.html?section=men';
 }
 function getAccProduct() {
-  location.href='index.html?section=accessories';
+  location.href = 'index.html?section=accessories';
 }
 
 
@@ -240,6 +260,10 @@ accNavBar2.addEventListener('click', () => {
   getAccProduct();
 });
 
+
+// ---- 加入搜尋字串監聽函數 -----
+
+
 // 打搜尋字串，再滑鼠點選放大鏡後，跳轉到首頁並附帶 query string
 // 在首頁使用AJAX撈資料並顯示。因為頁面跳轉，不需清除input text
 
@@ -250,8 +274,21 @@ searchBarForm.addEventListener('submit', (e) => {
   let userInput = document.getElementsByClassName('search-bar')[0];
   userValue = userInput.value;
   if (userValue !== "") {
-    location.href=`index.html?section=search&keyword=${userValue}`;
+    location.href = `index.html?section=search&keyword=${userValue}`;
   } else {
     hideSearchBar();
   }
+});
+
+// ---- 加入點擊購物車監聽函數，點擊後跳轉到購物車頁面 -----
+
+const cartIcon1 = document.getElementsByClassName('cart')[0];
+const cartIcon2 = document.getElementsByClassName('cart')[1].parentNode;
+
+cartIcon1.addEventListener('click', (e) => {
+    location.href = 'cart.html';
+});
+
+cartIcon2.addEventListener('click', (e) => {
+  location.href = 'cart.html';
 });
