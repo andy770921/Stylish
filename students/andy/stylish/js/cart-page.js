@@ -19,7 +19,10 @@
 //     return imgURL;
 // }
 
+document.querySelector(`.text-3x1x2`).innerText = `購物車 (${orderJSON.list.length})`;
+
 for (let i in orderJSON.list) {
+
     createAppendDiv("item-3x2", "div", `cart-product-${Number(i) + 2} cart-product`);
     createAppendDiv(`cart-product-${Number(i) + 2}`, "div", "row-or-column-1");
     createAppendDiv(`cart-product-${Number(i) + 2}`, "div", "row-or-column-2");

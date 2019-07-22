@@ -71,7 +71,7 @@
             <div class="item-3x1">
                 <div class="text-3x1x1">HOME > BAG</div>
                 <div class="text-3x1x2">
-                    <div>購物車(3)</div>
+                    <div>購物車</div>
                     <div>數量</div>
                     <div>單價</div>
                     <div>小計</div>
@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="item-3x2">
-                <div class="cart-product-1 cart-product">
+                <!-- <div class="cart-product-1 cart-product">
                     <div class="row-or-column-1">
                         <div class="cart-product-1x1"><img class="img-1 img-product"
                                 src="https://api.appworks-school.tw/assets/201807201824/main.jpg"></div>
@@ -90,14 +90,12 @@
                     <div class="row-or-column-2">
                         <div class="cart-product-1x3">
                             <p>數量</p>
- 
-                                <select class="qty-1 qty-product">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                </select>
-
+                            <select class="qty-1 qty-product">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
                         </div>
                         <div class="cart-product-1x4">
                             <p>單價</p>
@@ -110,16 +108,24 @@
                     </div>
                     <div class="cart-product-1x6"><img class="trash-can-1 trash-can-product"
                             src="./image/cart-remove.png"></div>
-                </div>
+                </div> -->
             </div>
             <div class="item-3x3">
-                <div>
+                <div class="country">
                     <p>配送國家</p>
-                    <div>方框</div>
+                    <select>
+                        <option value="" hidden>台灣或離島</option>
+                        <option value="tw">台灣</option>
+                        <option value="island">離島</option>
+                    </select>
                 </div>
-                <div>
+                <div class="pay-method">
                     <p>付款方式</p>
-                    <div>方框</div>
+                    <select>
+                        <option value="" hidden>信用卡或宅配貨到付款</option>
+                        <option value="credit-card">信用卡</option>
+                        <option value="ship-to-house">宅配貨到付款</option>
+                    </select>
                 </div>
             </div>
             <div class="item-3x4">
@@ -131,37 +137,44 @@
             <div class="item-3x5">
                 <div>
                     <div>收件人姓名</div>
-                    <div>方框</div>
+                    <input type="text" name="receiver-name">
                 </div>
                 <div>務必填寫完整收件人姓名，避免包裹無法順利簽收</div>
                 <div>
                     <div>手機</div>
-                    <div>方框</div>
+                    <input type="text" name="phone">
                 </div>
                 <div>
                     <div>地址</div>
-                    <div>方框</div>
+                    <input type="text" name="address">
                 </div>
                 <div>
                     <div>配送時間</div>
-                    <div>勾選</div>
+                    <div class="receiving">
+                        <div><input type="radio" name="receiving-time" value="08:00 - 12:00" ><span>08:00 - 12:00</span></div>
+                        <div><input type="radio" name="receiving-time" value="14:00 - 18:00" ><span>14:00 - 18:00</span></div>
+                        <div><input type="radio" name="receiving-time" value="whenever" ><span>不指定</span></div>
+                    </div>
                 </div>
             </div>
             <div class="item-3x6">
-                <div>
+                <div class="product-sum">
                     <div>總金額</div>
                     <div>NT. </div>
+                    <div>1999</div>
                 </div>
-                <div>
+                <div class="shipping-fee">
                     <div>運費</div>
                     <div>NT. </div>
+                    <div>1999</div>
                 </div>
-                <div>
+                <div class="all-sum">
                     <div>應付金額</div>
                     <div>NT. </div>
+                    <div>1999</div>
                 </div>
             </div>
-            <div class="item-3x6">
+            <div class="item-3x7">
                 <button class="add-3x2">確認付款</button>
             </div>
         </div>
