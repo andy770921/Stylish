@@ -27,8 +27,8 @@ class orderList {
 //let userOrder = new orderList("201807202157", "活力花紋長筒牛仔褲", 1299, "DDF0FF", "淺藍", "M", 1);
 
 
-//當localStorage有資料陣列，先讀取，並顯示在購物車原點
-if (localStorage.getItem('orderJSONinLocal') !== null) {
+//當localStorage有資料陣列，先讀取，並顯示在購物車圓點
+if (localStorage.getItem('orderJSONinLocal') !== `{"prime":"","order":{},"list":[]}` && localStorage.getItem('orderJSONinLocal') !==  null ) {
   orderJSON = JSON.parse(localStorage.getItem('orderJSONinLocal'));
   createCartNumIcon('cart', 'cart-num', orderJSON.list.length);
 }
@@ -168,7 +168,7 @@ function createAppendOption(parentClassName, maxNumber, selectedNumber) {
     childP.setAttribute('value', i + 1);
     childP.innerText = i + 1;
     parent.appendChild(childP);
-    if (i == selectedNumber){ childP.setAttribute('selected', 'selected'); }
+    if ( i + 1 == selectedNumber){ childP.setAttribute('selected', 'selected'); }
   }
 }
 
@@ -210,6 +210,12 @@ function setCartNum(cartClassName, dataArray) {
   }
 }
 
+function removeCartIcon(cartClassName) {
+  for (let i = 0; i < document.querySelectorAll(`.${cartClassName}`).length; i++) {
+    const pChild = document.querySelectorAll(`.${cartClassName}`)[i];
+    pChild.parentNode.removeChild(pChild);
+  }
+}
 
 
 // Nav Bar 相關
