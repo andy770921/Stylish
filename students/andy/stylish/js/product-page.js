@@ -1,5 +1,5 @@
 
-ajax(`${productDetailURL}${getQueryValueByName('id')}`, setDetail);
+// -- Ajax相關函數宣告 --
 
 function setDetail(parsedData) {
   pageNow = `${productDetailURL}${getQueryValueByName('id')}`;
@@ -92,6 +92,10 @@ function getStocks(parsedData) {
     }
   });
 }
+
+//  -- Ajax相關函數執行 --
+
+ajax(`${productDetailURL}${getQueryValueByName('id')}`, setDetail);
 
 // ---- 創造元素相關 -----
 

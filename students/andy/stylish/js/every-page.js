@@ -59,14 +59,6 @@ let userOrder = new orderList("", "", 0, "", "", "", 0);
 //let userInfo = new shippingInfo("delivery", "credit_card", 1234, 60, 1300, "Luke", "0987654321", "email@email", "市政府站", "morning");
 //let userOrder = new orderList("201807202157", "活力花紋長筒牛仔褲", 1299, "DDF0FF", "淺藍", "M", 1);
 
-
-//當localStorage有資料陣列，先讀取，並顯示在購物車圓點
-if (localStorage.getItem('orderJSONinLocal') !== `{"prime":"","order":{},"list":[]}` && localStorage.getItem('orderJSONinLocal') !==  null ) {
-  orderJSON = JSON.parse(localStorage.getItem('orderJSONinLocal'));
-  createCartNumIcon('cart', 'cart-num', orderJSON.list.length);
-}
-
-
 //----HTML文字設定---
 
 const navBarWords = ['女裝', '男裝', '配件'];
@@ -74,6 +66,13 @@ const navBarWords = ['女裝', '男裝', '配件'];
 for (let i = 0; i < navBarWords.length; i++) {
   document.getElementsByClassName(`barItem-${i + 1}`)[0].textContent = navBarWords[i];
   document.getElementsByClassName(`barItem-${i + 1}`)[1].textContent = navBarWords[i];
+}
+
+
+//當localStorage有資料陣列，先讀取，並顯示在購物車圓點
+if (localStorage.getItem('orderJSONinLocal') !== `{"prime":"","order":{},"list":[]}` && localStorage.getItem('orderJSONinLocal') !==  null ) {
+  orderJSON = JSON.parse(localStorage.getItem('orderJSONinLocal'));
+  createCartNumIcon('cart', 'cart-num', orderJSON.list.length);
 }
 
 //----與連線遠端，取得JSON相關----
