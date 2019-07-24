@@ -1,0 +1,343 @@
+/* ================================= 
+  Base Element Styles
+==================================== */
+
+body {
+  line-height: 0;
+}
+
+.container-4 {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2.4px;
+  color: #3f3a3a;
+}
+
+/* ================================= 
+  Base Layout Styles
+==================================== */
+
+:root {
+  --bullet-img-display-time: 10s;
+  --bullet-img-display-timex2: 20s;
+  --bullet-img-display-timex3: 30s;
+}
+
+/* ---- Flexbox Container-3---- */
+
+.container-3 {
+    display: flex;
+    width: 100%;
+    height: 185px;
+    position: relative;
+}
+.item-3x1 {
+    position: absolute;
+    left: 6.38%;  /* 23/360=6.38% */
+    top: 19.5%; /* 36/185=19.5% */
+    /*width: 80%;  143/360=39.7%  設定80會讓右邊出現空白，不滿版*/
+    background-color: transparent;
+    z-index: 6;
+}
+.imgWords-1{
+    font-size: 14px;
+}
+.imgWords-2{
+    font-size: 10px;
+}
+
+.item-3x2 {
+  display: flex;
+  justify-content: center;
+  bottom: 20px; 
+  width: 100%; 
+  align-self: flex-end;
+  z-index: 6;
+}
+
+/* ---- 設定背景圖輪播動畫 ---- */
+
+.item-3x3 {
+  height: 100%; 
+  width: 100%; 
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.item-3x3-a{
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%; 
+  width: 100%;
+  display: block;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  /* 當圖片數量增加，影片長度需更改，變為播放秒數(10s)x圖片數量(3) */
+  animation: silder var(--bullet-img-display-timex3) linear infinite;
+}
+
+.item-3x3 > a > div { 
+  height: 100%; 
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+  /* 背景圖左右置中、上下置上，若四方置中可寫成 background-position: center; 
+     也可設定位置百分比如 background-position: 20% 50%; */
+  /* background-image: url("https://api.appworks-school.tw/assets/keyvisuals/201807202140.jpg"); */
+}
+
+@keyframes silder {
+  3% {
+      opacity: 1;
+      filter: alpha(opacity=100);
+      z-index: 5;
+  }
+  27% {
+      opacity: 1;
+      filter: alpha(opacity=100);
+  }
+  30% {
+      opacity: 0;
+      filter: alpha(opacity=0);
+  }
+}
+
+
+/* 設定未播放的圖延遲秒數。延遲秒數為圖片等待次序(1 or 2)x每個圖片各延遲秒數(10秒) */
+.item-3x3 > a:nth-child(2) {
+  animation-delay: var(--bullet-img-display-time);
+}
+.item-3x3 > a:nth-child(3) {
+  animation-delay: var(--bullet-img-display-timex2);
+}
+/*  -- 滑入時停止播放 -- 取消此效果，避免文字不同步
+.item-3x3:hover > a {
+  animation-play-state: paused;
+}
+*/
+
+/* -- 文字輪播動畫設定 -- */
+
+.item-3x1-a {
+  position: absolute;
+  left: 6.38%;  /* 23/360=6.38% */
+  top: 19.5%; /* 36/185=19.5% */
+  white-space: nowrap;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  animation: silder var(--bullet-img-display-timex3) linear infinite;
+}
+
+.item-3x1 > div:nth-child(2) {
+  animation-delay: var(--bullet-img-display-time);
+}
+.item-3x1 > div:nth-child(3) {
+  animation-delay: var(--bullet-img-display-timex2);
+}
+
+
+/* -- Carousel Dot  點輪播動畫設定 -- */
+.dot-a {
+  animation: silder-dot var(--bullet-img-display-timex3) step-start infinite;
+}
+.dot > ul > li:nth-child(2) {
+  animation-delay: var(--bullet-img-display-time);
+}
+.dot > ul > li:nth-child(3) {
+  animation-delay: var(--bullet-img-display-timex2);
+}
+
+@keyframes silder-dot {
+
+  3% {
+      opacity: 1;
+      filter: alpha(opacity=100);
+      background-color: rgb(68, 64, 64);
+  }
+  27% {
+      opacity: 1;
+      filter: alpha(opacity=100);
+      background-color: rgb(68, 64, 64);
+  }
+  30% {
+      opacity: 0.7;  /* ---- 要與Carousel Dot opacity值相同  ---- */
+      filter: alpha(opacity=70);
+      background-color: #fff;
+  }
+
+}
+
+
+/* ---- Carousel Dot ---- */
+
+.dot ul li{
+    list-style: none;
+    width: 10px;   /* ---- 原設計4px 過小---- */
+    height: 10px;  /* ---- 原設計4px 過小---- */
+    border-radius: 100%;
+    opacity: 0.7;   /* ---- 原設計0.4 過淡---- */
+    background-color: #fff;
+    float: left;
+    margin: 18px 8px;   /* ---- 原設計左右6.4px (圓點間距離12.8px)過小---- */
+}
+.dot ul li:hover{
+    opacity: 1;
+    background-color: #8b572a;
+}
+
+/* ---- Flexbox Container-4---- */
+
+.container-4 {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+.container-4 span{
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.item-product{
+  margin: 15px 6px 0px 6px;
+  width: 45%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.img-product {
+  width: 100%; 
+  height: auto;
+}
+
+.color-product li{
+  width: 3.33vw; /* 12px/360px=3.33% */
+  height: 3.33vw;
+  max-width: 24px;
+  max-height: 24px;
+  min-width: 12px;
+  min-height: 12px;
+  list-style: none;
+  float: left;
+  margin: 8px 6px 8px 0px;
+  border: solid;
+  border-color: lightgray;
+  border-width: 1px;
+  border-radius: 3px;
+}
+
+/* ---- New Icon ---- */
+.new-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  background-color: #c49871;
+  position: absolute;
+  top: 10px;
+  right: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.new-icon-text {
+  font-family: PingFangTC-Regular, sans-serif;
+  font-size: 14px;
+  color: #fff;
+}
+
+
+/* ================================= 
+  Media Queries
+==================================== */
+
+@media (min-width: 701px) and (max-width: 1149px) {
+  
+  /* ---- Flexbox Container-4---- */
+
+  .container-4 {
+    font-size: 15px;
+  }
+
+  .item-product{
+    margin: 30px 10px 0px 10px;
+    width: 27%;
+  }
+  .img-product {
+    width: 100%; 
+    height: auto;
+  }
+  .container-4 span{
+    font-size: 18px;
+  }
+}
+@media (min-width: 1150px)  {
+  .container-4 span{
+    font-size: 26px;
+  }
+/* ---- Flexbox Container-3---- */
+
+  .container-3 {
+    height: 500px;
+  }
+  .item-3x1 {
+    position: absolute;
+    left: 21.19%;  /* 407/1920=21.19% */
+    top: 33.2%; /* 166/500=19.5% */
+  }
+  .imgWords-1{
+    font-size: 30px;
+  }
+  .imgWords-2{
+    font-size: 20px;
+  }
+
+  .item-3x2 {
+  bottom: 34px; 
+  }
+
+/* ---- Carousel Dot ---- */
+
+  .dot ul li{
+    width: 15px;  /* ---- 原設計10px 過小---- */
+    height: 15px;  /* ---- 原設計10px 過小---- */
+    margin: 18px 17px;   /* ---- 原設計左右xxpx (圓點間距離xxpx)過小---- */
+  }
+
+/* ---- Flexbox Container-4---- */
+
+  .container-4 {
+    font-size: 20px;
+  }
+
+  .item-product{
+    margin: 70px 20px 0px 20px;
+    width: 28%;
+  }
+
+  /* ---- New  Icon ---- */
+  .new-icon {
+    width: 64px;
+    height: 64px;
+    top: 20px;
+    right: 20px;
+    justify-content: center;
+  }
+  .new-icon-text {
+    font-size: 20px;
+    margin-left: 4%;
+  }
+
+ /* ---- container-4 max-width responsive ---- */
+  .container-4 {
+    max-width: 1240px;
+    margin-right: auto;
+    margin-left: auto;
+	}
+}

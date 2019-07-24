@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Stylish_Homepage</title>
+    <title>Stylish</title>
     <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main-style.css">
+    <link rel="stylesheet" href="css/every-page-style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
-
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <!-- 加入響應式控制的Javascript套件modernizr，偵測視窗大小改變時，Search Bar正確顯示 -->
 </head>
 
 <body>
@@ -31,23 +34,25 @@
                     <p class="barItem-3"></p>
                 </div>
             </div>
-            <div class="item-1x4">
+            <form class="item-1x4">
                 <input type="text" name="search" class="search-bar">
-                <img class="img-1x4 addCursor" src="./image/search.png"
-                    onmouseover="hover(this, './image/search-hover.png')"
-                    onmouseout="unhover(this, './image/search.png')">
+                <button>
+                    <img class="img-1x4 addCursor" src="./image/search.png"
+                        onmouseover="hover(this, './image/search-hover.png')"
+                        onmouseout="unhover(this, './image/search.png')">
+                </button>
                 <div class="space">&ensp;</div>
-            </div>
+            </form>
             <div class="item-1x5">
-                <img class="img-1x5 addCursor" src="./image/cart.png"
-                    onmouseover="hover(this, './image/cart-hover.png')" onmouseout="unhover(this, './image/cart.png')">
-                <img class="img-1x5 addCursor" src="./image/member.png"
+                <a href="#1" class="cart"><img class="img-1x5 addCursor" src="./image/cart.png"
+                    onmouseover="hover(this, './image/cart-hover.png')" onmouseout="unhover(this, './image/cart.png')"></a>
+                <a href="#2" class="member"><img class="img-1x5 addCursor" src="./image/member.png"
                     onmouseover="hover(this, './image/member-hover.png')"
-                    onmouseout="unhover(this, './image/member.png')">
+                    onmouseout="unhover(this, './image/member.png')"></a>
             </div>
         </div>
     </header>
-    <section>
+    <main>
         <nav class="container-2">
             <div class="item-2x1 addCursor display-switch">
                 <p class="barItem-1"></p>
@@ -87,13 +92,13 @@
                 </div>
             </div>
             <div class="item-3x3">
-                <a href="#1" class="item-3x3-a">
+                <a class="item-3x3-a">
                     <div></div>
                 </a>
-                <a href="#2" class="item-3x3-a">
+                <a class="item-3x3-a">
                     <div></div>
                 </a>
-                <a href="#3" class="item-3x3-a">
+                <a class="item-3x3-a">
                     <div></div>
                 </a>
             </div>
@@ -101,37 +106,37 @@
 
         <div class="container-4">
             <div class="item-4x1 item-product">
-                <img class="img-4x1 img-product">
+                <a><img class="img-4x1 img-product"></a>
                 <ul class="color-4x1 color-product">
                 </ul>
                 <p class="text-4x1 text-product"></p>
             </div>
             <div class="item-4x2 item-product">
-                <img class="img-4x2 img-product">
+                <a><img class="img-4x2 img-product"></a>
                 <ul class="color-4x2 color-product">
                 </ul>
                 <p class="text-4x2 text-product"></p>
             </div>
             <div class="item-4x3 item-product">
-                <img class="img-4x3 img-product">
+                <a><img class="img-4x3 img-product"></a>
                 <ul class="color-4x3 color-product">
                 </ul>
                 <p class="text-4x3 text-product"></p>
             </div>
             <div class="item-4x4 item-product">
-                <img class="img-4x4 img-product">
+                <a><img class="img-4x4 img-product"></a>
                 <ul class="color-4x4 color-product">
                 </ul>
                 <p class="text-4x4 text-product"></p>
             </div>
             <div class="item-4x5 item-product">
-                <img class="img-4x5 img-product">
+                <a><img class="img-4x5 img-product"></a>
                 <ul class="color-4x5 color-product">
                 </ul>
                 <p class="text-4x5 text-product"></p>
             </div>
             <div class="item-4x6 item-product">
-                <img class="img-4x6 img-product">
+                <a><img class="img-4x6 img-product"></a>
                 <ul class="color-4x6 color-product">
                 </ul>
                 <p class="text-4x6 text-product"></p>
@@ -139,17 +144,18 @@
         </div>
 
         <div class="sticky">
-            <div class="item-s addCursor"> <img class="img-s" src="./image/cart-mobile.png">
+            <div class="item-s addCursor"> 
+                <div class="cart"><img class="img-s" src="./image/cart-mobile.png"></div>
                 <p class="text-s">購物車</p>
                 <p class="vertical-line-s">|</p>
             </div>
 
             <div class="item-s addCursor">
-                <img class="img-s" src="./image/member-mobile.png">
+                <div class="member"><img class="img-s" src="./image/member-mobile.png"></div>
                 <p class="text-s">會員</p>
             </div>
         </div>
-    </section>
+    </main>
     <footer>
         <div class="container-5">
             <div class="item-5x1">
@@ -167,8 +173,8 @@
             <span class="item-5x3">&copy; 2018. All rights reserved.</span>
         </div>
     </footer>
-    <script type="text/javascript" src="js/function.js"></script>
-    <script type="text/javascript" src="js/parameter.js"></script>
+    <script type="text/javascript" src="js/every-page.js"></script>
+    <script type="text/javascript" src="js/main-page.js"></script>
 </body>
 
 </html>

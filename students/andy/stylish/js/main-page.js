@@ -1,54 +1,42 @@
 
-const hostName = "api.appworks-school.tw";
-const ApiVersion = "1.0";
-const productListURL = `https://${hostName}/api/${ApiVersion}/products`;
-const bulletURL = `https://${hostName}/api/${ApiVersion}/marketing/campaigns`;
-let pageIndicator = "all";
-let extPageURL = "";
-let pageNumberNow = "0";
-
-//加入新產品Icon
-createNewIcon();
-
-//與連線遠端，取得JSON相關
-
-function ajax(src, callback) {
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status == 200) {
-      callback(JSON.parse(xhr.responseText));
-    }
-  };
-  xhr.open('GET', src);
-  xhr.send();
+switch (getQueryValueByName("section")) {
+  case "women":
+    ajax(`${productListURL}/women`, setProduct);
+    pageIndicator = "women";
+    break;
+  case "men":
+    ajax(`${productListURL}/men`, setProduct);
+    pageIndicator = "men";
+    break;
+  case "accessories":
+    ajax(`${productListURL}/accessories`, setProduct);
+    pageIndicator = "accessories";
+    break;
+  case "search":
+    ajax(`${productListURL}/search?keyword=${getQueryValueByName("keyword")}`, setProduct);
+    pageIndicator = `search?keyword=${getQueryValueByName("keyword")}`;
+    break;
+  default:
+    ajax(`${productListURL}/all`, setProduct);
 }
 
-ajax(`${productListURL}/all`, setProduct);
 ajax(`${bulletURL}`, setBullet);
 
-function getWomenProduct() {
-  ajax(`${productListURL}/women`, setProduct);
-  pageIndicator = "women";
-}
-function getMenProduct() {
-  ajax(`${productListURL}/men`, setProduct);
-  pageIndicator = "men";
-}
-function getAccProduct() {
-  ajax(`${productListURL}/accessories`, setProduct);
-  pageIndicator = "accessories";
-}
-
-
 function setProduct(parsedData) {
-  //console.log(parsedData);
-  //console.log(parsedData.data[0].colors[0].code);
+
   pageNumberNow = 0;
   if (parsedData.data) {
     for (let i = 0; i < parsedData.data.length; i++) {
+
+      //加入新產品Icon
+      createNewIcon();
       // 加入產品圖片
       const img = document.getElementsByClassName(`img-4x${i + 1}`)[0];
       img.src = parsedData.data[i].main_image;
+
+      // 加入產品超連結
+      const productA = document.querySelector(`.item-4x${i + 1} a`);
+      productA.href = `product.html?id=${parsedData.data[i].id}`;
 
       // 加入產品顏色，兩步驟 1.先移除所有產品顏色 2.再新增顏色
       // 1. 先移除所有產品顏色
@@ -78,6 +66,9 @@ function setProduct(parsedData) {
         // 移除多餘產品圖片
         const noImg = document.getElementsByClassName(`img-4x${parsedData.data.length + i + 1}`)[0];
         noImg.src = "";
+        // 移除多餘產品超連結
+        const noA = document.querySelector(`.item-4x${parsedData.data.length + i + 1} a`);
+        noA.href = "";
         // 移除多餘產品顏色
         const noColorUl = document.getElementsByClassName(`color-4x${parsedData.data.length + i + 1}`)[0];
         const li = document.querySelectorAll(`.color-4x${parsedData.data.length + i + 1} li`);
@@ -110,16 +101,13 @@ function setProduct(parsedData) {
   else if (totalLi > 0) {
     removeAllSpanText();
   }
-  // 加入監聽瀏覽器卷軸
-  window.addEventListener('scroll', handleScroll);
 
-  // 加入瀏覽器卷軸滑動到底時，要引入下頁的URL，並加入已被移除的卷軸監聽。若無下頁，則設定URL為空，並移除卷軸監聽
+  // 若有下一頁，加入瀏覽器卷軸滑動到底時，定出下頁的URL，並加入卷軸監聽。若在首頁發現無下頁，則設定URL為空，並不加入卷軸監聽
   if (parsedData.paging !== undefined) {
     extPageURL = `${productListURL}/${pageIndicator}?paging=${parsedData.paging}`;
     window.addEventListener('scroll', handleScroll);
   } else {
     extPageURL = '';
-    window.removeEventListener('scroll', handleScroll);
   }
 
 }
@@ -127,13 +115,14 @@ function setProduct(parsedData) {
 
 function setBullet(parsedData) {
   for (let i = 0; i < parsedData.data.length; i++) {
-    // 加入發燒產品圖片
+    
     const bulletA = document.querySelectorAll('.item-3x3 a')[i];
     const bulletTextDiv = document.querySelectorAll('.item-3x1 div')[i];
 
     // 設定發燒產品id，給相應超連結a的href，及文字
-    bulletA.href = `#product?id=${parsedData.data[i].product_id}`;
-    bulletTextDiv.setAttribute('onclick', `window.location='#product?id=${parsedData.data[i].product_id}'`);
+
+    bulletA.href = `product.html?id=${parsedData.data[i].product_id}`;
+    bulletTextDiv.setAttribute('onclick', `javascript:location.href='product.html?id=${parsedData.data[i].product_id}'`);
 
     // 加入發燒產品圖片
     bulletA.querySelector('div').style.backgroundImage = `url("https://${hostName}${parsedData.data[i].picture}")`;
@@ -144,6 +133,8 @@ function setBullet(parsedData) {
     createPoet(imgContentArray, bulletTextDiv);
   }
 }
+
+// ----創造與移除元素----
 
 function createPoet(imgTextArray, HTMLelement) {
   for (let i = 0; i < imgTextArray.length; i++) {
@@ -157,76 +148,6 @@ function createPoet(imgTextArray, HTMLelement) {
       pp.innerHTML += `${imgTextArray[i]}`;
     }
   }
-}
-
-
-
-/*  實驗之函數
-//ajax("https://api.appworks-school.tw/api/1.0/marketing/hots", setJSONObject);
- 
-function setJSONObject(parsedData) {
-  //console.log(parsedData.data[0].products[0].images[0]);
-  //a = parsedData.data[0].products[0].images[1];
-  //createImg(a);
-  console.log(parsedData);
-  console.log(parsedData.data[0].products[0].main_image);
-  //設定主頁宣傳圖
-  document.getElementsByClassName('container-3')[0].style.backgroundImage = `url(${parsedData.data[0].products[0].main_image})`;
-  //設定產品圖
-  //document.getElementsByClassName('img-4x2')[0].src = parsedData.data[0].products[0].images[1];
-  //設定產品顏色
-  //createColor(`#${parsedData.data[0].products[0].colors[0].code}`);
-  //設定產品名稱與價錢
-  document.getElementsByClassName('text-product')[0].innerHTML = `${parsedData.data[0].products[0].title}`;
-  document.getElementsByClassName('text-product')[0].appendChild(document.createElement("br"));
-  document.getElementsByClassName('text-product')[0].innerHTML += `TWD.${parsedData.data[0].products[0].price}`;
- 
-  document.getElementsByClassName('text-product')[1].innerHTML = `${parsedData.data[0].products[0].title}`;
-  document.getElementsByClassName('text-product')[1].appendChild(document.createElement("br"));
-  document.getElementsByClassName('text-product')[1].innerHTML += `TWD.${parsedData.data[0].products[0].price}`;
- 
-  document.getElementsByClassName('text-product')[2].innerHTML = `${parsedData.data[0].products[0].title}`;
-  document.getElementsByClassName('text-product')[2].appendChild(document.createElement("br"));
-  document.getElementsByClassName('text-product')[2].innerHTML += `TWD.${parsedData.data[0].products[0].price}`;
- 
-  document.getElementsByClassName('text-product')[3].innerHTML = `${parsedData.data[0].products[0].title}`;
-  document.getElementsByClassName('text-product')[3].appendChild(document.createElement("br"));
-  document.getElementsByClassName('text-product')[3].innerHTML += `TWD.${parsedData.data[0].products[0].price}`;
- 
-  document.getElementsByClassName('text-product')[4].innerHTML = `${parsedData.data[0].products[0].title}`;
-  document.getElementsByClassName('text-product')[4].appendChild(document.createElement("br"));
-  document.getElementsByClassName('text-product')[4].innerHTML += `TWD.${parsedData.data[0].products[0].price}`;
- 
-  document.getElementsByClassName('text-product')[5].innerHTML = `${parsedData.data[0].products[0].title}`;
-  document.getElementsByClassName('text-product')[5].appendChild(document.createElement("br"));
-  document.getElementsByClassName('text-product')[5].innerHTML += `TWD.${parsedData.data[0].products[0].price}`;
- 
-}
- 
-function createImg(url) {
-  const body = document.getElementsByTagName('body')[0];
-  const img = document.createElement('img');
-  img.src = url;
-  body.appendChild(img);
-}
- 
-const resetCursor = (event) => {
-  event.target.style.cursor = "default";
-};
- 
-function createSearchInput() {
-  const parent = document.getElementsByClassName('container-1')[0];
-  const childInput = document.createElement('input');
-  parent.appendChild(childInput);
-}
-
-*/
-
-function createColor(colorClassName, colorNumber) {
-  const ul = document.getElementsByClassName(`${colorClassName}`)[0];
-  const li = document.createElement('li');
-  li.style.backgroundColor = `#${colorNumber}`;
-  ul.appendChild(li);
 }
 
 function createNewIcon() {
@@ -259,85 +180,10 @@ function removeAllSpanText() {
   childText.forEach((element) => { parent.removeChild(element); });
 }
 
-function showSearchBar() {
-  const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
-  searchBarDiv.style.display = 'flex';
-}
-
-function hideSearchBar() {
-  const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
-  searchBarDiv.style.display = 'none';
-}
-
-// ---- Hover換圖網址函數 -----
-
-function hover(element, url) {
-  element.setAttribute('src', url);
-}
-
-function unhover(element, url) {
-  element.setAttribute('src', url);
-}
 
 
 // ---- 加入事件監聽函數 -----
 
-// 點選產品後，取得產品資料，並顯示
-
-const womenNavBar = document.getElementsByClassName('item-2x1')[0];
-const womenNavBar2 = document.getElementsByClassName('item-2x1')[1];
-
-womenNavBar.addEventListener('click', () => {
-  getWomenProduct();
-});
-
-womenNavBar2.addEventListener('click', () => {
-  getWomenProduct();
-});
-
-const menNavBar = document.getElementsByClassName('item-2x2')[0];
-const menNavBar2 = document.getElementsByClassName('item-2x2')[1];
-
-menNavBar.addEventListener('click', () => {
-  getMenProduct();
-});
-
-menNavBar2.addEventListener('click', () => {
-  getMenProduct();
-});
-
-const accNavBar = document.getElementsByClassName('item-2x3')[0];
-const accNavBar2 = document.getElementsByClassName('item-2x3')[1];
-
-accNavBar.addEventListener('click', () => {
-  getAccProduct();
-});
-
-accNavBar2.addEventListener('click', () => {
-  getAccProduct();
-});
-
-// 點選放大鏡後，顯示搜尋Bar，按header外其他位置，隱藏搜尋Bar
-const magnifier = document.getElementsByClassName('item-1x2')[0];
-
-magnifier.addEventListener('click', () => {
-  showSearchBar();
-  document.getElementsByTagName('section')[0].addEventListener('click', () => {
-    hideSearchBar();
-  });
-});
-
-// 打搜尋字串，再滑鼠點選放大鏡後，使用AJAX撈資料並顯示。之後清除input text
-
-const searchBarBtn = document.getElementsByClassName('img-1x4')[0];
-
-searchBarBtn.addEventListener('click', () => {
-  userValue = document.getElementsByClassName('search-bar')[0].value;
-  console.log('userValue Updated');
-  console.log(userValue);
-  ajax(`${productListURL}/search?keyword=${userValue}`, setProduct);
-  document.getElementsByClassName('search-bar')[0].value = '';   //打userValue =  ''; 無效??
-});
 
 // 先監聽滑動事件，滑動到底時，使用AJAX再撈資料，顯示多撈到的產品，並取消監聽滑動事件
 // 要監聽時，再加入 window.addEventListener('scroll', handleScroll);
@@ -348,21 +194,18 @@ let ticking = false;
 function handleScroll(e) {
   if (!ticking) {
     window.requestAnimationFrame(function () {
-      doAjaxGetExt();
+      let windowHeight = window.innerHeight;
+      let footerRemains = document.getElementsByClassName('container-5')[0].getBoundingClientRect().top;
+      if (footerRemains - windowHeight < 0) {
+        // 先移除卷軸監聽。若有下頁資料，再在setExtProduct函數中加回卷軸監聽
+        window.removeEventListener('scroll', handleScroll);
+        // 抓下頁資料
+        ajax(extPageURL, setExtProduct);
+      }
       ticking = false;
     });
   }
   ticking = true;
-}
-
-function doAjaxGetExt() {
-  let windowHeight = window.innerHeight;
-  let footerRemains = document.getElementsByClassName('container-5')[0].getBoundingClientRect().top;
-  if (footerRemains - windowHeight < 0) {
-    ajax(extPageURL, setExtProduct);
-    // 先移除卷軸監聽。若有下頁資料，再在setExtProduct函數中加回卷軸監聽
-    window.removeEventListener('scroll', handleScroll);
-  }
 }
 
 
@@ -370,7 +213,11 @@ function setExtProduct(parsedData) {
   pageNumberNow++;
   // 加入瀏覽器卷軸滑動到底時，要引入下頁的URL，並加入已被移除的卷軸監聽。若無下頁，則設定URL為空
   if (parsedData.paging !== undefined) {
-    extPageURL = `${productListURL}/${pageIndicator}?paging=${parsedData.paging}`;
+    if (pageIndicator.substr(0,6) == "search"){
+      extPageURL = `${productListURL}/${pageIndicator}&paging=${parsedData.paging}`;
+    } else {
+      extPageURL = `${productListURL}/${pageIndicator}?paging=${parsedData.paging}`;
+    }    
     window.addEventListener('scroll', handleScroll);
   } else {
     extPageURL = '';
@@ -387,6 +234,7 @@ function setExtProduct(parsedData) {
 
     const newItemDiv = document.createElement('div');
     newItemDiv.setAttribute('class', `item-4x${numOfItem + i + 1} item-product`);
+    const newItemA = document.createElement('a');
     const newItemImg = document.createElement('img');
     newItemImg.setAttribute('class', `img-4x${numOfItem + i + 1} img-product`);
     const newColorUl = document.createElement('ul');
@@ -394,7 +242,8 @@ function setExtProduct(parsedData) {
     const newText = document.createElement('p');
     newText.setAttribute('class', `text-4x${numOfItem + i + 1} text-product`);
     Parent.appendChild(newItemDiv);
-    newItemDiv.appendChild(newItemImg);
+    newItemDiv.appendChild(newItemA);
+    newItemA.appendChild(newItemImg);
     newItemDiv.appendChild(newColorUl);
     newItemDiv.appendChild(newText);
 
@@ -402,6 +251,10 @@ function setExtProduct(parsedData) {
 
     const img = document.getElementsByClassName(`img-4x${numOfItem + i + 1}`)[0];
     img.src = parsedData.data[i].main_image;
+
+    // 加入產品超連結
+    const productA = document.querySelector(`.item-4x${numOfItem + i + 1} a`);
+    productA.href = `product.html?id=${parsedData.data[i].id}`;
 
     // 加入產品顏色，兩步驟 1.先移除所有產品顏色 2.再新增顏色
     // 1. 先移除所有產品顏色
@@ -435,14 +288,14 @@ circleUl.addEventListener('click', (e) => {
   const dotLi = document.querySelectorAll('.dot > ul > li');
 
   const bulletImgDisplayTime = getComputedStyle(document.documentElement).
-    getPropertyValue('--bullet-img-display-time').substring(1, 2);
+    getPropertyValue('--bullet-img-display-time').slice(1).split('s')[0];
 
   // 重設每張圖片(及文字)的delay time，讓動畫從點選的圖片開始撥放
   if (e.target.className.substring(0, 1) == 1) {
     bulletImgA[0].style.animationDelay = '0s';
     bulletImgA[1].style.animationDelay = `${bulletImgDisplayTime}s`;
     bulletImgA[2].style.animationDelay = `${bulletImgDisplayTime * 2}s`;
-    
+
     bulletWordsDiv[0].style.animationDelay = '0s';
     bulletWordsDiv[1].style.animationDelay = `${bulletImgDisplayTime}s`;
     bulletWordsDiv[2].style.animationDelay = `${bulletImgDisplayTime * 2}s`;
@@ -455,7 +308,7 @@ circleUl.addEventListener('click', (e) => {
     bulletImgA[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
     bulletImgA[1].style.animationDelay = '0s';
     bulletImgA[2].style.animationDelay = `${bulletImgDisplayTime}s`;
-    
+
     bulletWordsDiv[0].style.animationDelay = `-${bulletImgDisplayTime}s`;
     bulletWordsDiv[1].style.animationDelay = '0s';
     bulletWordsDiv[2].style.animationDelay = `${bulletImgDisplayTime}s`;
@@ -468,7 +321,7 @@ circleUl.addEventListener('click', (e) => {
     bulletImgA[0].style.animationDelay = `-${bulletImgDisplayTime * 2}s`;
     bulletImgA[1].style.animationDelay = `-${bulletImgDisplayTime * 1}s`;
     bulletImgA[2].style.animationDelay = '0s';
-    
+
     bulletWordsDiv[0].style.animationDelay = `-${bulletImgDisplayTime * 2}s`;
     bulletWordsDiv[1].style.animationDelay = `-${bulletImgDisplayTime * 1}s`;
     bulletWordsDiv[2].style.animationDelay = '0s';
@@ -480,7 +333,7 @@ circleUl.addEventListener('click', (e) => {
 
   // 移除動畫的class，再新增完全一樣的class，讓動畫能重新撥放
   for (let i = 0; i < bulletImgA.length; i++) {
-    
+
     // 1. 移除動畫的class
     bulletImgA[i].classList.remove("item-3x3-a");
     bulletWordsDiv[i].classList.remove("item-3x1-a");
@@ -497,3 +350,18 @@ circleUl.addEventListener('click', (e) => {
 });
 
 
+// ---加入點擊跑馬燈圖片監聽，可設定跳轉後頁面的AJAX網址，展開寫法，目前直接加在第一次讀取的迴圈中---
+
+/*
+for (let i = 0; i < document.querySelectorAll('.item-3x3 a').length; i++) {
+  const bulletA = document.querySelectorAll('.item-3x3 a')[i];
+  const bulletTextDiv = document.querySelectorAll('.item-3x1 div')[i];
+  bulletA.addEventListener('click', (e) => {
+    bulletA.href = `product.html?id=${bulletA.id}`;
+  });
+
+  bulletTextDiv.addEventListener('click', (e) => {
+    window.location.href=`product.html?id=${bulletA.id}`;
+  });
+}
+*/
