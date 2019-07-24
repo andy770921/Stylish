@@ -111,10 +111,14 @@ for (let i in orderJSON.order.list) {
 
     // ---- 加入刪除數量事件監聽函數 -----
     document.querySelector(`.trash-can-${Number(i) + 1}`).addEventListener('click', (e) => {
-        const amountOfTrushCan = document.querySelectorAll('.trash-can-product').length;
+        const colOfTrushCan = document.querySelectorAll('.trash-can-product');
+        let trashCanNumMinusOne = -10;
+        for ( let i = 0 ; i < colOfTrushCan.length ; i ++) {
+            if (colOfTrushCan[i] == e.target) {trashCanNumMinusOne = i; }
+        }
         
         // ---- 統計畫面中垃圾桶數量，刪除物件元素與local storage -----
-        orderJSON.order.list.splice(amountOfTrushCan - 1, 1);
+        orderJSON.order.list.splice(trashCanNumMinusOne, 1);
         localStorage.setItem('orderJSONinLocal', JSON.stringify(orderJSON));
         // ---- 刪除UI -----
         const productParent = e.target.parentNode.parentNode;
