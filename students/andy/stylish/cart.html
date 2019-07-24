@@ -364,8 +364,6 @@
                 
                 if (finalJsonObj) {
                     alert('收件人資料及信用卡資料正確，已送出訂單' + JSON.stringify(finalJsonObj));
-                    console.log(finalJsonObj);
-                    console.log("a");
                     postAjax(sentBuyDetailURL, finalJsonObj);
                 }
                 

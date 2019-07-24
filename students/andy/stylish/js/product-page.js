@@ -66,7 +66,7 @@ function getStocks(parsedData) {
 
       //取得 sever 端庫存 element.stock ，再扣掉目前購物車內有的數量。
       remainStocks = element.stock;
-      remainStocksMinusCart = element.stock - getCartRemains(parsedData.data.id, element.color_code, element.size, orderJSON.list);
+      remainStocksMinusCart = element.stock - getCartRemains(parsedData.data.id, element.color_code, element.size, orderJSON.order.list);
 
       // 如果庫存為 0，先讓購物車按鈕不能按
       checkRmainsDisableBtn(remainStocksMinusCart, '.add-3x2');
@@ -88,7 +88,7 @@ function getStocks(parsedData) {
         element.color_code, colorName, element.size, 0, parsedData.data.main_image, element.stock);
   
       //購物車數量圓點更新，含判斷有無圓點創出
-      setCartNum('cart-num', orderJSON.list);
+      setCartNum('cart-num', orderJSON.order.list);
     }
   });
 }
@@ -233,22 +233,22 @@ addBtn.addEventListener('click', (e) => {
   //將訂購數量，加入user order物件，再將user order加入orderJSON物件
   let haveSameItem = false;
 
-  for (let i = 0; i < orderJSON.list.length; i++){
-    if (orderJSON.list[i].id == userOrder.id && orderJSON.list[i].color.code == colorNow && orderJSON.list[i].size == sizeNow) { //若原先就有物件，將local JSON數量，加進使用者數字
-        orderJSON.list[i].qty = orderJSON.list[i].qty + userAmount;
+  for (let i = 0; i < orderJSON.order.list.length; i++){
+    if (orderJSON.order.list[i].id == userOrder.id && orderJSON.order.list[i].color.code == colorNow && orderJSON.order.list[i].size == sizeNow) { //若原先就有物件，將local JSON數量，加進使用者數字
+        orderJSON.order.list[i].qty = orderJSON.order.list[i].qty + userAmount;
         haveSameItem = true;
       }
     } 
     
   if (!haveSameItem) {  //將創造的物件，指定進local JSON
       userOrder.qty = userAmount;
-      orderJSON.list.push(userOrder);
+      orderJSON.order.list.push(userOrder);
 
       //--- 創造購物車圓點、重設數字 ---
     if (document.querySelectorAll('.cart-num p').length == 0) {
       createCartNumIcon('cart', 'cart-num', 1);
       }
-      setCartNum('cart-num', orderJSON.list);
+      setCartNum('cart-num', orderJSON.order.list);
     }
 
   //將訂購的物件，存入localStorage

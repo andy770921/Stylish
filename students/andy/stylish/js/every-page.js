@@ -22,7 +22,7 @@ let userAmount = 0;
 let shippingFee = 40;
 
 // orderList Object
-let orderJSON = { "prime": "", "order": {}, "list": [] };
+let orderJSON = { "prime": "", "order": {"list": [] } };
 class orderList {
   constructor(id, name, price, colorCode, colorName, size, quantity, imgSrc, stock) {
     this.id = id;
@@ -71,9 +71,9 @@ for (let i = 0; i < navBarWords.length; i++) {
 
 
 //當localStorage有資料陣列，先讀取，並顯示在購物車圓點
-if (localStorage.getItem('orderJSONinLocal') !== `{"prime":"","order":{},"list":[]}` && localStorage.getItem('orderJSONinLocal') !== null) {
+if (localStorage.getItem('orderJSONinLocal') !== `{"prime":"","order":{"list":[]}}` && localStorage.getItem('orderJSONinLocal') !== null) {
   orderJSON = JSON.parse(localStorage.getItem('orderJSONinLocal'));
-  createCartNumIcon('cart', 'cart-num', orderJSON.list.length);
+  createCartNumIcon('cart', 'cart-num', orderJSON.order.list.length);
 }
 
 //----與連線遠端，取得JSON相關----
@@ -101,15 +101,13 @@ function postAjax(src, sentObj) {
   xhr.setRequestHeader('Content-type', 'application/json');
   xhr.onload = function () {
     var parsedData = JSON.parse(xhr.responseText);
-    if (xhr.readyState == 4 && xhr.status == "201") {
+    if (xhr.readyState == 4 && xhr.status == "200") {
       console.log(parsedData);
     } else {
       console.error(parsedData);
     }
   }
   var sentJSON = JSON.stringify(sentObj);
-  console.log("c");
-  console.log(JSON.stringify(sentObj));
   xhr.send(sentJSON);
 }
 
