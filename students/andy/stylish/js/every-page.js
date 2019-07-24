@@ -4,6 +4,7 @@ const ApiVersion = "1.0";
 const productListURL = `https://${hostName}/api/${ApiVersion}/products`;
 const bulletURL = `https://${hostName}/api/${ApiVersion}/marketing/campaigns`;
 const productDetailURL = `https://${hostName}/api/${ApiVersion}/products/details?id=`;
+const sentBuyDetailURL = `https://${hostName}/api/${ApiVersion}/order/checkout`;
 let pageIndicator = "all";
 let extPageURL = "";
 let pageNumberNow = 0;
@@ -70,7 +71,7 @@ for (let i = 0; i < navBarWords.length; i++) {
 
 
 //當localStorage有資料陣列，先讀取，並顯示在購物車圓點
-if (localStorage.getItem('orderJSONinLocal') !== `{"prime":"","order":{},"list":[]}` && localStorage.getItem('orderJSONinLocal') !==  null ) {
+if (localStorage.getItem('orderJSONinLocal') !== `{"prime":"","order":{},"list":[]}` && localStorage.getItem('orderJSONinLocal') !== null) {
   orderJSON = JSON.parse(localStorage.getItem('orderJSONinLocal'));
   createCartNumIcon('cart', 'cart-num', orderJSON.list.length);
 }
@@ -92,6 +93,24 @@ function ajax(src, callback) {
   };
   xhr.open('GET', src);
   xhr.send();
+}
+
+function postAjax(src, sentObj) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", src, true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+  xhr.onload = function () {
+    var parsedData = JSON.parse(xhr.responseText);
+    if (xhr.readyState == 4 && xhr.status == "201") {
+      console.log(parsedData);
+    } else {
+      console.error(parsedData);
+    }
+  }
+  var sentJSON = JSON.stringify(sentObj);
+  console.log("c");
+  console.log(JSON.stringify(sentObj));
+  xhr.send(sentJSON);
 }
 
 //----取得網址後問號的Query字串相關----
@@ -200,7 +219,7 @@ function createAppendOption(parentClassName, maxNumber, selectedNumber) {
     childP.setAttribute('value', i + 1);
     childP.innerText = i + 1;
     parent.appendChild(childP);
-    if ( i + 1 == selectedNumber){ childP.setAttribute('selected', 'selected'); }
+    if (i + 1 == selectedNumber) { childP.setAttribute('selected', 'selected'); }
   }
 }
 
@@ -324,7 +343,7 @@ const cartIcon1 = document.getElementsByClassName('cart')[0];
 const cartIcon2 = document.getElementsByClassName('cart')[1].parentNode;
 
 cartIcon1.addEventListener('click', (e) => {
-    location.href = 'cart.html';
+  location.href = 'cart.html';
 });
 
 cartIcon2.addEventListener('click', (e) => {

@@ -178,7 +178,7 @@
                             </div>
                             <div><input type="radio" value="afternoon" name="receiving-option"><span>14:00 - 18:00</span>
                             </div>
-                            <div><input type="radio" value="whenever" name="receiving-option"><span>不指定</span></div>
+                            <div><input type="radio" value="anytime" name="receiving-option"><span>不指定</span></div>
                         </div>
                     </div>
                 </div>
@@ -364,7 +364,11 @@
                 
                 if (finalJsonObj) {
                     alert('收件人資料及信用卡資料正確，已送出訂單' + JSON.stringify(finalJsonObj));
+                    console.log(finalJsonObj);
+                    console.log("a");
+                    postAjax(sentBuyDetailURL, finalJsonObj);
                 }
+                
                 return;
                 // send prime to your server, to pay with Pay by Prime API .
                 // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
