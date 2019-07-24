@@ -8,6 +8,19 @@ let pageIndicator = "all";
 let extPageURL = "";
 let pageNumberNow = 0;
 
+// product page parameter
+let pageNow = 0;
+let colorNow = 0;
+let sizeNow = 0;
+let remainStocks = -10;
+let remainStocksMinusCart = -10;
+let userAmount = 0;
+
+
+// cart page parameter
+let shippingFee = 40;
+
+// orderList Object
 let orderJSON = { "prime": "", "order": {}, "list": [] };
 class orderList {
   constructor(id, name, price, colorCode, colorName, size, quantity, imgSrc, stock) {
@@ -24,6 +37,26 @@ class orderList {
     this.stock = stock;
   }
 };
+class shippingInfo {
+  constructor(shipping, payment, subtotal, freight, total, name, phone, email, address, time) {
+    this.shipping = shipping;
+    this.payment = payment;
+    this.subtotal = subtotal;
+    this.freight = freight;
+    this.total = total;
+    this.recipient = {
+      "name": name,
+      "phone": phone,
+      "email": email,
+      "address": address,
+      "time": time,
+    };
+  }
+};
+
+let userOrder = new orderList("", "", 0, "", "", "", 0);
+
+//let userInfo = new shippingInfo("delivery", "credit_card", 1234, 60, 1300, "Luke", "0987654321", "email@email", "市政府站", "morning");
 //let userOrder = new orderList("201807202157", "活力花紋長筒牛仔褲", 1299, "DDF0FF", "淺藍", "M", 1);
 
 

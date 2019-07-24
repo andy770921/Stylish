@@ -1,12 +1,4 @@
 
-let pageNow = 0;
-let colorNow = 0;
-let sizeNow = 0;
-let remainStocks = -10;
-let remainStocksMinusCart = -10;
-let userAmount = 0;
-let userOrder = new orderList("", "", 0, "", "", "", 0);
-
 ajax(`${productDetailURL}${getQueryValueByName('id')}`, setDetail);
 
 function setDetail(parsedData) {

@@ -31,6 +31,7 @@ body {
     margin: 0 auto 0;
     display: flex;
     flex-direction: column;
+    letter-spacing: 1.0px;
 }
 
 /* 開頭文字 */
@@ -229,6 +230,9 @@ body {
   border-radius: 8px;
   border: solid 1px #979797;
   background-color: #ffffff;
+  padding-left: 10px;
+  letter-spacing: 1.0px;
+
 }
 
 .item-3x5 > div:nth-child(1) {
@@ -237,13 +241,15 @@ body {
 .item-3x5 > div:nth-child(2) {
   margin-top: 0px;
   color: #8b572a;
+  display: flex;
+  justify-content: flex-end;
 }
 
 
 .receiving {
   margin-top: 0px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .receiving div{
   margin-top: 0px;
@@ -296,6 +302,10 @@ input[type="radio"] {
   border-width: 1.0px;
 }
 /* ----總金額計算 ---- */
+.credit-card-form {
+  display: flex;
+  flex-direction: column;
+}
 
 .item-3x6 {
   display: flex;
@@ -303,6 +313,7 @@ input[type="radio"] {
   width: 55.55%; /* 360 - 136 - 24 = 200 px   200/360 = 55.55%*/
   align-self: flex-end;
   margin-top: 24px;
+  max-width: 300px;
 }
 
 .product-sum, .shipping-fee, .all-sum {
@@ -527,7 +538,7 @@ input[type="radio"] {
       align-items: center;
       width: 70%;
     }
-    .item-3x5 > div >div , .item-3x5-credit > div > div:first-child{
+    .item-3x5 > div > div:first-child , .item-3x5-credit > div > div:first-child{
       margin: 0;
       margin-right: auto;
     }
@@ -575,10 +586,6 @@ input[type="radio"] {
     }
   /* ----總金額計算 ---- */
 
-  .credit-card-form {
-    display: flex;
-    flex-direction: column;
-  }
   .item-3x6 {
     width: 240px;   /* ----240px/1920px = 12.5% ---- */
     margin-top: 24px;

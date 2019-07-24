@@ -127,56 +127,62 @@
                             src="./image/cart-remove.png"></div>
                 </div> -->
             </div>
-            <div class="item-3x3">
-                <div class="country">
-                    <p>配送國家</p>
-                    <select>
-                        <option value="" hidden>台灣或離島</option>
-                        <option value="tw">台灣</option>
-                        <option value="island">離島</option>
-                    </select>
-                </div>
-                <div class="pay-method">
-                    <p>付款方式</p>
-                    <select>
-                        <option value="" hidden>信用卡或宅配貨到付款</option>
-                        <option value="credit-card">信用卡</option>
-                        <option value="ship-to-house">宅配貨到付款</option>
-                    </select>
-                </div>
-            </div>
-            <div class="item-3x4">
-                <div>※ 提醒您：<br>
-                    ● 選擇宅配 - 請填寫正確收件人資訊，避免包裹配送不達<br>
-                    ● 選擇超商 - 請填寫正確收件人姓名(與證件相符)，避免無法領取</div>
-                <div>訂購資料</div>
-            </div>
-            <div class="item-3x5">
-                <div>
-                    <div>收件人姓名</div>
-                    <input type="text" name="receiver-name">
-                </div>
-                <div>務必填寫完整收件人姓名，避免包裹無法順利簽收</div>
-                <div>
-                    <div>手機</div>
-                    <input type="tel" name="phone">
-                </div>
-                <div>
-                    <div>地址</div>
-                    <input type="text" name="address">
-                </div>
-                <div>
-                    <div>配送時間</div>
-                    <div class="receiving">
-                        <div><input type="radio" name="receiving-time" value="08:00 - 12:00"><span>08:00 - 12:00</span>
-                        </div>
-                        <div><input type="radio" name="receiving-time" value="14:00 - 18:00"><span>14:00 - 18:00</span>
-                        </div>
-                        <div><input type="radio" name="receiving-time" value="whenever"><span>不指定</span></div>
+            <form class="credit-card-form" onsubmit="getPrime(); return false;">
+                <div class="item-3x3">
+                    <div class="country">
+                        <p>配送國家</p>
+                        <select>
+                            <option value="" hidden>台灣或離島</option>
+                            <option value="tw">台灣</option>
+                            <option value="island">離島</option>
+                        </select>
+                    </div>
+                    <div class="pay-method">
+                        <p>付款方式</p>
+                        <select id="payment-method">
+                            <option value="" hidden>信用卡或宅配貨到付款</option>
+                            <option value="credit_card" selected="selected">信用卡</option>
+                            <option value="ship_to_house">宅配貨到付款</option>
+                        </select>
                     </div>
                 </div>
-            </div>
-            <form class="credit-card-form" onsubmit="getPrime(); return false;">
+                <div class="item-3x4">
+                    <div>※ 提醒您：<br>
+                        ● 選擇宅配 - 請填寫正確收件人資訊，避免包裹配送不達<br>
+                        ● 選擇超商 - 請填寫正確收件人姓名(與證件相符)，避免無法領取</div>
+                    <div>訂購資料</div>
+                </div>
+
+                <div class="item-3x5">
+                    <div>
+                        <div>收件人姓名</div>
+                        <input type="text" id="receiver-name">
+                    </div>
+                    <div>務必填寫完整收件人姓名，避免包裹無法順利簽收</div>
+                    <div>
+                        <div>手機</div>
+                        <input type="tel" id="phone">
+                    </div>
+                    <div>
+                        <div>電子郵件</div>
+                        <input type="text" id="email">
+                    </div>
+                    <div>
+                        <div>地址</div>
+                        <input type="text" id="address">
+                    </div>
+                    <div>
+                        <div>配送時間</div>
+                        <div class="receiving" id="receiving-time">
+                            <div><input type="radio" value="moring" name="receiving-option"><span>08:00 - 12:00</span>
+                            </div>
+                            <div><input type="radio" value="afternoon" name="receiving-option"><span>14:00 - 18:00</span>
+                            </div>
+                            <div><input type="radio" value="whenever" name="receiving-option"><span>不指定</span></div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="item-3x5-credit">
                     <div>信用卡資料</div>
                     <div>
@@ -331,7 +337,7 @@
         // });
 
 
-        // --- step3:  若 .canGetPrime 值為 true ，觸發此函數時，會得到一串 Prime  -----
+        // --- step3:  若 .canGetPrime 值為 true ，觸發此函數時，會得到一串 Prime (result.card.prime)  -----
 
         function getPrime() {
             //event.preventDefault();
@@ -347,10 +353,18 @@
             // Get prime
             TPDirect.card.getPrime((result) => {
                 if (result.status !== 0) {
-                    alert('get prime error ' + result.msg)
+                    alert('get prime error ' + result.msg);
                     return;
                 }
-                alert('get prime 成功，prime: ' + result.card.prime)
+                //alert('get prime 成功，prime: ' + result.card.prime);
+                
+
+                // sendFinalOrder 函數說明: 若資料沒問題，函數會回傳移除圖片連結及庫存之後的物件。若過程中有問題，會回傳False
+                const finalJsonObj = sendFinalOrder("payment-method", "receiver-name", "phone", "email", "address", "receiving-time", result.card.prime, orderJSON);
+                
+                if (finalJsonObj) {
+                    alert('收件人資料及信用卡資料正確，已送出訂單' + JSON.stringify(finalJsonObj));
+                }
                 return;
                 // send prime to your server, to pay with Pay by Prime API .
                 // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api

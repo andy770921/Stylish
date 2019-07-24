@@ -1,4 +1,3 @@
-let shippingFee = 40;
 
 function setTotalPrice(additionalFee) {
     let noFeeTotal = 0;
@@ -7,6 +6,62 @@ function setTotalPrice(additionalFee) {
     document.querySelector('.all-sum').lastElementChild.innerText = noFeeTotal + additionalFee;
 }
 
+function putShippingFee(fee) {
+    const shippingFeeNode = document.querySelector('.shipping-fee').lastElementChild;
+    shippingFeeNode.innerText = fee;
+}
+
+// sendFinalOrder 函數說明: 若資料沒問題，函數會回傳移除圖片連結及庫存之後的物件。若過程中有問題，會回傳False
+
+function sendFinalOrder(paymentEleID, nameEleID, phoneEleID, emailEleID, addressEleID, timeEleID, primeKey, JsonObj) {
+    const paymentMethod = document.getElementById(paymentEleID).value;
+    const name = document.getElementById(nameEleID).value;
+    const phone = document.getElementById(phoneEleID).value;
+    const email = document.getElementById(emailEleID).value;
+    const address = document.getElementById(addressEleID).value;
+    const timeInputList = document.getElementById(timeEleID).children;
+
+    // 找出付款方式
+    let time = 'no any delivery time selected';
+    for (let i = 0; i < timeInputList.length; i++) {
+        if (timeInputList[i].firstElementChild.checked) {
+            time = timeInputList[i].firstElementChild.value;
+        }
+    }
+
+    // 計算總價錢
+    let noFeeTotal = 0;
+    orderJSON.list.forEach((element) => { noFeeTotal += element.price * element.qty; });
+    const addFeeTotal = noFeeTotal + shippingFee;
+
+    // 加入判斷式，檢查表格是否空白
+    if (addFeeTotal == shippingFee) {
+        alert('沒買任何物品喔');
+        return false;
+    }
+    if (name === "" || phone === "" || email === "" || address === "") {
+        alert('還沒填完收件人資料喔');
+        return false;
+    }
+    if (time == 'no any delivery time selected') {
+        alert('還沒選配送時間喔');
+        return false;
+    }
+
+    // 設定primeKey
+    JsonObj.prime = primeKey;
+    // 設定寄件資料
+    // JsonObj.order = new shippingInfo("delivery", "credit_card", 1234, 60, 1300, "Luke", "0987654321", "email@email", "市政府站", "morning");
+    JsonObj.order = new shippingInfo("delivery", paymentMethod, noFeeTotal, shippingFee, addFeeTotal, name, phone, email, address, time);
+    // 移除產品圖片及庫存後，放入新物件
+    let finalJsonObj = Object.assign({}, JsonObj);
+    JsonObj.list.forEach((element) => { delete element.imgSrc; delete element.stock; });
+
+    return finalJsonObj;
+
+    // ----存入 local storage -----，也可不用存
+    //localStorage.setItem('orderJSONinLocal', JSON.stringify(JsonObj));
+}
 
 document.querySelector(`.text-3x1x2 > div`).innerText = `購物車 (${orderJSON.list.length})`;
 
@@ -54,12 +109,13 @@ for (let i in orderJSON.list) {
 
     // ---- 加入刪除數量事件監聽函數 -----
     document.querySelector(`.trash-can-${Number(i) + 1}`).addEventListener('click', (e) => {
-        const productParent = e.target.parentNode.parentNode;
-        const listNumber = productParent.className.substr(13, 1);
-        // ---- 刪除物件元素與local storage -----
-        orderJSON.list.splice(Number(listNumber - 1), 1);
+        const amountOfTrushCan = document.querySelectorAll('.trash-can-product').length;
+        
+        // ---- 統計畫面中垃圾桶數量，刪除物件元素與local storage -----
+        orderJSON.list.splice(amountOfTrushCan - 1, 1);
         localStorage.setItem('orderJSONinLocal', JSON.stringify(orderJSON));
         // ---- 刪除UI -----
+        const productParent = e.target.parentNode.parentNode;
         productParent.parentNode.removeChild(productParent);
         // ---- 設定UI金額 -----
         setTotalPrice(shippingFee);
@@ -76,18 +132,14 @@ for (let i in orderJSON.list) {
     });
 }
 
-function putShippingFee(fee) {
-    const shippingFeeNode = document.querySelector('.shipping-fee').lastElementChild;
-    shippingFeeNode.innerText = fee;
-}
 
 putShippingFee(shippingFee);
 setTotalPrice(shippingFee);
 
 // ---- 加入點選數量事件監聽函數 -----
 
-for (let i = 0; i < document.querySelectorAll('select').length; i++) {
-    document.querySelectorAll('select')[i].addEventListener('change', (e) => {
+for (let i = 0; i < document.querySelectorAll('.cart-product-1x3 select').length; i++) {
+    document.querySelectorAll('.cart-product-1x3 select')[i].addEventListener('change', (e) => {
         let chosenQty = e.target.value;
         const price = e.target.parentNode.parentNode.children[1].children[1].innerText.substr(4);
         const parentDiv = e.target.parentNode.parentNode.children[2].children[1];
