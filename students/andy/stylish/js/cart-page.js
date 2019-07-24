@@ -73,8 +73,6 @@ for (let i in orderJSON.list) {
             //如果購物車無商品，顯示無商品字樣
             createAppendText('item-3x2', 'p', '都被刪光光了，無商品喔');
         }
-
-
     });
 }
 

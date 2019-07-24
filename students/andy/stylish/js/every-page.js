@@ -51,8 +51,8 @@ function ajax(src, callback) {
     if (xhr.readyState === 4 && xhr.status == 200) {
       //如果JSON可讀值，但是回收的JSON錯誤，加入判斷式
       if (JSON.parse(xhr.responseText) == "Wrong Request") {
-        console.log('something wrong in ajax function response');
-        console.log(xhr.responseText);
+        //console.log('something wrong in ajax function response');
+        //console.log(xhr.responseText);
       } else {
         callback(JSON.parse(xhr.responseText));
       }
@@ -205,7 +205,7 @@ function setCartNum(cartClassName, dataArray) {
         pChild.innerText = num;
       }
     } else {
-      console.log("no cart number icon, so don't need to set cart number");
+      //console.log("no cart number icon, so don't need to set cart number");
     }
   }
 }
