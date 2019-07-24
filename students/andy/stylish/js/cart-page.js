@@ -63,13 +63,15 @@ for (let i in orderJSON.list) {
         productParent.parentNode.removeChild(productParent);
         // ---- 設定UI金額 -----
         setTotalPrice(shippingFee);
+        // ---- 重設UI購物車後面的括號 -----
+        document.querySelector(`.text-3x1x2 > div`).innerText = `購物車 (${orderJSON.list.length})`;
         //設定購物車圓點
         if (orderJSON.list.length > 0) {
             setCartNum('cart-num', orderJSON.list);
         } else {
             removeCartIcon('cart-num');
             //如果購物車無商品，顯示無商品字樣
-            createAppendText('item-3x2', 'p', '都被你刪光光了，無商品喔');
+            createAppendText('item-3x2', 'p', '都被刪光光了，無商品喔');
         }
 
 
