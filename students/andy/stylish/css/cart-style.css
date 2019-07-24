@@ -527,13 +527,16 @@ input[type="radio"] {
       align-items: center;
       width: 70%;
     }
-    .item-3x5 > div >div , .item-3x5-credit > div > div{
+    .item-3x5 > div >div , .item-3x5-credit > div > div:first-child{
       margin: 0;
       margin-right: auto;
     }
 
     .container-3 input {
       width: 50%;   /*  (1920 - 490 - 856) / (1920 - 380 - 380) =  574 / 1160 = 49.48% */
+    }
+    .tpfield {
+      width: 50%; 
     }
 
     .item-3x5 > div:first-child, .item-3x5 > div:nth-child(3) , .item-3x5 > div:nth-child(4), .item-3x5 > div:nth-child(5){
@@ -572,6 +575,10 @@ input[type="radio"] {
     }
   /* ----總金額計算 ---- */
 
+  .credit-card-form {
+    display: flex;
+    flex-direction: column;
+  }
   .item-3x6 {
     width: 240px;   /* ----240px/1920px = 12.5% ---- */
     margin-top: 24px;

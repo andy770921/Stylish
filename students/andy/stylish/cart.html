@@ -13,6 +13,24 @@
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <!-- 加入響應式控制的Javascript套件modernizr，偵測視窗大小改變時，Search Bar正確顯示 -->
+    <style>
+        .tpfield {
+            height: 30px;
+            border-radius: 8px;
+            border: solid 1px #979797;
+            background-color: #ffffff;
+            padding-left: 10px;
+        }
+
+        .tappay-field-focus {
+            border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+        }
+    </style>
+    <script src="https://js.tappaysdk.com/tpdirect/v5.1.0"></script>
+    <!-- 加入TapPay -->
 
 </head>
 
@@ -151,25 +169,30 @@
                 <div>
                     <div>配送時間</div>
                     <div class="receiving">
-                        <div><input type="radio" name="receiving-time" value="08:00 - 12:00" ><span>08:00 - 12:00</span></div>
-                        <div><input type="radio" name="receiving-time" value="14:00 - 18:00" ><span>14:00 - 18:00</span></div>
-                        <div><input type="radio" name="receiving-time" value="whenever" ><span>不指定</span></div>
+                        <div><input type="radio" name="receiving-time" value="08:00 - 12:00"><span>08:00 - 12:00</span>
+                        </div>
+                        <div><input type="radio" name="receiving-time" value="14:00 - 18:00"><span>14:00 - 18:00</span>
+                        </div>
+                        <div><input type="radio" name="receiving-time" value="whenever"><span>不指定</span></div>
                     </div>
                 </div>
             </div>
+            <form class = "credit-card-form" onsubmit="onSubmit()">
             <div class="item-3x5-credit">
                 <div>信用卡資料</div>
                 <div>
                     <div>信用卡號碼</div>
-                    <input type="text" name="credit-card-number">
+                    <div class="tpfield" id="card-number"></div> <!-- <input type="text" name="credit-card-number"> -->
                 </div>
                 <div>
                     <div>有效期限</div>
-                    <input type="text" name="expired-time">
+                    <div class="tpfield" id="card-expiration-date"></div>
+                    <!-- <input type="text" name="expired-time"> -->
                 </div>
                 <div>
                     <div>安全碼</div>
-                    <input type="text" name="secure-code">
+                    <div class="tpfield" id="card-ccv"></div>
+                    <!--<input type="text" name="secure-code">-->
                 </div>
             </div>
             <div class="item-3x6">
@@ -190,9 +213,11 @@
                 </div>
             </div>
             <div class="item-3x7">
-                <button class="add-3x2">確認付款</button>
+                <button type="submit" class="add-3x2">確認付款</button>
             </div>
         </div>
+        </form>
+
         <div class="sticky">
             <div class="item-s addCursor">
                 <div class="cart"><img class="img-s" src="./image/cart-mobile.png"></div>
@@ -226,7 +251,102 @@
     </footer>
     <script type="text/javascript" src="js/every-page.js"></script>
     <script type="text/javascript" src="js/cart-page.js"></script>
+    <script>
+        TPDirect.setupSDK(12348, 'app_pa1pQcKoY22IlnSXq5m5WP5jFKzoRG58VEXpT7wU62ud7mMbDOGzCYIlzzLF', 'sandbox');
+        TPDirect.card.setup({
+            fields: {
+                number: {
+                    // css selector
+                    element: '#card-number',
+                    placeholder: '**** **** **** ****'
+                },
+                expirationDate: {
+                    // DOM object
+                    element: document.getElementById('card-expiration-date'),
+                    placeholder: 'MM / YY'
+                },
+                ccv: {
+                    element: '#card-ccv',
+                    placeholder: '後三碼'
+                }
+            },
+            styles: {
+                // Style all elements
+                'input': {
+                    'color': 'gray',
+                },
+                // Styling ccv field
+                'input.cvc': {
+                    // 'font-size': '16px'
+                },
+                // Styling expiration-date field
+                'input.expiration-date': {
+                    // 'font-size': '16px'
+                },
+                // Styling card-number field
+                'input.card-number': {
+                    // 'font-size': '16px'
+                },
+                // style focus state
+                ':focus': {
+                    // 'color': 'black'
+                },
+                // style valid state
+                '.valid': {
+                    'color': 'green'
+                },
+                // style invalid state
+                '.invalid': {
+                    'color': 'red'
+                },
+                // Media queries
+                // Note that these apply to the iframe, not the root window.
+                '@media screen and (max-width: 400px)': {
+                    'input': {
+                        'color': 'orange'
+                    }
+                }
+            }
+        });
+        document.querySelector('.add-3x2').setAttribute('disabled', true);
+        TPDirect.card.onUpdate(function (update) {
+            const submitButton = document.querySelector('.add-3x2');
+            // update.canGetPrime === true
+            // --> you can call TPDirect.card.getPrime()
+            if (update.canGetPrime) {
+                // Enable submit Button to get prime.
+                submitButton.removeAttribute('disabled');
+            } else {
+                // Disable submit Button to get prime.
+                submitButton.setAttribute('disabled', true);
+            }
+        });
 
+        function onSubmit(event) {
+            event.preventDefault()
+
+            // 取得 TapPay Fields 的 status
+            const tappayStatus = TPDirect.card.getTappayFieldsStatus()
+
+            // 確認是否可以 getPrime
+            if (tappayStatus.canGetPrime === false) {
+                alert('can not get prime')
+                return
+            }
+
+            // Get prime
+            TPDirect.card.getPrime((result) => {
+                if (result.status !== 0) {
+                    alert('get prime error ' + result.msg)
+                    return
+                }
+                alert('get prime 成功，prime: ' + result.card.prime)
+
+                // send prime to your server, to pay with Pay by Prime API .
+                // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
+            })
+        }
+    </script>
 </body>
 
 
