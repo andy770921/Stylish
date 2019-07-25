@@ -93,6 +93,7 @@ body {
 
 .img-product {
     width: 114px;  /* 114px / 360px = 31.66% */
+    height: auto;
 }
 
 .row-or-column-1, .row-or-column-2 {
@@ -170,7 +171,6 @@ body {
   margin-top: 20px;
   padding-bottom: 20px;
   flex: 1;
-  height: 164px;
   background-color: #e8e8e8;
   display: flex;
   flex-direction: column;
