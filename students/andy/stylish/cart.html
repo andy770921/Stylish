@@ -366,7 +366,8 @@
                     window.location.href=`thankyou.html?orderNumber=${parsedData.data.number}`;
                 }
                 if (finalJsonObj) {
-                    alert('收件人資料及信用卡資料正確，已送出訂單' + JSON.stringify(finalJsonObj));
+                    //alert('收件人資料及信用卡資料正確，已送出訂單' + JSON.stringify(finalJsonObj));
+                    alert('收件人資料及信用卡資料正確，已送出訂單');
                     postAjax(sentBuyDetailURL, finalJsonObj, jumpToThanksWithOrderNum);
                 }
                 
