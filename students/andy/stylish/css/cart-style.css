@@ -92,10 +92,8 @@ body {
 }
 
 .img-product {
-    /*width: 114px;   114px / 360px = 31.66% */
-    max-width: 100%;
-    min-width: 114px;
-    height: auto;
+   width: 114px;   /* 114px / 360px = 31.66% */
+   height: 152px;
 }
 
 .row-or-column-1, .row-or-column-2 {
