@@ -71,12 +71,12 @@ function getStocks(parsedData) {
       // 如果庫存為 0，先讓購物車按鈕不能按
       checkRmainsDisableBtn(remainStocksMinusCart, '.add-3x2');
       // 如果多於一個數字的<p>，先清除數字
-      if (document.querySelectorAll('.remains-3x2 p').length > 0) {
-        removeAppendText('remains-3x2', 'p');
+      if (document.querySelectorAll('.remains-3x2 span').length > 0) {
+        removeAppendText('remains-3x2', 'span');
       }
       // 再加入數字與庫存字樣
       document.querySelector('.remains-3x2').innerText = '庫存：';
-      createAppendText('remains-3x2', 'p', remainStocksMinusCart);
+      createAppendText('remains-3x2', 'span', remainStocksMinusCart);
       // 畫面顯示的購買數量設定為0，以及設定user點選加或減的值為 0
       userAmount = 0;
       document.querySelector('.amount-3x2').innerText = 0;
@@ -258,9 +258,9 @@ addBtn.addEventListener('click', (e) => {
   //--- 與剩餘庫存相關 ---
 
   //先將庫存數字扣掉，存進remainStocksMinusCart全域變數，後續按鈕點擊加減的event監聽要用到 (amountDiv.addEventListener)
-  remainStocksMinusCart = document.querySelector('.remains-3x2 p').innerText - userAmount;
+  remainStocksMinusCart = document.querySelector('.remains-3x2 span').innerText - userAmount;
   //用扣完後的庫存數字，刷新螢幕顯示值，再更新userAmount參數
-  document.querySelector('.remains-3x2 p').innerText = remainStocksMinusCart;
+  document.querySelector('.remains-3x2 span').innerText = remainStocksMinusCart;
   // 如果庫存為0，讓購物車按鈕不能按
   checkRmainsDisableBtn(remainStocksMinusCart, '.add-3x2');
 
