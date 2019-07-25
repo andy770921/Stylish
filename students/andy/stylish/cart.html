@@ -362,9 +362,12 @@
                 // sendFinalOrder 函數說明: 若資料沒問題，函數會回傳移除圖片連結及庫存之後的物件。若過程中有問題，會回傳False
                 const finalJsonObj = sendFinalOrder("payment-method", "receiver-name", "phone", "email", "address", "receiving-time", result.card.prime, orderJSON);
                 
+                function jumpToThanksWithOrderNum(parsedData) {
+                    window.location.href=`thankyou.html?orderNumber=${parsedData.data.number}`;
+                }
                 if (finalJsonObj) {
                     alert('收件人資料及信用卡資料正確，已送出訂單' + JSON.stringify(finalJsonObj));
-                    postAjax(sentBuyDetailURL, finalJsonObj);
+                    postAjax(sentBuyDetailURL, finalJsonObj, jumpToThanksWithOrderNum);
                 }
                 
                 return;

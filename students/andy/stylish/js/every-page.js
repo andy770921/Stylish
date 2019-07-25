@@ -95,14 +95,14 @@ function ajax(src, callback) {
   xhr.send();
 }
 
-function postAjax(src, sentObj) {
+function postAjax(src, sentObj, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", src, true);
   xhr.setRequestHeader('Content-type', 'application/json');
   xhr.onload = function () {
     var parsedData = JSON.parse(xhr.responseText);
     if (xhr.readyState == 4 && xhr.status == "200") {
-      console.log(parsedData);
+      callback(parsedData);
     } else {
       console.error(parsedData);
     }
