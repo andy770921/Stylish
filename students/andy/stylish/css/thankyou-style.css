@@ -27,7 +27,9 @@
 .container-5 {
   margin-top: 0;
 }
-
+.container-1, .container-2  {
+  z-index: 2;
+}
 
   /*  ----RWD---- */
 
