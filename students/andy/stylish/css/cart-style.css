@@ -92,7 +92,9 @@ body {
 }
 
 .img-product {
-    width: 114px;  /* 114px / 360px = 31.66% */
+    /*width: 114px;   114px / 360px = 31.66% */
+    max-width: 100%;
+    min-width: 114px;
     height: auto;
 }
 
