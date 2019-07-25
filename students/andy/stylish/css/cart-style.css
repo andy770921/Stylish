@@ -169,7 +169,6 @@ body {
 
 .item-3x3 {
   margin-top: 20px;
-  padding-bottom: 20px;
   flex: 1;
   background-color: #e8e8e8;
   display: flex;
@@ -187,6 +186,7 @@ body {
 
 .pay-method {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .country select, .pay-method select {
