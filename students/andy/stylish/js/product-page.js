@@ -19,7 +19,7 @@ function setDetail(parsedData) {
 
     createAppendText('name-3x2', 'p', parsedData.data.title);
     createAppendText('id-3x2', 'p', parsedData.data.id);
-    createAppendText('price-3x2', 'p', parsedData.data.price);
+    createAppendText('price-3x2', 'span', parsedData.data.price);
     createAppendText('item-4x2', 'p', parsedData.data.story);
 
     const detailText = `<br> 
