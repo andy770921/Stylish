@@ -13,27 +13,6 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <!-- 加入響應式控制的Javascript套件modernizr，偵測視窗大小改變時，Search Bar正確顯示 -->
 
-    <script>
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: '862956427419338',
-                cookie: true,
-                xfbml: true,
-                version: 'v3.3'
-            });
-
-            FB.AppEvents.logPageView();
-
-        };
-
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) { return; }
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
 </head>
 
 <body>
@@ -93,6 +72,12 @@
             </div>
         </nav>
 
+        <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with"
+            data-auto-logout-link="false" data-use-continue-as="false"></div>
+
+        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+        <button onclick="checkLoginState();"> TEST </button>
+
         <div class="sticky">
             <div class="item-s addCursor">
                 <div class="cart"><img class="img-s" src="./image/cart-mobile.png"></div>
@@ -105,11 +90,6 @@
                 <span class="text-s">會員</span>
             </div>
         </div>
-
-        <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with"
-            data-auto-logout-link="false" data-use-continue-as="false"></div>
-
-        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
 
     </main>
     <footer>
@@ -132,11 +112,41 @@
 
     <script type="text/javascript" src="js/every-page.js"></script>
     <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '862956427419338',
+                cookie: true,
+                xfbml: true,
+                version: 'v3.3'
+            });
+
+            FB.AppEvents.logPageView();
+
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
         function checkLoginState() {
             FB.getLoginStatus(function (response) {
                 statusChangeCallback(response);
             });
         }
+
+        // FB.login(function (response) {
+        //     if (response.status === 'connected') {
+        //         console.log("A");
+        //         // Logged into your app and Facebook.
+        //     } else {
+        //         console.log("B");
+        //         // The person is not logged into this app or we are unable to tell. 
+        //     }
+        // });
     </script>
 </body>
 
