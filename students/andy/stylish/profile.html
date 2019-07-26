@@ -77,7 +77,8 @@
 
         <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" autologoutlink="true">
         </fb:login-button>
-        <button onclick="memberLogin()" id="FB_login"> TEST </button>
+        <button onclick="memberLogin()" id="FB_login"> login-TEST </button>
+        <button onclick="memberLogout()" id="FB_logout"> logout-TEST </button>
         <div id="status"> </div>
 
         <div class="sticky">
@@ -179,8 +180,13 @@
             FB.login(function (response) {
                 statusChangeCallback(response);
             }, {
-                    scope: 'public_profile,email'
+                    scope: 'public_profile,email,picture'
                 });
+        }
+        function memberLogout() {
+            FB.logout(function (response) {
+                statusChangeCallback(response);
+            });
         }
     </script>
 </body>
