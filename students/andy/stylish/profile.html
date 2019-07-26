@@ -77,11 +77,11 @@
 
         <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" autologoutlink="true">
         </fb:login-button>
-        <fb:login-button scope="public_profile,email,picture" onlogin="checkLoginState();" autologoutlink="true">
-        </fb:login-button>
         <button onclick="memberLogin()" id="FB_login"> login-TEST </button>
         <button onclick="memberLogout()" id="FB_logout"> logout-TEST </button>
         <div id="status"> </div>
+        <fb:login-button scope="public_profile,email,picture" onlogin="checkLoginState();" autologoutlink="true">
+            </fb:login-button>
 
         <div class="sticky">
             <div class="item-s addCursor">
