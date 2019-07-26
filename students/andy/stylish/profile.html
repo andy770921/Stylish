@@ -75,7 +75,7 @@
         <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with"
             data-auto-logout-link="false" data-use-continue-as="false"></div>
 
-        <fb:login-button scope="public_profile,email,picture" onlogin="checkLoginState();" autologoutlink="true">
+        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" autologoutlink="true">
         </fb:login-button>
         <button onclick="memberLogin()" id="FB_login"> login-TEST </button>
         <button onclick="memberLogout()" id="FB_logout"> logout-TEST </button>
@@ -178,14 +178,18 @@
 
         function memberLogin() {
             FB.login(function (response) {
+                FB.getLoginStatus(function (response) {
                 statusChangeCallback(response);
+            });
             }, {
                     scope: 'public_profile,email,picture'
                 });
         }
         function memberLogout() {
             FB.logout(function (response) {
+                FB.getLoginStatus(function (response) {
                 statusChangeCallback(response);
+            });
             });
         }
     </script>
