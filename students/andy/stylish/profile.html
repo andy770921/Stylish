@@ -178,18 +178,14 @@
 
         function memberLogin() {
             FB.login(function (response) {
-                FB.getLoginStatus(function (response) {
                 statusChangeCallback(response);
-            });
             }, {
-                    scope: 'public_profile,email,picture'
+                    scope: 'public_profile,email'
                 });
         }
         function memberLogout() {
             FB.logout(function (response) {
-                FB.getLoginStatus(function (response) {
                 statusChangeCallback(response);
-            });
             });
         }
     </script>
