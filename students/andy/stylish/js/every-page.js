@@ -327,7 +327,7 @@ const searchBarForm = document.getElementsByClassName('item-1x4')[0];
 searchBarForm.addEventListener('submit', (e) => {
   e.preventDefault();
   let userInput = document.getElementsByClassName('search-bar')[0];
-  userValue = userInput.value;
+  let userValue = userInput.value;
   if (userValue !== "") {
     location.href = `index.html?section=search&keyword=${userValue}`;
   } else {
