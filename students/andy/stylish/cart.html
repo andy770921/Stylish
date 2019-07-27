@@ -286,7 +286,7 @@
             styles: {
                 // Style all elements
                 'input': {
-                    'color': 'gray'
+                    'color': 'black'
                 },
                 // Styling ccv field
                 'input.ccv': {
@@ -348,6 +348,16 @@
             // 取得 TapPay Fields 的 status
             const tappayStatus = TPDirect.card.getTappayFieldsStatus();
 
+
+            // ----  先加入其他表單欄位資訊的判斷式，檢查表格是否空白，若過程中有問題，會回傳 false。 -----
+            // ----  不為空白則回傳 userInfoObj 物件 -----
+            let userInfoObj = {};
+            if (checkUserInfoAndReturn("payment-method", "receiver-name", "phone", "email", "address", "receiving-time", orderJSON) === false) { 
+                return;
+            } else {
+                userInfoObj = checkUserInfoAndReturn("payment-method", "receiver-name", "phone", "email", "address", "receiving-time", orderJSON);
+            }
+
             // 確認是否可以 getPrime
             if (tappayStatus.canGetPrime === false) {
                 alert('信用卡資訊有誤喔');
@@ -363,8 +373,8 @@
                 //alert('get prime 成功，prime: ' + result.card.prime);
                 
 
-                // sendFinalOrder 函數說明: 若資料沒問題，函數會回傳移除圖片連結及庫存之後的物件。若過程中有問題，會回傳False
-                const finalJsonObj = sendFinalOrder("payment-method", "receiver-name", "phone", "email", "address", "receiving-time", result.card.prime, orderJSON);
+                // -----  sendFinalOrder 函數說明: 若資料輸入函數後，會回傳移除圖片連結及庫存之後的物件。-----
+                const finalJsonObj = sendFinalOrder(userInfoObj, result.card.prime, orderJSON);
                 
                 function jumpToThanksWithOrderNum(parsedData) {
                     window.location.href=`thankyou.html?orderNumber=${parsedData.data.number}`;
@@ -379,7 +389,7 @@
                 
                 return;
                 // send prime to your server, to pay with Pay by Prime API .
-                // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
+                // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api               
             })
         }
     </script>

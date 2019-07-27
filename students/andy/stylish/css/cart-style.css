@@ -19,8 +19,15 @@ body {
 
    /* 無商品之文字 */
    .item-3x2 > p {
-    margin: 30px auto;
+    padding: 30px 0px 30px 0px; 
     align-self: center;
+
+    display: inline-block;
+    border-style: solid none solid none;
+    border-color: #3f3a3a;
+    border-width: 1.0px;
+    width: 100%;
+    text-align: center;
 }
   
   /*==================================== */
@@ -74,6 +81,7 @@ body {
     flex-direction: column;
     border: none;
 }
+
 
 .cart-product {
     padding-top: 10px; 
@@ -486,6 +494,12 @@ input[type="radio"] {
 
   .item-3x2 {
     border: solid 1px #979797;
+  }
+  .item-3x2 > p{
+    padding: 0px; 
+    margin: 40px 0px 0px 0px;
+    align-self: center;
+    border: none;
   }
   .cart-product {
     padding-top: 40px; 

@@ -11,9 +11,7 @@ function putShippingFee(fee) {
     shippingFeeNode.innerText = fee;
 }
 
-// sendFinalOrder 函數說明: 若資料沒問題，函數會回傳移除圖片連結及庫存之後的物件。若過程中有問題，會回傳False
-
-function sendFinalOrder(paymentEleID, nameEleID, phoneEleID, emailEleID, addressEleID, timeEleID, primeKey, JsonObj) {
+function checkUserInfoAndReturn(paymentEleID, nameEleID, phoneEleID, emailEleID, addressEleID, timeEleID, JsonObj) {
     const paymentMethod = document.getElementById(paymentEleID).value;
     const name = document.getElementById(nameEleID).value;
     const phone = document.getElementById(phoneEleID).value;
@@ -34,20 +32,45 @@ function sendFinalOrder(paymentEleID, nameEleID, phoneEleID, emailEleID, address
     JsonObj.order.list.forEach((element) => { noFeeTotal += element.price * element.qty; });
     const addFeeTotal = noFeeTotal + shippingFee;
 
-    // 加入判斷式，檢查表格是否空白
     if (addFeeTotal == shippingFee) {
         alert('沒買任何物品喔');
         return false;
-    }
-    if (name === "" || phone === "" || email === "" || address === "") {
-        alert('還沒填完收件人資料喔');
+    } else if (name === "") {
+        alert('還沒填姓名喔');
         return false;
-    }
-    if (time == 'no any delivery time selected') {
+    } else if (phone === "") {
+        alert('還沒填手機喔');
+        return false;
+    } else if (email === "") {
+        alert('還沒填電子郵件喔');
+        return false;
+    } else if (address === "") {
+        alert('還沒填地址喔');
+        return false;
+    } else if (time == 'no any delivery time selected') {
         alert('還沒選配送時間喔');
         return false;
     }
+    return {
+        'paymentMethod': paymentMethod,
+        'name': name,
+        'phone': phone,
+        'email': email,
+        'address': address,
+        'time': time,
+        'noFeeTotal': noFeeTotal,
+        'shippingFee': shippingFee,
+        'addFeeTotal': addFeeTotal
+    };
+}
 
+
+
+// sendFinalOrder 函數說明: 若資料沒問題，函數會回傳移除圖片連結及庫存之後的物件。若過程中有問題，會回傳False
+
+function sendFinalOrder(infoObj, primeKey, JsonObj) {
+
+    let {paymentMethod, noFeeTotal, shippingFee, addFeeTotal, name, phone, email, address, time} = infoObj;
     // 設定primeKey
     JsonObj.prime = primeKey;
     // 設定寄件資料
@@ -67,9 +90,22 @@ function sendFinalOrder(paymentEleID, nameEleID, phoneEleID, emailEleID, address
     //localStorage.setItem('orderJSONinLocal', JSON.stringify(JsonObj));
 }
 
+function checkListAndSetIcon() {
+        //設定購物車圓點
+        if (orderJSON.order.list.length > 0) {
+            setCartNum('cart-num', orderJSON.order.list);
+        } else {
+            removeCartIcon('cart-num');
+            //如果購物車無商品，顯示無商品字樣
+            createAppendText('item-3x2', 'p', '購物車沒有商品喔');
+        }
+}
+
+
+
 document.querySelector(`.text-3x1x2 > div`).innerText = `購物車 (${orderJSON.order.list.length})`;
 
-for (let i = 0 ; i < orderJSON.order.list.length ; i++) {
+for (let i = 0; i < orderJSON.order.list.length; i++) {
 
     createAppendDiv("item-3x2", "div", `cart-product-${i + 1} cart-product`);
     createAppendDiv(`cart-product-${i + 1}`, "div", "row-or-column-1");
@@ -115,10 +151,10 @@ for (let i = 0 ; i < orderJSON.order.list.length ; i++) {
     document.querySelector(`.trash-can-${i + 1}`).addEventListener('click', (e) => {
         const colOfTrushCan = document.querySelectorAll('.trash-can-product');
         let trashCanNumMinusOne = -10;
-        for ( let j = 0 ; j < colOfTrushCan.length ; j ++) {
-            if (colOfTrushCan[j] == e.target) {trashCanNumMinusOne = j; }
+        for (let j = 0; j < colOfTrushCan.length; j++) {
+            if (colOfTrushCan[j] == e.target) { trashCanNumMinusOne = j; }
         }
-        
+
         // ---- 統計畫面中垃圾桶數量，刪除物件元素與local storage -----
         orderJSON.order.list.splice(trashCanNumMinusOne, 1);
         localStorage.setItem('orderJSONinLocal', JSON.stringify(orderJSON));
@@ -129,17 +165,12 @@ for (let i = 0 ; i < orderJSON.order.list.length ; i++) {
         setTotalPrice(shippingFee);
         // ---- 重設UI購物車後面的括號 -----
         document.querySelector(`.text-3x1x2 > div`).innerText = `購物車 (${orderJSON.order.list.length})`;
-        //設定購物車圓點
-        if (orderJSON.order.list.length > 0) {
-            setCartNum('cart-num', orderJSON.order.list);
-        } else {
-            removeCartIcon('cart-num');
-            //如果購物車無商品，顯示無商品字樣
-            createAppendText('item-3x2', 'p', '都被刪光光了，無商品喔');
-        }
+        //設定購物車圓點，如果購物車無商品，顯示無商品字樣
+        checkListAndSetIcon()
     });
 }
 
+checkListAndSetIcon()
 putShippingFee(shippingFee);
 setTotalPrice(shippingFee);
 
@@ -166,14 +197,8 @@ for (let i = 0; i < document.querySelectorAll('.cart-product-1x3 select').length
                 setTotalPrice(shippingFee);
             }
         }
-        //設定購物車圓點
-        if (orderJSON.order.list.length > 0) {
-            setCartNum('cart-num', orderJSON.order.list);
-        } else {
-            removeCartIcon('cart-num');
-            //如果購物車無商品，顯示無商品字樣
-            createAppendText('item-3x2', 'p', '都被你刪光光了，無商品喔');
-        }
+        //設定購物車圓點，如果購物車無商品，顯示無商品字樣
+        checkListAndSetIcon()
     });
 }
 
