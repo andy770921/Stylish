@@ -54,7 +54,7 @@ function sendFinalOrder(paymentEleID, nameEleID, phoneEleID, emailEleID, address
     // JsonObj.order = new shippingInfo("delivery", "credit_card", 1234, 60, 1300, "Luke", "0987654321", "email@email", "市政府站", "morning");
     const info = new shippingInfo("delivery", paymentMethod, noFeeTotal, shippingFee, addFeeTotal, name, phone, email, address, time);
     // 將原先物件與 info 物件合併
-    JsonObj.order = {...info, ...JsonObj.order};
+    //JsonObj.order = {...info, ...JsonObj.order};
     // 移除產品圖片及庫存後，放入新物件
     let finalJsonObj = Object.assign({}, JsonObj);
     finalJsonObj.order.list.forEach((element) => { delete element.imgSrc; delete element.stock; });
