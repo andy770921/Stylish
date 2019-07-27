@@ -139,6 +139,16 @@ function unhover(element, url) {
   element.setAttribute('src', url);
 }
 
+// 點選首頁stylish圖示，轉到全部產品頁
+
+
+const companyIcon = document.getElementsByClassName('item-1x1')[0];
+
+companyIcon.addEventListener('click', () => {
+  window.location.href='index.html';
+});
+
+
 // 點選放大鏡後，顯示搜尋Bar，按header外其他位置，隱藏搜尋Bar
 
 
