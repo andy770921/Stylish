@@ -10,10 +10,10 @@ function setDetail(parsedData) {
 
   if (parsedData.data) {
 
-    // 加入所有圖片
+    // 加入所有圖片，.slice(0, 2)，為只選前兩張圖
 
     createAppendImg('item-3x1', `${parsedData.data.main_image}`);
-    parsedData.data.images.forEach((src) => { createAppendImg('item-4x3', `${src}`) });
+    parsedData.data.images.slice(0, 2).forEach((src) => { createAppendImg('item-4x3', `${src}`) });
 
     // 加入所有文字
 
