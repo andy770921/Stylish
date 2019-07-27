@@ -22,7 +22,7 @@ let userAmount = 0;
 let shippingFee = 40;
 
 // orderList Object
-let orderJSON = { "prime": "", "order": {"list": [] } };
+let orderJSON = { "prime": "", "order": { "list": [] } };
 class orderList {
   constructor(id, name, price, colorCode, colorName, size, quantity, imgSrc, stock) {
     this.id = id;
@@ -142,20 +142,32 @@ function unhover(element, url) {
 // 點選放大鏡後，顯示搜尋Bar，按header外其他位置，隱藏搜尋Bar
 
 
+const magnifier = document.getElementsByClassName('item-1x2')[0];
+
 function showSearchBar() {
   const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
+
   searchBarDiv.style.display = 'flex';
+  magnifier.style.display = 'none';
+}
+
+function showSearchBarSpace() {
+  const whiteSpaceDiv = document.getElementsByClassName('container-space')[0];
+  whiteSpaceDiv.style.display = 'block';
 }
 
 function hideSearchBar() {
   const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
+  const whiteSpaceDiv = document.getElementsByClassName('container-space')[0];
   searchBarDiv.style.display = 'none';
+  whiteSpaceDiv.style.display = 'none';
+  magnifier.style.display = 'block';
 }
 
-const magnifier = document.getElementsByClassName('item-1x2')[0];
 
 magnifier.addEventListener('click', () => {
   showSearchBar();
+  showSearchBarSpace();
   document.getElementsByTagName('main')[0].addEventListener('click', () => {
     hideSearchBar();
   });

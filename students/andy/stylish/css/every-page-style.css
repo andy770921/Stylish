@@ -63,7 +63,7 @@ input:-webkit-autofill:active  {
   
   .item-1x1 {   
       max-width: 151px;
-      position: absolute;
+      position: static;
   }
   .item-1x2 {
       margin-right: 10px;
@@ -78,23 +78,37 @@ input:-webkit-autofill:active  {
 
   /* ---- Search bar css setting after clicking ----- */
 
+  .container-space {
+    width: 100%;
+    background-color: #fff;
+    animation: extend-container 1s ease 0s 1 normal;
+    height: 40px;
+    display: none;
+  }
+  @keyframes extend-container {
+    from {height: 0px;}
+    to {height: 40px;}
+  }
+
 .item-1x4 {
     justify-content: center;
     position: absolute;
-    right: 9px;   
-    width: 300px;
-    max-width: 80%;
+    right: 9px; 
+    width: 95%;
+    top: 66px;
+    /* max-width: 80%; */
     height: 40px;
     border-style: solid;
     border-color: #979797;
     border-width: 1px;
     border-radius:  20px;
     background-color: #fff;
-    animation: extend 1s ease 0s 1 normal;
+    animation: extend 1.2s ease 0s 1 normal;
   }
   @keyframes extend {
-    from {width: 100px;}
-    to {width: 300px;}
+    0% {width: 50px; top: 17px; }
+    65% {width: 100px; top: 66px; }
+    100% {width: 95%; top: 66px; }
   }
   
   .search-bar {
@@ -115,7 +129,8 @@ input:-webkit-autofill:active  {
   }
 
   .space {
-    flex-grow: 1;
+    flex-grow: none;
+    width: 10px;
   }
 
 
@@ -332,7 +347,9 @@ input:-webkit-autofill:active  {
     .item-1x1 {   
       max-width: 258px;
       left: 60px;  
+      position: absolute;
     }
+
     .item-1x2 {
       display: none;
     }
@@ -358,10 +375,14 @@ input:-webkit-autofill:active  {
       letter-spacing: 0;
     }
     /* ---- Search bar into item-1x4 ----- */
+    .container-space {
+      animation: none;
+      display: none;
+    }
 
     .item-1x4 {
       display: flex;
-      bottom: 26px; 
+      top: 35px; 
       right: 226px;   
       width: 214px;
       animation: none;
@@ -469,5 +490,5 @@ input:-webkit-autofill:active  {
    ==================================== */
    .display-switch {
     display: none;
-    }
+   }
   }  
