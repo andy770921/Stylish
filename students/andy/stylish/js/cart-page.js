@@ -1,4 +1,4 @@
-
+alert('start');
 function setTotalPrice(additionalFee) {
     let noFeeTotal = 0;
     orderJSON.order.list.forEach((element) => { noFeeTotal += element.price * element.qty; });

@@ -69,10 +69,8 @@ for (let i = 0; i < navBarWords.length; i++) {
   document.getElementsByClassName(`barItem-${i + 1}`)[1].textContent = navBarWords[i];
 }
 
-alert('every page');
 //當localStorage有資料陣列，先讀取，並顯示在購物車圓點
 if (localStorage.getItem('orderJSONinLocal') !== `{"prime":"","order":{"list":[]}}` && localStorage.getItem('orderJSONinLocal') !== null) {
-  alert('every page if');
   orderJSON = JSON.parse(localStorage.getItem('orderJSONinLocal'));
   createCartNumIcon('cart', 'cart-num', orderJSON.order.list.length);
 }
