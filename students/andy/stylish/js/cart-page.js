@@ -67,7 +67,7 @@ function sendFinalOrder(paymentEleID, nameEleID, phoneEleID, emailEleID, address
 
 document.querySelector(`.text-3x1x2 > div`).innerText = `購物車 (${orderJSON.order.list.length})`;
 
-for (let i = 0 ; i < orderJSON.order.list ; i++) {
+for (let i = 0 ; i < orderJSON.order.list.length ; i++) {
 
     createAppendDiv("item-3x2", "div", `cart-product-${i + 1} cart-product`);
     createAppendDiv(`cart-product-${i + 1}`, "div", "row-or-column-1");
@@ -82,7 +82,7 @@ for (let i = 0 ; i < orderJSON.order.list ; i++) {
     顏色 | ${orderJSON.order.list[i].color.name}<br> 
     尺寸 | ${orderJSON.order.list[i].size}`;
 
-    orderJSON.order.list[`${i}`].name;
+    orderJSON.order.list[i].name;
     createAppendDiv(`cart-product-${i + 1} .row-or-column-1`, "div", `cart-product-1x2`);
     createAppendText(`cart-product-${i + 1} .row-or-column-1 .cart-product-1x2`, "p", detailText);
     document.querySelector(`.cart-product-${i + 1} .row-or-column-1 .cart-product-1x2 p`).setAttribute("class", "text-product");
@@ -113,8 +113,8 @@ for (let i = 0 ; i < orderJSON.order.list ; i++) {
     document.querySelector(`.trash-can-${i + 1}`).addEventListener('click', (e) => {
         const colOfTrushCan = document.querySelectorAll('.trash-can-product');
         let trashCanNumMinusOne = -10;
-        for ( let i = 0 ; i < colOfTrushCan.length ; i ++) {
-            if (colOfTrushCan[i] == e.target) {trashCanNumMinusOne = i; }
+        for ( let j = 0 ; j < colOfTrushCan.length ; j ++) {
+            if (colOfTrushCan[j] == e.target) {trashCanNumMinusOne = j; }
         }
         
         // ---- 統計畫面中垃圾桶數量，刪除物件元素與local storage -----
@@ -137,7 +137,6 @@ for (let i = 0 ; i < orderJSON.order.list ; i++) {
         }
     });
 }
-
 
 putShippingFee(shippingFee);
 setTotalPrice(shippingFee);
