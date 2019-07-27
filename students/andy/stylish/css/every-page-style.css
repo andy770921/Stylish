@@ -103,7 +103,7 @@ input:-webkit-autofill:active  {
     border-color: #979797;
     border-width: 1px;
     border-radius:  20px;
-    background-color: transparent;
+    background-color: white;
     animation: extend 1.2s ease 0s 1 normal;
   }
   @keyframes extend {
