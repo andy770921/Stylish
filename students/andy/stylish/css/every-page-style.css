@@ -9,6 +9,7 @@
   
   * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent; /* for removing the mobile highlight */
   }
   body {
       font-family: PingFangTC-Regular, sans-serif;
