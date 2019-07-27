@@ -206,21 +206,25 @@ function clickPlusMinusCalculate(number, remains, clickEvent){
 
 // 點選加減鈕後，切換顯示圖像，並取出資料
 
-const amountDiv = document.getElementsByClassName('item-3x2-a')[0];
+const plusBtn = document.getElementById('plus');
+const minusBtn = document.getElementById('minus');
 
-amountDiv.addEventListener('click', (e) => {
-  if (e.target.className !== 'amount-3x2' && colorNow !== 0 && sizeNow !== 0) {
-      //設定css 變色class
-      clickSetOnlyOneClass('amount-highlight', 'item-3x2-a',  e ); 
-      //先刷新螢幕顯示值，再更新userAmount參數
-      let userAmountAfterClick = clickPlusMinusCalculate(userAmount, remainStocksMinusCart, e);
-      document.querySelector ('.amount-3x2').innerText = userAmountAfterClick;
-      userAmount = userAmountAfterClick;
-    } 
-   else if(colorNow == 0 || sizeNow == 0 ){ 
-      alert("please select color and size first");
-    }
-});
+function handleClickPlusMinus(e) {
+  if (colorNow !== 0 && sizeNow !== 0) {
+    //設定css 變色class
+    clickSetOnlyOneClass('amount-highlight', 'item-3x2-a',  e ); 
+    //先刷新螢幕顯示值，再更新userAmount參數
+    let userAmountAfterClick = clickPlusMinusCalculate(userAmount, remainStocksMinusCart, e);
+    document.querySelector ('.amount-3x2').innerText = userAmountAfterClick;
+    userAmount = userAmountAfterClick;
+  } 
+ else if(colorNow == 0 || sizeNow == 0 ){ 
+    alert("please select color and size first");
+  }
+}
+
+plusBtn.addEventListener('click', (e) => { handleClickPlusMinus(e) });
+minusBtn.addEventListener('click',(e) => { handleClickPlusMinus(e) });
 
 // 點選購物車後，讓庫存數量減少，並創物件，取出資料。庫存減掉放進購物車的，即時顯示在畫面
 // 若切換不同型號或產品，再回到原先產品，秀出來之前先掃過orderList JSON，然後再顯示。此功能在getStocks裡
