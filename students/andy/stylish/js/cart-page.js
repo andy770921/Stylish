@@ -67,15 +67,15 @@ function sendFinalOrder(paymentEleID, nameEleID, phoneEleID, emailEleID, address
 
 document.querySelector(`.text-3x1x2 > div`).innerText = `購物車 (${orderJSON.order.list.length})`;
 
-for (let i in orderJSON.order.list) {
-    alert("B");
-    createAppendDiv("item-3x2", "div", `cart-product-${Number(i) + 1} cart-product`);
-    createAppendDiv(`cart-product-${Number(i) + 1}`, "div", "row-or-column-1");
-    createAppendDiv(`cart-product-${Number(i) + 1}`, "div", "row-or-column-2");
+for (let i = 0 ; i < orderJSON.order.list ; i++) {
 
-    createAppendDiv(`cart-product-${Number(i) + 1} .row-or-column-1`, "div", `cart-product-1x1`);
-    createAppendImg(`cart-product-${Number(i) + 1} .row-or-column-1 .cart-product-1x1`, orderJSON.order.list[`${i}`].imgSrc);
-    document.querySelector(`.cart-product-${Number(i) + 1} .row-or-column-1 .cart-product-1x1 img`).setAttribute("class", "img-product");
+    createAppendDiv("item-3x2", "div", `cart-product-${i + 1} cart-product`);
+    createAppendDiv(`cart-product-${i + 1}`, "div", "row-or-column-1");
+    createAppendDiv(`cart-product-${i + 1}`, "div", "row-or-column-2");
+
+    createAppendDiv(`cart-product-${i + 1} .row-or-column-1`, "div", `cart-product-1x1`);
+    createAppendImg(`cart-product-${i + 1} .row-or-column-1 .cart-product-1x1`, orderJSON.order.list[i].imgSrc);
+    document.querySelector(`.cart-product-${i + 1} .row-or-column-1 .cart-product-1x1 img`).setAttribute("class", "img-product");
 
     let detailText = `${orderJSON.order.list[i].name} <br><br> 
     ${orderJSON.order.list[i].id}<br><br> 
@@ -83,34 +83,34 @@ for (let i in orderJSON.order.list) {
     尺寸 | ${orderJSON.order.list[i].size}`;
 
     orderJSON.order.list[`${i}`].name;
-    createAppendDiv(`cart-product-${Number(i) + 1} .row-or-column-1`, "div", `cart-product-1x2`);
-    createAppendText(`cart-product-${Number(i) + 1} .row-or-column-1 .cart-product-1x2`, "p", detailText);
-    document.querySelector(`.cart-product-${Number(i) + 1} .row-or-column-1 .cart-product-1x2 p`).setAttribute("class", "text-product");
+    createAppendDiv(`cart-product-${i + 1} .row-or-column-1`, "div", `cart-product-1x2`);
+    createAppendText(`cart-product-${i + 1} .row-or-column-1 .cart-product-1x2`, "p", detailText);
+    document.querySelector(`.cart-product-${i + 1} .row-or-column-1 .cart-product-1x2 p`).setAttribute("class", "text-product");
 
-    createAppendDiv(`cart-product-${Number(i) + 1} .row-or-column-2`, "div", `cart-product-1x3`);
-    createAppendText(`cart-product-${Number(i) + 1} .row-or-column-2 .cart-product-1x3`, "p", "數量");
-    createAppendDiv(`cart-product-${Number(i) + 1} .row-or-column-2 .cart-product-1x3`, "select", `qty-${Number(i) + 1} qty-product`);
-    createAppendOption(`qty-${Number(i) + 1}`, orderJSON.order.list[`${i}`].stock, orderJSON.order.list[`${i}`].qty);
+    createAppendDiv(`cart-product-${i + 1} .row-or-column-2`, "div", `cart-product-1x3`);
+    createAppendText(`cart-product-${i + 1} .row-or-column-2 .cart-product-1x3`, "p", "數量");
+    createAppendDiv(`cart-product-${i + 1} .row-or-column-2 .cart-product-1x3`, "select", `qty-${i + 1} qty-product`);
+    createAppendOption(`qty-${i + 1}`, orderJSON.order.list[i].stock, orderJSON.order.list[i].qty);
 
-    createAppendDiv(`cart-product-${Number(i) + 1} .row-or-column-2`, "div", `cart-product-1x4`);
-    createAppendText(`cart-product-${Number(i) + 1} .row-or-column-2 .cart-product-1x4`, "p", "單價");
-    createAppendDiv(`cart-product-${Number(i) + 1} .row-or-column-2 .cart-product-1x4`, "div", `price-${Number(i) + 1} price-product`);
-    document.querySelector(`.price-${Number(i) + 1}`).innerText = `NT. ${orderJSON.order.list[i].price}`;
+    createAppendDiv(`cart-product-${i + 1} .row-or-column-2`, "div", `cart-product-1x4`);
+    createAppendText(`cart-product-${i + 1} .row-or-column-2 .cart-product-1x4`, "p", "單價");
+    createAppendDiv(`cart-product-${i + 1} .row-or-column-2 .cart-product-1x4`, "div", `price-${i + 1} price-product`);
+    document.querySelector(`.price-${i + 1}`).innerText = `NT. ${orderJSON.order.list[i].price}`;
 
-    createAppendDiv(`cart-product-${Number(i) + 1} .row-or-column-2`, "div", `cart-product-1x5`);
-    createAppendText(`cart-product-${Number(i) + 1} .row-or-column-2 .cart-product-1x5`, "p", "小計");
-    createAppendDiv(`cart-product-${Number(i) + 1} .row-or-column-2 .cart-product-1x5`, "div", `pxq-${Number(i) + 1} pxq-product`);
-    let chosenQty = document.querySelector(`.qty-${Number(i) + 1} option:checked`).value;
-    document.querySelector(`.pxq-${Number(i) + 1}`).innerText = `NT. ${orderJSON.order.list[i].price * chosenQty}`;
+    createAppendDiv(`cart-product-${i + 1} .row-or-column-2`, "div", `cart-product-1x5`);
+    createAppendText(`cart-product-${i + 1} .row-or-column-2 .cart-product-1x5`, "p", "小計");
+    createAppendDiv(`cart-product-${i + 1} .row-or-column-2 .cart-product-1x5`, "div", `pxq-${i + 1} pxq-product`);
+    let chosenQty = document.querySelector(`.qty-${i + 1} option:checked`).value;
+    document.querySelector(`.pxq-${i + 1}`).innerText = `NT. ${orderJSON.order.list[i].price * chosenQty}`;
 
-    createAppendDiv(`cart-product-${Number(i) + 1}`, "div", `cart-product-1x6`);
-    createAppendImg(`cart-product-${Number(i) + 1} .cart-product-1x6`, "./image/cart-remove.png");
-    document.querySelector(`.cart-product-${Number(i) + 1} .cart-product-1x6 img`).setAttribute("class", `trash-can-${Number(i) + 1} trash-can-product`);
-    document.querySelector(`.trash-can-${Number(i) + 1}`).setAttribute("onmouseover", "hover(this, './image/cart-remove-hover.png')");
-    document.querySelector(`.trash-can-${Number(i) + 1}`).setAttribute("onmouseout", "hover(this, './image/cart-remove.png')");
+    createAppendDiv(`cart-product-${i + 1}`, "div", `cart-product-1x6`);
+    createAppendImg(`cart-product-${i + 1} .cart-product-1x6`, "./image/cart-remove.png");
+    document.querySelector(`.cart-product-${i + 1} .cart-product-1x6 img`).setAttribute("class", `trash-can-${i + 1} trash-can-product`);
+    document.querySelector(`.trash-can-${i + 1}`).setAttribute("onmouseover", "hover(this, './image/cart-remove-hover.png')");
+    document.querySelector(`.trash-can-${i + 1}`).setAttribute("onmouseout", "hover(this, './image/cart-remove.png')");
 
     // ---- 加入刪除數量事件監聽函數 -----
-    document.querySelector(`.trash-can-${Number(i) + 1}`).addEventListener('click', (e) => {
+    document.querySelector(`.trash-can-${i + 1}`).addEventListener('click', (e) => {
         const colOfTrushCan = document.querySelectorAll('.trash-can-product');
         let trashCanNumMinusOne = -10;
         for ( let i = 0 ; i < colOfTrushCan.length ; i ++) {

@@ -74,7 +74,6 @@ for (let i = 0; i < navBarWords.length; i++) {
 if (localStorage.getItem('orderJSONinLocal') !== `{"prime":"","order":{"list":[]}}` && localStorage.getItem('orderJSONinLocal') !== null) {
   orderJSON = JSON.parse(localStorage.getItem('orderJSONinLocal'));
   createCartNumIcon('cart', 'cart-num', orderJSON.order.list.length);
-  alert("A");
 }
 
 //----與連線遠端，取得JSON相關----
