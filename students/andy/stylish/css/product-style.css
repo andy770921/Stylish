@@ -275,7 +275,7 @@ button:disabled{
   flex: 24;  /* 77px, 35px, 200px >> 77px/312px = 24.68%*/
 }
 
-.space {
+.space-4x1 {
   flex: 11; /* 77px, 35px, 200px >> 35px/312px = 11.21%*/
 }
 
@@ -372,7 +372,7 @@ button:disabled{
     flex: 10 50px;  /* 96px, 64px, 800px >> 96px/960px = 10%*/
   }
   
-  .space {
+  .space-4x1 {
     flex: 6.66; /* 96px, 64px, 800px >> 64px/960px = 6.66%*/
   }
   
@@ -491,7 +491,7 @@ button:disabled{
       flex: 10;  /* 96px, 64px, 800px >> 96px/960px = 10%*/
     }
     
-    .space {
+    .space-4x1 {
       flex: 6.66; /* 96px, 64px, 800px >> 64px/960px = 6.66%*/
     }
     
