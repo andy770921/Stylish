@@ -67,7 +67,13 @@ function sendFinalOrder(paymentEleID, nameEleID, phoneEleID, emailEleID, address
 
 document.querySelector(`.text-3x1x2 > div`).innerText = `購物車 (${orderJSON.order.list.length})`;
 
+alert('A');
+alert(orderJSON.order.list.length);
+
 for (let i = 0 ; i < orderJSON.order.list.length ; i++) {
+
+    alert('B');
+alert(orderJSON.order.list.length);
 
     createAppendDiv("item-3x2", "div", `cart-product-${i + 1} cart-product`);
     createAppendDiv(`cart-product-${i + 1}`, "div", "row-or-column-1");
@@ -137,6 +143,8 @@ for (let i = 0 ; i < orderJSON.order.list.length ; i++) {
         }
     });
 }
+
+alert('C');
 
 putShippingFee(shippingFee);
 setTotalPrice(shippingFee);
