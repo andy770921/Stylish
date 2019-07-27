@@ -144,7 +144,7 @@ function unhover(element, url) {
 const companyIcon = document.getElementsByClassName('item-1x1')[0];
 
 companyIcon.addEventListener('click', () => {
-  window.location.href='index.html';
+  window.location.href = 'index.html';
 });
 
 
@@ -173,14 +173,6 @@ function hideSearchBar() {
   magnifier.style.display = 'block';
 }
 
-
-magnifier.addEventListener('click', () => {
-  showSearchBar();
-  showSearchBarSpace();
-  document.getElementsByTagName('main')[0].addEventListener('click', () => {
-    hideSearchBar();
-  });
-});
 
 // 改變視窗大小時，搜尋Bar會因相對應大小，正確顯示or消失
 function mq() {
@@ -351,9 +343,20 @@ searchBarForm.addEventListener('submit', (e) => {
   let userValue = userInput.value;
   if (userValue !== "") {
     location.href = `index.html?section=search&keyword=${userValue}`;
-  } else {
+  } else if (Modernizr.mq('(max-width: 1149px)')) {
     hideSearchBar();
   }
+});
+
+magnifier.addEventListener('click', () => {
+  showSearchBar();
+  showSearchBarSpace();
+    document.getElementsByTagName('main')[0].addEventListener('click', () => {
+      if (Modernizr.mq('(max-width: 1149px)')){
+      hideSearchBar();
+      }
+    });
+  
 });
 
 // ---- 加入點擊購物車監聽函數，點擊後跳轉到購物車頁面 -----

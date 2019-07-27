@@ -171,7 +171,7 @@
 /* ---- 數量方框設定 ---- */
 
 .item-3x2-a{
-  margin-top: 30px;
+  margin-top: 15px;
   width: 100%;
   height: 44px;
   border: solid 1px #979797;
@@ -238,20 +238,26 @@ button:disabled{
   opacity: 0.8;
 }
 
-.item-3x2-d{
+.item-3x2-d {
   margin-top: 28px;
   font-size: 14px;
   line-height: 1.71;
 }
 
+.item-3x2-r {
+  height: 30px;
+  display: flex;
+}
+
 .remains-3x2 {
-  margin-left:auto;
+  margin-left: auto;
   align-self: flex-end;
   font-size: 14px;
   color: lightgray;
   display: flex;
   flex-wrap: nowrap;
 }
+
 
 /* ---- Flexbox Container-4  ---- */
 

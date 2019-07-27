@@ -1,4 +1,4 @@
-alert('start');
+
 function setTotalPrice(additionalFee) {
     let noFeeTotal = 0;
     orderJSON.order.list.forEach((element) => { noFeeTotal += element.price * element.qty; });
@@ -53,8 +53,10 @@ function sendFinalOrder(paymentEleID, nameEleID, phoneEleID, emailEleID, address
     // 設定寄件資料
     // JsonObj.order = new shippingInfo("delivery", "credit_card", 1234, 60, 1300, "Luke", "0987654321", "email@email", "市政府站", "morning");
     const info = new shippingInfo("delivery", paymentMethod, noFeeTotal, shippingFee, addFeeTotal, name, phone, email, address, time);
-    // 將原先物件與 info 物件合併
+    // 將原先物件與 info 物件合併，Spread syntax 不支援 iOS 12 前的版本
     //JsonObj.order = {...info, ...JsonObj.order};
+    JsonObj.order = Object.assign({}, info, JsonObj.order);
+
     // 移除產品圖片及庫存後，放入新物件
     let finalJsonObj = Object.assign({}, JsonObj);
     finalJsonObj.order.list.forEach((element) => { delete element.imgSrc; delete element.stock; });
@@ -67,13 +69,7 @@ function sendFinalOrder(paymentEleID, nameEleID, phoneEleID, emailEleID, address
 
 document.querySelector(`.text-3x1x2 > div`).innerText = `購物車 (${orderJSON.order.list.length})`;
 
-alert('A');
-alert(orderJSON.order.list.length);
-
 for (let i = 0 ; i < orderJSON.order.list.length ; i++) {
-
-    alert('B');
-alert(orderJSON.order.list.length);
 
     createAppendDiv("item-3x2", "div", `cart-product-${i + 1} cart-product`);
     createAppendDiv(`cart-product-${i + 1}`, "div", "row-or-column-1");
@@ -143,8 +139,6 @@ alert(orderJSON.order.list.length);
         }
     });
 }
-
-alert('C');
 
 putShippingFee(shippingFee);
 setTotalPrice(shippingFee);

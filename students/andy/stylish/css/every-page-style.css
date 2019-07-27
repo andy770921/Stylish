@@ -82,7 +82,7 @@ input:-webkit-autofill:active  {
   .container-space {
     width: 100%;
     background-color: #fff;
-    animation: extend-container 1s ease 0s 1 normal;
+    animation: extend-container 0.8s ease 0s 1 normal;
     height: 40px;
     display: none;
   }
@@ -107,7 +107,7 @@ input:-webkit-autofill:active  {
     animation: extend 1.2s ease 0s 1 normal;
   }
   @keyframes extend {
-    0% {width: 40px; top: 17px; right: 23px;}
+    0% {width: 60px; top: 17px; right: 13px;}
     60% {width: 100px; top: 66px; right: 9px;}
     100% {width: calc(100% - 22px); top: 66px; right: 9px;}
   }

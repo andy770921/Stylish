@@ -231,7 +231,7 @@ minusBtn.addEventListener('click',(e) => { handleClickPlusMinus(e) });
 
 const addBtn = document.getElementsByClassName('add-3x2')[0];
 
-addBtn.addEventListener('click', (e) => {
+addBtn.addEventListener('click', () => {
   
   //---與使用者購買數量相關---
   //將訂購數量，加入user order物件，再將user order加入orderJSON物件
@@ -257,7 +257,9 @@ addBtn.addEventListener('click', (e) => {
 
   //將訂購的物件，存入localStorage
     localStorage.setItem('orderJSONinLocal', JSON.stringify(orderJSON));
-
+  
+  //訂購成功，顯示 alert 
+  alert('商品已成功加入購物車！');
 
   //--- 與剩餘庫存相關 ---
 
