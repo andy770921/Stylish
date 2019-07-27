@@ -507,7 +507,6 @@ input[type="radio"] {
     }
 
     .country, .pay-method {
-      margin-top: 0px;
       height: 74px;
       flex-direction: row;
       display: flex;
@@ -517,11 +516,14 @@ input[type="radio"] {
 
     .country {
       margin-left: 30px;
+      margin-top: 0px;
     }
 
     .pay-method {
       margin-left: 7.07%;       /* 82px/1160px = 7.07%  */
       margin-right: auto;
+      margin-top: 0px;
+      margin-bottom: 0px;
     }
 
     .country select, .pay-method select {
