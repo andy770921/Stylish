@@ -21,7 +21,15 @@ window.fbAsyncInit = function () {
 function checkLoginState() {
     FB.getLoginStatus(function (response) {
         console.log(response);
-        statusChangeCallback(response);
+        //statusChangeCallback(response);
+    });
+}
+
+function checkLoginStatePromise() {
+    return new Promise(function (resolve, reject) {
+        FB.getLoginStatus(function (response) {
+            resolve(response.status);
+        });
     });
 }
 
@@ -72,20 +80,20 @@ function memberLogin() {
 }
 function memberLogout() {
 
-    FB.api('/me/permissions', 'delete', function(res) {
+    FB.api('/me/permissions', 'delete', function (res) {
         console.log(res);
         if (res && !res.error) {
-          if(res){
-              alert('Permission revoked.');
-          }
-          else {
-              alert('Permissions delete error.');
-          }
+            if (res) {
+                alert('Permission revoked.');
+            }
+            else {
+                alert('Permissions delete error.');
+            }
         }
         else {
-          alert('Try again later.');
+            alert('Try again later.');
         }
-      });
+    });
     // FB.logout(function (response) {
     //     statusChangeCallback(response);
     // });

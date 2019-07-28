@@ -364,11 +364,11 @@ magnifier.addEventListener('click', () => {
 const cartIcon1 = document.getElementsByClassName('cart')[0];
 const cartIcon2 = document.getElementsByClassName('cart')[1].parentNode;
 
-cartIcon1.addEventListener('click', (e) => {
+cartIcon1.addEventListener('click', () => {
   location.href = 'cart.html';
 });
 
-cartIcon2.addEventListener('click', (e) => {
+cartIcon2.addEventListener('click', () => {
   location.href = 'cart.html';
 });
 
@@ -377,10 +377,18 @@ cartIcon2.addEventListener('click', (e) => {
 const memberIcon1 = document.getElementsByClassName('member')[0];
 const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
 
-memberIcon1.addEventListener('click', (e) => {
-  location.href = 'cart.html';
+memberIcon1.addEventListener('click', () => {
+  getFbLoginFeedback();
+  //location.href = 'profile.html';
 });
 
-memberIcon2.addEventListener('click', (e) => {
-  location.href = 'cart.html';
+memberIcon2.addEventListener('click', () => {
+  getFbLoginFeedback();
+  //location.href = 'profile.html';
 });
+
+async function getFbLoginFeedback() {
+  let feedbackWords = await checkLoginStatePromise();
+  console.log(feedbackWords);
+  return feedbackWords;
+}

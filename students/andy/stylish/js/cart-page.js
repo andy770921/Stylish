@@ -170,7 +170,7 @@ for (let i = 0; i < orderJSON.order.list.length; i++) {
     });
 }
 
-checkListAndSetIcon()
+checkListAndSetIcon();
 putShippingFee(shippingFee);
 setTotalPrice(shippingFee);
 
