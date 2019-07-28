@@ -52,12 +52,23 @@ function statusChangeCallback(response) {
 // successful.  See statusChangeCallback() for when this call is made.
 function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', 'GET', {"fields":"id,name,picture,email"}, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
+    FB.api('/me', 'GET', { "fields": "id,name,picture,email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
         console.log(response);
         console.log('Successful login for: ' + response.name);
         document.getElementById('status').innerHTML =
             'Thanks for logging in, ' + response.name + '!';
     });
+    FB.api(
+        '/oauth/access_token',
+        'GET',
+        {"grant_type":"fb_exchange_token",
+         "client_id":"{your-app-id}",
+         "client_secret":"{your-app-secret}",
+         "fb_exchange_token":"{your-short-lived-access-token}"},
+        function(response) {
+            console.log(response);// Insert your code here
+        }
+      );
 
 }
 
@@ -67,7 +78,7 @@ function memberLogin() {
     }, {
             scope: 'public_profile,email' //可email後，逗號加入 user_birthday 要求用戶提供
         });
-    
+
 }
 function memberLogout() {
     FB.logout(function (response) {
