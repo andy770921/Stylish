@@ -73,6 +73,7 @@ function memberLogin() {
 function memberLogout() {
 
     FB.api('/me/permissions', 'delete', function(res) {
+        console.log(res);
         if (res && !res.error) {
           if(res){
               alert('Permission revoked.');
