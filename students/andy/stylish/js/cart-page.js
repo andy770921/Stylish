@@ -166,7 +166,7 @@ for (let i = 0; i < orderJSON.order.list.length; i++) {
         // ---- 重設UI購物車後面的括號 -----
         document.querySelector(`.text-3x1x2 > div`).innerText = `購物車 (${orderJSON.order.list.length})`;
         //設定購物車圓點，如果購物車無商品，顯示無商品字樣
-        checkListAndSetIcon()
+        checkListAndSetIcon();
     });
 }
 
@@ -198,7 +198,7 @@ for (let i = 0; i < document.querySelectorAll('.cart-product-1x3 select').length
             }
         }
         //設定購物車圓點，如果購物車無商品，顯示無商品字樣
-        checkListAndSetIcon()
+        checkListAndSetIcon();
     });
 }
 
