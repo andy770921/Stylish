@@ -59,6 +59,7 @@ function testAPI() {
             'Thanks for logging in, ' + response.name + '!';
     });
 
+
 }
 
 function memberLogin() {
@@ -70,7 +71,21 @@ function memberLogin() {
 
 }
 function memberLogout() {
-    FB.logout(function (response) {
-        statusChangeCallback(response);
-    });
+
+    FB.api('/me/permissions', 'delete', function(res) {
+        if (res && !res.error) {
+          if(res){
+              alert('Permission revoked.');
+          }
+          else {
+              alert('Permissions delete error.');
+          }
+        }
+        else {
+          alert('Try again later.');
+        }
+      });
+    // FB.logout(function (response) {
+    //     statusChangeCallback(response);
+    // });
 }
