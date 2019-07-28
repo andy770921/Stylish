@@ -388,8 +388,9 @@ memberIcon1.addEventListener('click', () => {
   promise.then(function(fbStatus){
     console.log(fbStatus);
     if (fbStatus === "connected") {
-      const fbReturnObj = getFbInfoAPI();
-      console.log(fbReturnObj);
+      let promise2 = getFbInfoAPIPromise();
+      promise2.then(function(fbReturnObj){console.log(fbReturnObj);});
+      
       //location.href = 'profile.html';
     }  else {
       memberLogin();

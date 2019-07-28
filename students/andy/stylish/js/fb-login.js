@@ -64,9 +64,21 @@ function getFbInfoAPI() {
         //document.getElementById('status').innerHTML =
         //    'Thanks for logging in, ' + response.name + '!';
     });
-
-
 }
+
+function getFbInfoAPIPromise() {
+    return new Promise(function (resolve, reject) {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', 'GET', { "fields": "id,name,picture,email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
+        console.log(response);
+        console.log('Successful login for: ' + response.name);
+        resolve(response);
+        //document.getElementById('status').innerHTML =
+        //    'Thanks for logging in, ' + response.name + '!';
+    });
+    });
+}
+
 
 function memberLogin() {
     FB.login(function (response) {
