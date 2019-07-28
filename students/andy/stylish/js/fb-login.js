@@ -20,6 +20,7 @@ window.fbAsyncInit = function () {
 
 function checkLoginState() {
     FB.getLoginStatus(function (response) {
+        console.log(response);
         statusChangeCallback(response);
     });
 }
