@@ -16,6 +16,11 @@
 </head>
 
 <body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v3.3&appId=862956427419338&autoLogAppEvents=1"></script>
+    <!-- 引入使用 FB SDK 為了登入用，相關的程式碼 -->
+    
     <header>
         <div class="container-1">
             <img class="item-1x1 addCursor" src="./image/logo.png">
@@ -45,10 +50,11 @@
             </form>
             <div class="item-1x5">
                 <a href="#1" class="cart"><img class="img-1x5 addCursor" src="./image/cart.png"
-                    onmouseover="hover(this, './image/cart-hover.png')" onmouseout="unhover(this, './image/cart.png')"></a>
+                        onmouseover="hover(this, './image/cart-hover.png')"
+                        onmouseout="unhover(this, './image/cart.png')"></a>
                 <a href="#2" class="member"><img class="img-1x5 addCursor" src="./image/member.png"
-                    onmouseover="hover(this, './image/member-hover.png')"
-                    onmouseout="unhover(this, './image/member.png')"></a>
+                        onmouseover="hover(this, './image/member-hover.png')"
+                        onmouseout="unhover(this, './image/member.png')"></a>
             </div>
         </div>
         <div class="container-space"></div>
@@ -145,7 +151,7 @@
         </div>
 
         <div class="sticky">
-            <div class="item-s addCursor"> 
+            <div class="item-s addCursor">
                 <div class="cart"><img class="img-s" src="./image/cart-mobile.png"></div>
                 <span class="text-s">購物車</span>
                 <span class="vertical-line-s">|</span>
@@ -176,6 +182,7 @@
     </footer>
     <script type="text/javascript" src="js/every-page.js"></script>
     <script type="text/javascript" src="js/main-page.js"></script>
+    <script type="text/javascript" src="js/fb-login.js"></script>
 </body>
 
 </html>

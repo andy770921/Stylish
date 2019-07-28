@@ -34,6 +34,11 @@
 </head>
 
 <body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v3.3&appId=862956427419338&autoLogAppEvents=1"></script>
+    <!-- 引入使用 FB SDK 為了登入用，相關的程式碼 -->
+
     <div class="container-1">
         <img class="item-1x1 addCursor" src="./image/logo.png">
         <img class="item-1x2 addCursor" src="./image/search.png" onmouseover="hover(this, './image/search-hover.png')"
@@ -177,7 +182,8 @@
                         <div class="receiving" id="receiving-time">
                             <div><input type="radio" value="moring" name="receiving-option"><span>08:00 - 12:00</span>
                             </div>
-                            <div><input type="radio" value="afternoon" name="receiving-option"><span>14:00 - 18:00</span>
+                            <div><input type="radio" value="afternoon" name="receiving-option"><span>14:00 -
+                                    18:00</span>
                             </div>
                             <div><input type="radio" value="anytime" name="receiving-option"><span>不指定</span></div>
                         </div>
@@ -262,8 +268,9 @@
     <!-- 加入TapPay -->
     <script src="https://js.tappaysdk.com/tpdirect/v5.1.0"></script>
     <script type="text/javascript" src="js/tap-pay.js"></script>
+    <script type="text/javascript" src="js/fb-login.js"></script>
 
-        
+
 </body>
 
 

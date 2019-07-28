@@ -371,3 +371,16 @@ cartIcon1.addEventListener('click', (e) => {
 cartIcon2.addEventListener('click', (e) => {
   location.href = 'cart.html';
 });
+
+// ---- 加入點擊會員圖示監聽函數，點擊後跳轉到會員頁面 -----
+
+const memberIcon1 = document.getElementsByClassName('member')[0];
+const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
+
+memberIcon1.addEventListener('click', (e) => {
+  location.href = 'cart.html';
+});
+
+memberIcon2.addEventListener('click', (e) => {
+  location.href = 'cart.html';
+});
