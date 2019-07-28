@@ -25,6 +25,8 @@ function checkLoginState() {
     });
 }
 
+
+
 function checkLoginStatePromise() {
     return new Promise(function (resolve, reject) {
         FB.getLoginStatus(function (response) {
