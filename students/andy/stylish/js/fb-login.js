@@ -58,16 +58,6 @@ function testAPI() {
         document.getElementById('status').innerHTML =
             'Thanks for logging in, ' + response.name + '!';
     });
-    FB.api(
-        '/oauth/access_token',
-        'GET',
-        {"grant_type":"client_credentials",
-         "client_id":"862956427419338",
-         "client_secret":"9d74497f1cdaaccdd07162b7d3c0d4ab"},
-        function(response) {
-            console.log(response);// Insert your code here
-        }
-      );
 
 }
 
