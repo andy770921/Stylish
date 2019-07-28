@@ -61,8 +61,8 @@ function getFbInfoAPI() {
     FB.api('/me', 'GET', { "fields": "id,name,picture,email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
         console.log(response);
         console.log('Successful login for: ' + response.name);
-        document.getElementById('status').innerHTML =
-            'Thanks for logging in, ' + response.name + '!';
+        //document.getElementById('status').innerHTML =
+        //    'Thanks for logging in, ' + response.name + '!';
     });
 
 
