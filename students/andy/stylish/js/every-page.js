@@ -374,21 +374,34 @@ cartIcon2.addEventListener('click', () => {
 
 // ---- 加入點擊會員圖示監聽函數，點擊後跳轉到會員頁面 -----
 
-const memberIcon1 = document.getElementsByClassName('member')[0];
-const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
-
-memberIcon1.addEventListener('click', () => {
-  getFbLoginFeedback();
-  //location.href = 'profile.html';
-});
-
-memberIcon2.addEventListener('click', () => {
-  getFbLoginFeedback();
-  //location.href = 'profile.html';
-});
-
 async function getFbLoginFeedback() {
   let feedbackWords = await checkLoginStatePromise();
   console.log(feedbackWords);
   return feedbackWords;
 }
+
+const memberIcon1 = document.getElementsByClassName('member')[0];
+const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
+
+memberIcon1.addEventListener('click', () => {
+  let fbStatus = getFbLoginFeedback();
+  if (fbStatus === "connected") {
+    const fbReturnObj = getFbInfoAPI();
+    console.log(fbReturnObj);
+    //location.href = 'profile.html';
+  }  else {
+    memberLogin();
+  }  
+});
+
+memberIcon2.addEventListener('click', () => {
+  let fbStatus = getFbLoginFeedback();
+  if (fbStatus === "connected") {
+    const fbReturnObj = getFbInfoAPI();
+    console.log(fbReturnObj);
+    //location.href = 'profile.html';
+  }  else {
+    memberLogin();
+  }  
+});
+

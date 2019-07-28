@@ -37,28 +37,26 @@ function checkLoginStatePromise() {
 function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
+
     if (response.status === 'connected') {
-        // Logged into your app and Facebook.
-        testAPI();
+        getFbInfoAPI();
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
-        document.getElementById('status').innerHTML = 'Please log ' +
-            'into this app.';
+        alert('可以給我名字、信箱、跟本人帥照/美照嗎 ？ 拜託拜託');
+        //document.getElementById('status').innerHTML = 'Please log ' +
+        //    'into this app.';
     } else {
         // The person is not logged into Facebook, so we're not sure if
         // they are logged into this app or not.
-        document.getElementById('status').innerHTML = 'Please log ' +
-            'into Facebook.';
+        alert('要先登入臉書，才能使用本站會員功能喔');
+        //document.getElementById('status').innerHTML = 'Please log ' +
+        //    'into Facebook.';
     }
 }
 
 // Here we run a very simple test of the Graph API after login is
 // successful.  See statusChangeCallback() for when this call is made.
-function testAPI() {
+function getFbInfoAPI() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', 'GET', { "fields": "id,name,picture,email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
         console.log(response);
