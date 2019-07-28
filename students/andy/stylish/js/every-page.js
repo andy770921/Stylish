@@ -384,7 +384,7 @@ const memberIcon1 = document.getElementsByClassName('member')[0];
 const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
 
 memberIcon1.addEventListener('click', () => {
-  let fbStatus = getFbLoginFeedback();
+  let fbStatus = await getFbLoginFeedback();
   console.log(fbStatus);
   console.log(fbStatus === "connected");
   console.log(fbStatus == "connected");
@@ -398,7 +398,7 @@ memberIcon1.addEventListener('click', () => {
 });
 
 memberIcon2.addEventListener('click', () => {
-  let fbStatus = getFbLoginFeedback();
+  let fbStatus = await getFbLoginFeedback();
   console.log(fbStatus);
   console.log(fbStatus === "connected");
   console.log(fbStatus == "connected");

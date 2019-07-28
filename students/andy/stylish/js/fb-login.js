@@ -42,7 +42,7 @@ function statusChangeCallback(response) {
         getFbInfoAPI();
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
-        alert('可以給我名字、信箱、跟本人帥照/美照嗎 ？ 拜託拜託');
+        alert('可以給我名字、信箱、跟本人帥照/美照嗎？ 拜託拜託');
         //document.getElementById('status').innerHTML = 'Please log ' +
         //    'into this app.';
     } else {
