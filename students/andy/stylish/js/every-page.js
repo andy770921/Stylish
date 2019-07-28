@@ -399,6 +399,9 @@ memberIcon1.addEventListener('click', () => {
 
 memberIcon2.addEventListener('click', () => {
   let fbStatus = getFbLoginFeedback();
+  console.log(fbStatus);
+  console.log(fbStatus === "connected");
+  console.log(fbStatus == "connected");
   if (fbStatus === "connected") {
     const fbReturnObj = getFbInfoAPI();
     console.log(fbReturnObj);
