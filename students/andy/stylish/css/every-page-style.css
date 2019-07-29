@@ -92,6 +92,7 @@ input:-webkit-autofill:active  {
   }
 
 .item-1x4 {
+    z-index: 10;
     justify-content: center;
     position: absolute;
     right: 9px; 
