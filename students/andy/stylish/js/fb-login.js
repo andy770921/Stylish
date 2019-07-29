@@ -149,7 +149,6 @@ function memberLogout() {
 
 const memberIcon1 = document.getElementsByClassName('member')[0];
 const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
-const loginIcon = document.getElementById('FB_login');
 
 // 此為判斷 fb 登入狀態的程式碼，alert 訊息會在 fb 跳出登入畫面前顯示
 
@@ -161,7 +160,7 @@ function handleMemberClick() {
     promise.then(function (fbResponse) {
         console.log(fbResponse);
         if (fbResponse.status === "connected") {
-            const fbAccessToken = authResponse.accessToken;
+            const fbAccessToken = fbResponse.authResponse.accessToken;
             localStorage.setItem('fbAccessToken',fbAccessToken);
             //alert('已登入會員，或是剛剛移除權限但保持登入');
             let promise2 = getFbInfoAPIPromise();
@@ -187,9 +186,6 @@ memberIcon2.addEventListener('click', () => {
     handleMemberClick();
 });
 
-loginIcon.addEventListener('click', () => {
-    handleMemberClick();
-});
 
 
 // log out ( 取消權限 ) 後要重新載入網頁，否則 status: "connected" 會判斷錯
