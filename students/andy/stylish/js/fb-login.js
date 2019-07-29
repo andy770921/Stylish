@@ -30,7 +30,8 @@ window.fbAsyncInit = function () {
 
 
 function checkLoginState() {
-
+    //在檢查狀態前 ( 以及login in 前 ) 刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
+    deleteCookie(`fblo_${fbAppId}`);
     FB.getLoginStatus(function (response) {
         console.log(response);
         statusChangeCallback(response);
@@ -40,7 +41,8 @@ function checkLoginState() {
 
 
 function checkLoginStatePromise() {
-
+    //在檢查狀態前 ( 以及login in 前 ) 刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
+    deleteCookie(`fblo_${fbAppId}`);
     return new Promise(function (resolve, reject) {
         FB.getLoginStatus(function (response) {
             resolve(response);
@@ -60,7 +62,6 @@ function statusChangeCallback(response) {
     } else {
         alert('要先登入並同意基本資料許可，才能使用本站會員功能喔');
         //重新整理網頁，重整後會在 login in 時刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
-        deleteCookie(`fblo_${fbAppId}`);
         window.location.reload();
     }
 }
@@ -140,8 +141,6 @@ const memberIcon1 = document.getElementsByClassName('member')[0];
 const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
 
 memberIcon1.addEventListener('click', () => {
-    //刪除 cookie 避免判斷"not_authorized"錯誤
-    deleteCookie(`fblo_${fbAppId}`);
 
     let promise = checkLoginStatePromise();
     promise.then(function (fbResponse) {
