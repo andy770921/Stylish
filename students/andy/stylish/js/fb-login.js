@@ -1,7 +1,7 @@
 
 function deleteCookie(name) {
-    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  }
+    document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
 // deleteCookie("fblo_" + fbAppId); // fblo_yourFBAppId. example: fblo_444499089231295
 //--- 以下為 FB SDK
 
@@ -63,6 +63,9 @@ function statusChangeCallback(response) {
         // The person is not logged into Facebook, so we're not sure if
         // they are logged into this app or not.
         alert('要先登入並同意基本資料許可，才能使用本站會員功能喔');
+        //刪除 cookie 避免判斷"not_authorized"錯誤，之後再重新整理網頁
+        deleteCookie("fblo_" + fbAppId);
+        window.location.reload();
         //document.getElementById('status').innerHTML = 'Please log ' +
         //    'into Facebook.';
     }
@@ -82,14 +85,14 @@ function getFbInfoAPI() {
 
 function getFbInfoAPIPromise() {
     return new Promise(function (resolve, reject) {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', 'GET', { "fields": "id,name,picture,email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
-        console.log(response);
-        console.log('Successful login for: ' + response.name);
-        resolve(response);
-        //document.getElementById('status').innerHTML =
-        //    'Thanks for logging in, ' + response.name + '!';
-    });
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', 'GET', { "fields": "id,name,picture,email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
+            console.log(response);
+            console.log('Successful login for: ' + response.name);
+            resolve(response);
+            //document.getElementById('status').innerHTML =
+            //    'Thanks for logging in, ' + response.name + '!';
+        });
     });
 }
 
@@ -97,7 +100,7 @@ function getFbInfoAPIPromise() {
 function memberLogin() {
 
     FB.login(function (response) {
-        
+
         statusChangeCallback(response);
     }, {
             scope: 'public_profile,email' //可email後，逗號加入 user_birthday 要求用戶提供
@@ -140,44 +143,41 @@ const memberIcon1 = document.getElementsByClassName('member')[0];
 const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
 
 memberIcon1.addEventListener('click', () => {
-  let promise = checkLoginStatePromise();
-  promise.then(function(fbResponse){
-    console.log(fbResponse);
-    if (fbResponse.status === "connected") {
-        alert('已登入會員');
-      let promise2 = getFbInfoAPIPromise();
-      promise2.then(function(fbReturnObj){console.log(fbReturnObj);});
-      
-      //location.href = 'profile.html';
-      
-    }  else if (fbResponse.status === "not_authorized"){
-        alert('需要取得您的名字、信箱、跟本人帥照/美照，才能登入會員喔');
-        //再點一次    
-        FB.getLoginStatus(function (response) {console.log(response);});
-        memberLogin();
+    let promise = checkLoginStatePromise();
+    promise.then(function (fbResponse) {
+        console.log(fbResponse);
+        if (fbResponse.status === "connected") {
+            alert('已登入會員');
+            let promise2 = getFbInfoAPIPromise();
+            promise2.then(function (fbReturnObj) { console.log(fbReturnObj); });
 
-    }  else if (fbResponse.status === "unknown"){
-        alert('這個應該是，不授權後要進來的。可能是登入取消、或是授權取消');
-        //刪除 cookie 避免判斷"not_authorized"錯誤，之後再重新整理網頁
-      deleteCookie("fblo_" + fbAppId);
-      window.location.reload();
-      //memberLogin();
-    }  
-  });
+            //location.href = 'profile.html';
+
+        } else if (fbResponse.status === "not_authorized") {
+            alert('需要取得您的名字、信箱、跟本人帥照/美照，才能登入會員喔');
+            //再點一次    
+            FB.getLoginStatus(function (response) { console.log(response); });
+            memberLogin();
+
+        } else if (fbResponse.status === "unknown") {
+            alert('這個應該是，不授權後要進來的。可能是登入取消、或是授權取消');
+            //memberLogin();
+        }
+    });
 });
 
 memberIcon2.addEventListener('click', () => {
-  let promise = checkLoginStatePromise();
-  promise.then(function(fbStatus){
-    console.log(fbStatus);
-    if (fbStatus === "connected") {
-      const fbReturnObj = getFbInfoAPI();
-      console.log(fbReturnObj);
-      //location.href = 'profile.html';
-    }  else {
-      memberLogin();
-    }  
-  });
+    let promise = checkLoginStatePromise();
+    promise.then(function (fbStatus) {
+        console.log(fbStatus);
+        if (fbStatus === "connected") {
+            const fbReturnObj = getFbInfoAPI();
+            console.log(fbReturnObj);
+            //location.href = 'profile.html';
+        } else {
+            memberLogin();
+        }
+    });
 });
 
 
