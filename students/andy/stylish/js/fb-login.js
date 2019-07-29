@@ -63,7 +63,7 @@ function statusChangeCallback(response) {
 }
 
 
-function handleFbResponse(response){
+function handleFbResponse(response) {
     console.log(response);
     console.log('Successful login for: ' + response.name);
     const userDataObj = {
@@ -126,8 +126,11 @@ function memberLogout() {
             //alert('您已經登出了喔');
             //這個很像有點奇怪
             console.log("已經登出，或 fb 登入");
-            checkLoginState();
-            console.log("重按登入一次");
+            FB.getLoginStatus(function (response) {
+                console.log(response);
+            }, true);
+
+            console.log("重按檢查狀態一次");
         }
     });
     // FB.logout(function (response) {
@@ -161,7 +164,7 @@ function handleMemberClick() {
         if (fbResponse.status === "connected") {
             //alert('已登入會員，或是剛剛移除權限但保持登入');
             let promise2 = getFbInfoAPIPromise();
-            promise2.then(function (fbReturnObj) { console.log(fbReturnObj);});
+            promise2.then(function (fbReturnObj) { console.log(fbReturnObj); });
 
             //location.href = 'profile.html';
 
