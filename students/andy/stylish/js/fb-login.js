@@ -69,7 +69,7 @@ function statusChangeCallback(response) {
 // successful.  See statusChangeCallback() for when this call is made.
 function getFbInfoAPI() {
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', 'GET', { "fields": "id,name,picture,email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
+    FB.api('/me', 'GET', { "fields": "id,name,picture.width(500),email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
         console.log(response);
         console.log('Successful login for: ' + response.name);
         //document.getElementById('status').innerHTML =
