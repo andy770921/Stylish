@@ -9,6 +9,22 @@ function deleteCookie(name) {
     document.cookie = "fbm_" + name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
 
+  function deleteCookieSet() {
+    var cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++)
+    {
+        if(cookies[i].split("=")[0].indexOf("fblo_") != -1) {
+            delete_cookie(cookies[i].split("=")[0]);
+        }
+        if(cookies[i].split("=")[0].indexOf("fbm_") != -1) {
+            delete_cookie(cookies[i].split("=")[0]);
+        }
+        if(cookies[i].split("=")[0].indexOf("fbsr_") != -1) {
+            delete_cookie(cookies[i].split("=")[0]);
+        }
+    }
+  }
+
 
 
 //--- 以下為 FB SDK
@@ -36,7 +52,7 @@ window.fbAsyncInit = function () {
 }(document, 'script', 'facebook-jssdk'));
 
 function checkLoginState() {
-    deleteCookie(fbAppId);
+    deleteCookieSet();
     FB.getLoginStatus(function (response) {
         console.log(response);
         //statusChangeCallback(response);
@@ -46,7 +62,7 @@ function checkLoginState() {
 
 
 function checkLoginStatePromise() {
-    deleteCookie(fbAppId);
+    deleteCookieSet();
     return new Promise(function (resolve, reject) {
         FB.getLoginStatus(function (response) {
             resolve(response.status);
@@ -102,8 +118,9 @@ function getFbInfoAPIPromise() {
 
 
 function memberLogin() {
-    deleteCookie(fbAppId);
+    deleteCookieSet();
     FB.login(function (response) {
+        deleteCookieSet();
         statusChangeCallback(response);
     }, {
             scope: 'public_profile,email' //可email後，逗號加入 user_birthday 要求用戶提供
@@ -123,7 +140,7 @@ function memberLogout() {
             }
         }
         else {
-            alert('Try again later.');
+            alert('您已經登出了喔');
         }
     });
     // FB.logout(function (response) {
