@@ -156,7 +156,8 @@ memberIcon1.addEventListener('click', () => {
         } else if (fbResponse.status === "not_authorized") {
             alert('需要取得您的名字、信箱、跟本人帥照/美照，才能登入會員喔');
             //再點一次    
-            FB.getLoginStatus(function (response) { console.log(response); });
+            //FB.getLoginStatus(function (response) { console.log(response); });
+            console.log('A');
             memberLogin();
 
         } else if (fbResponse.status === "unknown") {
