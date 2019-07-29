@@ -126,6 +126,8 @@ function memberLogout() {
             //alert('您已經登出了喔');
             //這個很像有點奇怪
             console.log("已經登出，或 fb 登入");
+            checkLoginState();
+            console.log("重按登入一次");
         }
     });
     // FB.logout(function (response) {
