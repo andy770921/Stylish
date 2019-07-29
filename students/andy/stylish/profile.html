@@ -8,6 +8,7 @@
     <title>Stylish Member</title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/every-page-style.css">
+    <link rel="stylesheet" href="css/profile-page-style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
@@ -76,11 +77,29 @@
 
         <div class="container-3">
                 <div class="item-3x1">
-
+                    <div class="img-width"><img class="img-3x1" src="./image/unknown-user.svg"></div>
                 </div>
                 <div class="item-3x2">
-
+                        <div class="user-name words">
+                                <div>會員名稱</div><div class="input-user-name">Unknown</div>
+                        </div>
+                        <div class="user-email words">
+                                <div>電子郵件</div><div class="input-user-email">Unknown</div>
+                        </div>
+                        <div class="member-msg">
+                             <div>會員訊息</div>
+                             <div>Welcome to Stylish</div>
+                        </div>
                 </div>
+        </div>
+
+        <div class="container-4">
+            <div class="item-4x1">
+                <button class="btn" id="FB_login">Sign in via facebook</button>
+            </div>
+            <div class="item-4x1">
+                <button class="btn signout" id="FB_logout">Sign out</button>
+            </div>
         </div>
 
         <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with"
