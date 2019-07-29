@@ -16,6 +16,11 @@ function showMember() {
 
 showMember();
 
+const loginIcon = document.getElementById('FB_login');
+loginIcon.addEventListener('click', () => {
+    handleMemberClick();
+});
+
 const logoutIcon = document.getElementById('FB_logout');
 logoutIcon.addEventListener('click', () => {
     memberLogout();
