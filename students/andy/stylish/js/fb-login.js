@@ -62,7 +62,7 @@ function statusChangeCallback(response) {
     } else {
         // The person is not logged into Facebook, so we're not sure if
         // they are logged into this app or not.
-        alert('要先登入臉書，才能使用本站會員功能喔');
+        alert('要先登入，才能使用本站會員功能喔');
         //document.getElementById('status').innerHTML = 'Please log ' +
         //    'into Facebook.';
     }
@@ -110,7 +110,9 @@ function memberLogout() {
         console.log(res);
         if (res && !res.error) {
             if (res) {
-                alert('Permission revoked.');
+                alert('您已經成功登出會員');
+                //再重新整理網頁，才不會 status 判斷成 "connected" 導致拿資料錯誤
+                window.location.reload();
             }
             else {
                 alert('很像有點問題，無法登出');
@@ -142,7 +144,7 @@ memberIcon1.addEventListener('click', () => {
   promise.then(function(fbResponse){
     console.log(fbResponse);
     if (fbResponse.status === "connected") {
-        alert('這個應該是，正確連線要進來的');
+        alert('已登入會員');
       let promise2 = getFbInfoAPIPromise();
       promise2.then(function(fbReturnObj){console.log(fbReturnObj);});
       
@@ -156,9 +158,9 @@ memberIcon1.addEventListener('click', () => {
 
     }  else if (fbResponse.status === "unknown"){
         alert('這個應該是，不授權後要進來的。可能是登入取消、或是授權取消');
+        //刪除 cookie 避免判斷"not_authorized"錯誤，之後再重新整理網頁
       deleteCookie("fblo_" + fbAppId);
       window.location.reload();
-      //再重新整理網頁
       //memberLogin();
     }  
   });
