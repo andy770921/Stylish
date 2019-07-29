@@ -142,18 +142,19 @@ memberIcon1.addEventListener('click', () => {
   promise.then(function(fbResponse){
     console.log(fbResponse);
     if (fbResponse.status === "connected") {
+        alert('這個應該是，正確連線要進來的');
       let promise2 = getFbInfoAPIPromise();
       promise2.then(function(fbReturnObj){console.log(fbReturnObj);});
       
       //location.href = 'profile.html';
     }  else if (fbResponse.error.message === "Error validating access token: The session was invalidated explicitly using an API call."){
-      
+        alert('這個應該是，按登出後，再按會員icon要進來的');
         //再點一次    
         FB.getLoginStatus(function (response) {console.log(response);});
         memberLogin();
 
     }  else if (fbResponse.status === "unknown"){
-
+        alert('這個應該是，不授權後要進來的。可能是登入取消、或是授權取消');
       deleteCookie(name);
       window.location.reload();
       //再重新整理網頁
