@@ -150,7 +150,6 @@ function memberLogout() {
 const memberIcon1 = document.getElementsByClassName('member')[0];
 const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
 const loginIcon = document.getElementById('FB_login');
-const logoutIcon = document.getElementById('FB_logout');
 
 // 此為判斷 fb 登入狀態的程式碼，alert 訊息會在 fb 跳出登入畫面前顯示
 
@@ -190,8 +189,5 @@ loginIcon.addEventListener('click', () => {
     handleMemberClick();
 });
 
-logoutIcon.addEventListener('click', () => {
-    memberLogout();
-});
 
 // log out ( 取消權限 ) 後要重新載入網頁，否則 status: "connected" 會判斷錯
