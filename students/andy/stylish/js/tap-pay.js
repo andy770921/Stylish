@@ -119,7 +119,15 @@ function getPrime() {
             alert('收件人資料及信用卡資料正確，已送出訂單');
             //清除 local storage;
             localStorage.removeItem('orderJSONinLocal');
-            postAjax(sentBuyDetailURL, finalJsonObj, jumpToThanksWithOrderNum);
+
+            if (localStorage.getItem('fbAccessToken') !== '' && localStorage.getItem('fbAccessToken') !== null) {
+                //有會員的狀態
+                const fbAccessToken = localStorage.getItem('fbAccessToken');
+                
+            } else {
+                //無會員的狀態
+                postAjax(sentBuyDetailURL, finalJsonObj, jumpToThanksWithOrderNum);
+            }
         }
         
         return;

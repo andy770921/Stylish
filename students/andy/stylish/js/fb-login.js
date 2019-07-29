@@ -115,6 +115,7 @@ function memberLogout() {
             if (res) {
                 alert('您已經成功登出');
                 localStorage.removeItem('userData');
+                localStorage.removeItem('fbAccessToken');
                 //再重新整理網頁，才不會 status 判斷成 "connected" 導致拿資料錯誤
                 window.location.reload();
             }
@@ -160,6 +161,8 @@ function handleMemberClick() {
     promise.then(function (fbResponse) {
         console.log(fbResponse);
         if (fbResponse.status === "connected") {
+            const fbAccessToken = authResponse.accessToken;
+            localStorage.setItem('fbAccessToken',fbAccessToken);
             //alert('已登入會員，或是剛剛移除權限但保持登入');
             let promise2 = getFbInfoAPIPromise();
             promise2.then(function (fbReturnObj) { console.log(fbReturnObj); });

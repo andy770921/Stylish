@@ -111,6 +111,22 @@ function postAjax(src, sentObj, callback) {
   var sentJSON = JSON.stringify(sentObj);
   xhr.send(sentJSON);
 }
+//從此開始
+function postAjaxWithToken(src, sentObj, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", src, true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+  xhr.onload = function () {
+    var parsedData = JSON.parse(xhr.responseText);
+    if (xhr.readyState == 4 && xhr.status == "200") {
+      callback(parsedData);
+    } else {
+      console.error(parsedData);
+    }
+  }
+  var sentJSON = JSON.stringify(sentObj);
+  xhr.send(sentJSON);
+}
 
 //----取得網址後問號的Query字串相關----
 
