@@ -60,6 +60,7 @@ function statusChangeCallback(response) {
     } else {
         alert('要先登入並同意基本資料許可，才能使用本站會員功能喔');
         //重新整理網頁，重整後會在 login in 時刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
+        deleteCookie(`fblo_${fbAppId}`);
         window.location.reload();
     }
 }
@@ -93,7 +94,7 @@ function getFbInfoAPIPromise() {
 // 此為判斷 fb 登入狀態的程式碼，alert 訊息會在 fb 跳出登入畫面前顯示
 function memberLogin() {
     // 刪除若上次取消登入，自動產生的 cookie ，避免判斷 "not_authorized" 成 "unknown" 錯誤
-    deleteCookie("fblo_" + fbAppId);
+    deleteCookie(`fblo_${fbAppId}`);
 
     FB.login(function (response) {
 
@@ -140,7 +141,7 @@ const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
 
 memberIcon1.addEventListener('click', () => {
     //刪除 cookie 避免判斷"not_authorized"錯誤
-    deleteCookie("fblo_" + fbAppId);
+    deleteCookie(`fblo_${fbAppId}`);
 
     let promise = checkLoginStatePromise();
     promise.then(function (fbResponse) {
