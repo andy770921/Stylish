@@ -68,9 +68,9 @@ function getFbInfoAPI() {
         console.log(response);
         console.log('Successful login for: ' + response.name);
         const userDataObj = {
-            userName : response.name,
-            userEmail : response.email,
-            userPictureUrl : response.picture.data.url
+            userName: response.name,
+            userEmail: response.email,
+            userPictureUrl: response.picture.data.url
         };
         console.log(userDataObj);
         //取得使用者資料後，存入 localStorage
@@ -118,7 +118,7 @@ function memberLogout() {
         else {
             alert('您已經登出了喔');
             //再重新整理網頁，才不會 status 判斷成 "connected" 導致拿資料錯誤
-            window.location.reload();
+            //window.location.reload();
         }
     });
     // FB.logout(function (response) {
@@ -140,7 +140,7 @@ const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
 
 // 此為判斷 fb 登入狀態的程式碼，alert 訊息會在 fb 跳出登入畫面前顯示
 
-memberIcon1.addEventListener('click', () => {
+function handleMemberClick() {
     //在檢查狀態前 ( 以及login in 前 ) 刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
     deleteCookie(`fblo_${fbAppId}`);
 
@@ -148,9 +148,9 @@ memberIcon1.addEventListener('click', () => {
     promise.then(function (fbResponse) {
         console.log(fbResponse);
         if (fbResponse.status === "connected") {
-            alert('已登入會員');
-            // let promise2 = getFbInfoAPIPromise();
-            // promise2.then(function (fbReturnObj) { console.log(fbReturnObj); });
+            //alert('已登入會員，或是剛剛移除權限但保持登入');
+            let promise2 = getFbInfoAPIPromise();
+            promise2.then(function (fbReturnObj) { console.log(fbReturnObj); });
 
             location.href = 'profile.html';
 
@@ -162,20 +162,14 @@ memberIcon1.addEventListener('click', () => {
             memberLogin();
         }
     });
+}
+
+memberIcon1.addEventListener('click', () => {
+    handleMemberClick();
 });
 
 memberIcon2.addEventListener('click', () => {
-    let promise = checkLoginStatePromise();
-    promise.then(function (fbStatus) {
-        console.log(fbStatus);
-        if (fbStatus === "connected") {
-            const fbReturnObj = getFbInfoAPI();
-            console.log(fbReturnObj);
-            //location.href = 'profile.html';
-        } else {
-            memberLogin();
-        }
-    });
+    handleMemberClick();
 });
 
 
