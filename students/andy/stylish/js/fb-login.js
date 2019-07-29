@@ -62,19 +62,26 @@ function statusChangeCallback(response) {
     }
 }
 
+
+function handleFbResponse(response){
+    console.log(response);
+    console.log('Successful login for: ' + response.name);
+    const userDataObj = {
+        userName: response.name,
+        userEmail: response.email,
+        userPictureUrl: response.picture.data.url
+    };
+    console.log(userDataObj);
+    //取得使用者資料後，存入 localStorage
+    localStorage.setItem('userData', JSON.stringify(userDataObj));
+
+}
+
+
 function getFbInfoAPI() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', 'GET', { "fields": "id,name,picture.width(500),email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
-        console.log(response);
-        console.log('Successful login for: ' + response.name);
-        const userDataObj = {
-            userName: response.name,
-            userEmail: response.email,
-            userPictureUrl: response.picture.data.url
-        };
-        console.log(userDataObj);
-        //取得使用者資料後，存入 localStorage
-        localStorage.setItem('userData', JSON.stringify(userDataObj));
+        handleFbResponse(response);
     });
 }
 
@@ -82,8 +89,7 @@ function getFbInfoAPIPromise() {
     return new Promise(function (resolve, reject) {
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', 'GET', { "fields": "id,name,picture.width(500),email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
-            console.log(response);
-            console.log('Successful login for: ' + response.name);
+            handleFbResponse(response);
             resolve(response);
         });
     });
@@ -117,8 +123,6 @@ function memberLogout() {
         }
         else {
             alert('您已經登出了喔');
-            //再重新整理網頁，才不會 status 判斷成 "connected" 導致拿資料錯誤
-            //window.location.reload();
         }
     });
     // FB.logout(function (response) {
