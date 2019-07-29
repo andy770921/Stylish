@@ -30,8 +30,6 @@ window.fbAsyncInit = function () {
 
 
 function checkLoginState() {
-    //在檢查狀態前 ( 以及login in 前 ) 刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
-    deleteCookie(`fblo_${fbAppId}`);
     FB.getLoginStatus(function (response) {
         console.log(response);
         statusChangeCallback(response);
@@ -41,8 +39,6 @@ function checkLoginState() {
 
 
 function checkLoginStatePromise() {
-    //在檢查狀態前 ( 以及login in 前 ) 刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
-    deleteCookie(`fblo_${fbAppId}`);
     return new Promise(function (resolve, reject) {
         FB.getLoginStatus(function (response) {
             resolve(response);
@@ -137,23 +133,25 @@ const memberIcon1 = document.getElementsByClassName('member')[0];
 const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
 
 memberIcon1.addEventListener('click', () => {
-
+    //在檢查狀態前 ( 以及login in 前 ) 刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
+    deleteCookie(`fblo_${fbAppId}`);
+    
     let promise = checkLoginStatePromise();
     promise.then(function (fbResponse) {
         console.log(fbResponse);
         if (fbResponse.status === "connected") {
             alert('已登入會員');
-            let promise2 = getFbInfoAPIPromise();
-            promise2.then(function (fbReturnObj) { console.log(fbReturnObj); });
+            // let promise2 = getFbInfoAPIPromise();
+            // promise2.then(function (fbReturnObj) { console.log(fbReturnObj); });
 
-            //location.href = 'profile.html';
+            location.href = 'profile.html';
 
         } else if (fbResponse.status === "not_authorized") {
             alert('需要取得您的名字、信箱、跟本人帥照/美照，才能登入會員喔');
             memberLogin();
         } else if (fbResponse.status === "unknown") {
-            alert('這個應該是，不授權後要進來的。可能是登入取消、或是授權取消');
-            //memberLogin();
+            alert('需要先登入臉書才能使用會員功能喔。可能您剛剛取消登入、或是取消授權');
+            memberLogin();
         }
     });
 });
