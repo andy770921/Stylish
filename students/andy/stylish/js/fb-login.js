@@ -33,7 +33,7 @@ function checkLoginState() {
     FB.getLoginStatus(function (response) {
         console.log(response);
         statusChangeCallback(response);
-    });
+    }, true);
 }
 
 
@@ -43,7 +43,7 @@ function checkLoginStatePromise() {
     return new Promise(function (resolve, reject) {
         FB.getLoginStatus(function (response) {
             resolve(response);
-        });
+        }, true);
     });
 }
 
