@@ -154,9 +154,9 @@ function handleMemberClick() {
         if (fbResponse.status === "connected") {
             //alert('已登入會員，或是剛剛移除權限但保持登入');
             let promise2 = getFbInfoAPIPromise();
-            promise2.then(function (fbReturnObj) { console.log(fbReturnObj); });
+            promise2.then(function (fbReturnObj) { console.log(fbReturnObj); location.href = 'profile.html';});
 
-            location.href = 'profile.html';
+            //location.href = 'profile.html';
 
         } else if (fbResponse.status === "not_authorized") {
             alert('需要取得您的名字、信箱、跟本人帥照/美照，才能登入會員喔');
