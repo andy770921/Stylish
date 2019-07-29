@@ -153,7 +153,8 @@ memberIcon1.addEventListener('click', () => {
         FB.getLoginStatus(function (response) {console.log(response);});
         memberLogin();
 
-    }  else if (fbResponse.error.message === "Error validating access token: The session was invalidated explicitly using an API call."){
+    }  else if (fbResponse.error !== undefined){
+        //fbResponse.error.message === "Error validating access token: The session was invalidated explicitly using an API call."
         alert('這個應該是，按登出後，再按會員icon要進來的');
         //再點一次    
         FB.getLoginStatus(function (response) {console.log(response);});
