@@ -136,3 +136,36 @@
   .signout {
     background-color: #3f3a3a;
   }
+
+/* ================================= 
+  Media Queries
+==================================== */
+
+@media (max-width: 600px)  {
+
+  .container-3 {
+    width: 95%;
+  }
+  .words > div {
+    font-size: 15px;
+    flex: 1 15px;
+  }
+
+  .words > div:last-child { 
+    font-size: 18px;
+    flex: 5;
+  }
+  
+  .member-msg > div:first-child {
+    font-size: 15px;
+  }
+  .member-msg > div:last-child {
+  font-size: 15px;
+  }
+ .btn {
+    width: 90%;
+    font-size: 15px; 
+    height: 60px;
+    letter-spacing: 1.1px;
+  }
+}
