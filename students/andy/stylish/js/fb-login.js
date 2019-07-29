@@ -66,8 +66,6 @@ function statusChangeCallback(response) {
     }
 }
 
-// Here we run a very simple test of the Graph API after login is
-// successful.  See statusChangeCallback() for when this call is made.
 function getFbInfoAPI() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', 'GET', { "fields": "id,name,picture.width(500),email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
@@ -81,7 +79,7 @@ function getFbInfoAPI() {
 function getFbInfoAPIPromise() {
     return new Promise(function (resolve, reject) {
         console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', 'GET', { "fields": "id,name,picture,email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
+        FB.api('/me', 'GET', { "fields": "id,name,picture.width(500),email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
             console.log(response);
             console.log('Successful login for: ' + response.name);
             resolve(response);
@@ -96,9 +94,7 @@ function getFbInfoAPIPromise() {
 function memberLogin() {
     // 刪除若上次取消登入，自動產生的 cookie ，避免判斷 "not_authorized" 成 "unknown" 錯誤
     deleteCookie(`fblo_${fbAppId}`);
-
     FB.login(function (response) {
-
         statusChangeCallback(response);
     }, {
             scope: 'public_profile,email' //可email後，逗號加入 user_birthday 要求用戶提供
@@ -154,11 +150,7 @@ memberIcon1.addEventListener('click', () => {
 
         } else if (fbResponse.status === "not_authorized") {
             alert('需要取得您的名字、信箱、跟本人帥照/美照，才能登入會員喔');
-            //再點一次    
-            //FB.getLoginStatus(function (response) { console.log(response); });
-            console.log('A');
             memberLogin();
-
         } else if (fbResponse.status === "unknown") {
             alert('這個應該是，不授權後要進來的。可能是登入取消、或是授權取消');
             //memberLogin();
@@ -181,4 +173,4 @@ memberIcon2.addEventListener('click', () => {
 });
 
 
-// log out 後要重新載入網頁，否則 status: "connected" 會判斷錯
+// log out ( 取消權限 ) 後要重新載入網頁，否則 status: "connected" 會判斷錯
