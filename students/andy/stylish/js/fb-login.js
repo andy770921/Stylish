@@ -1,6 +1,21 @@
+
+//--- 刪除cookie，登入前要刪
+
+// deleteCookie("fblo_" + fbAppId); // fblo_yourFBAppId. example: fblo_444499089231295
+
+function deleteCookie(name) {
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
+
+
+
+//--- 以下為 FB SDK
+
+const fbAppId = '862956427419338';
+
 window.fbAsyncInit = function () {
     FB.init({
-        appId: '862956427419338',
+        appId: 'fbAppId',
         cookie: true,
         xfbml: true,
         version: 'v3.3'
@@ -20,6 +35,7 @@ window.fbAsyncInit = function () {
 
 function checkLoginState() {
     FB.getLoginStatus(function (response) {
+        deleteCookie("fblo_" + fbAppId);
         console.log(response);
         //statusChangeCallback(response);
     });
@@ -29,6 +45,7 @@ function checkLoginState() {
 
 function checkLoginStatePromise() {
     return new Promise(function (resolve, reject) {
+        deleteCookie("fblo_" + fbAppId);
         FB.getLoginStatus(function (response) {
             resolve(response.status);
         });
@@ -84,6 +101,7 @@ function getFbInfoAPIPromise() {
 
 function memberLogin() {
     FB.login(function (response) {
+        deleteCookie("fblo_" + fbAppId);
         statusChangeCallback(response);
     }, {
             scope: 'public_profile,email' //可email後，逗號加入 user_birthday 要求用戶提供
