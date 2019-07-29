@@ -145,15 +145,19 @@
 @media (max-width: 600px)  {
 
   .container-3 {
-    width: 95%;
+    width: 90%;
+    flex-direction: column;
   }
   .words > div {
     font-size: 15px;
-    flex: 1 15px;
+    flex: none;
+    width: 40px;
   }
 
+
   .words > div:last-child { 
-    font-size: 18px;
+    margin-left: 10px;
+    font-size: 16px;
     flex: 5;
   }
   
