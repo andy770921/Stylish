@@ -29,6 +29,7 @@
 }
 .img-3x1 {
     width: 100%;
+    border-radius: 15px; 
 }
 
 /*  文字  */

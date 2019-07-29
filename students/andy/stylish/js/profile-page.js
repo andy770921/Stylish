@@ -7,7 +7,7 @@ if (localStorage.getItem('userData') !== `{"prime":"","order":{"list":[]}}` && l
     // 加入文字
     const text1 = document.getElementsByClassName('input-user-name')[0]
     text1.innerHTML = userDataList.userName;
-    const text2 = document.getElementsByClassName('input-user-name')[0]
+    const text2 = document.getElementsByClassName('input-user-email')[0]
     text2.innerHTML = userDataList.userEmail;
 }
 
