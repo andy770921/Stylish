@@ -76,24 +76,26 @@
         </nav>
 
         <div class="container-3">
-                <div class="item-3x1">
-                    <div class="img-width"><img class="img-3x1" src="./image/unknown-user.svg"></div>
+            <div class="item-3x1">
+                <div class="img-width"><img class="img-3x1" src="./image/unknown-user.svg"></div>
+            </div>
+            <div class="item-3x2">
+                <div class="user-name words">
+                    <div>會員名稱</div>
+                    <div class="input-user-name">Unknown</div>
                 </div>
-                <div class="item-3x2">
-                        <div class="user-name words">
-                                <div>會員名稱</div><div class="input-user-name">Unknown</div>
-                        </div>
-                        <div class="user-email words">
-                                <div>電子郵件</div><div class="input-user-email">Unknown</div>
-                        </div>
-                        <div class="member-msg">
-                             <div>會員訊息</div>
-                             <div>Welcome to Stylish</div>
-                        </div>
+                <div class="user-email words">
+                    <div>電子郵件</div>
+                    <div class="input-user-email">Unknown</div>
                 </div>
+                <div class="member-msg">
+                    <div>會員訊息</div>
+                    <div>Welcome to Stylish</div>
+                </div>
+            </div>
         </div>
 
-        <div class="container-4">
+        <div class="container-5">
             <div class="item-4x1">
                 <button class="btn" id="FB_login">Sign in via facebook</button>
             </div>
@@ -101,18 +103,18 @@
                 <button class="btn signout" id="FB_logout">Sign out</button>
             </div>
         </div>
+        <div class="container-4">
+            <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with"
+                data-auto-logout-link="false" data-use-continue-as="false"></div>
 
-        <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with"
-            data-auto-logout-link="false" data-use-continue-as="false"></div>
+            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" autologoutlink="true">
+            </fb:login-button>
+            <button onclick="memberLogin()" id="FB_login"> login-TEST </button>
+            <button onclick="memberLogout()" id="FB_logout"> logout-TEST </button>
+            <button onclick="checkLoginState()" id="checkLoginState"> checkLoginState </button>
 
-        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" autologoutlink="true">
-        </fb:login-button>
-        <button onclick="memberLogin()" id="FB_login"> login-TEST </button>
-        <button onclick="memberLogout()" id="FB_logout"> logout-TEST </button>
-        <button onclick="checkLoginState()" id="checkLoginState"> checkLoginState </button>
-        
-        <div id="status"> </div>
-
+            <div id="status"> </div>
+        </div>
         <div class="sticky">
             <div class="item-s addCursor">
                 <div class="cart"><img class="img-s" src="./image/cart-mobile.png"></div>
@@ -147,7 +149,7 @@
 
     <!-- 加入 FB login -->
     <script type="text/javascript" src="js/fb-login.js"></script>
-    
+
     <!-- 自己寫的 -->
     <script type="text/javascript" src="js/every-page.js"></script>
     <script type="text/javascript" src="js/profile-page.js"></script>
