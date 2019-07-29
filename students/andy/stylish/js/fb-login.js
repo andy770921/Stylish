@@ -98,7 +98,7 @@ function getFbInfoAPIPromise() {
 
 
 function memberLogin() {
-
+    deleteCookie('fblo_862956427419338');
     FB.login(function (response) {
 
         statusChangeCallback(response);
