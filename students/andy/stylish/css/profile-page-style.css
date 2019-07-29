@@ -36,10 +36,12 @@
 
 /*  圖  */
 .img-width {
-    width: 400px;
+    width: 80%;
+    max-width: 400px;
     background-color: lightgray;
-    padding: 50px;
+    padding: 10%;
     border-radius: 25% 20px; 
+    display: flex;
 }
 .img-3x1 {
     width: 100%;
