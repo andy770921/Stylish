@@ -63,8 +63,8 @@ function statusChangeCallback(response) {
         // The person is not logged into Facebook, so we're not sure if
         // they are logged into this app or not.
         alert('要先登入並同意基本資料許可，才能使用本站會員功能喔');
-        //刪除 cookie 避免判斷"not_authorized"錯誤，之後再重新整理網頁
-        deleteCookie("fblo_" + fbAppId);
+        //重新整理網頁，重整後會再刪除 cookie 避免判斷"not_authorized"錯誤
+        //deleteCookie("fblo_" + fbAppId);
         window.location.reload();
         //document.getElementById('status').innerHTML = 'Please log ' +
         //    'into Facebook.';
@@ -143,6 +143,9 @@ const memberIcon1 = document.getElementsByClassName('member')[0];
 const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
 
 memberIcon1.addEventListener('click', () => {
+    //刪除 cookie 避免判斷"not_authorized"錯誤
+    deleteCookie("fblo_" + fbAppId);
+
     let promise = checkLoginStatePromise();
     promise.then(function (fbResponse) {
         console.log(fbResponse);
