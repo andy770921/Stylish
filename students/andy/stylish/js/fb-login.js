@@ -1,5 +1,8 @@
 
-
+function deleteCookie(name) {
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
+// deleteCookie("fblo_" + fbAppId); // fblo_yourFBAppId. example: fblo_444499089231295
 //--- 以下為 FB SDK
 
 const fbAppId = '862956427419338';
@@ -39,7 +42,7 @@ function checkLoginStatePromise() {
 
     return new Promise(function (resolve, reject) {
         FB.getLoginStatus(function (response) {
-            resolve(response.status);
+            resolve(response);
         });
     });
 }
@@ -136,15 +139,25 @@ const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
 
 memberIcon1.addEventListener('click', () => {
   let promise = checkLoginStatePromise();
-  promise.then(function(fbStatus){
-    console.log(fbStatus);
-    if (fbStatus === "connected") {
+  promise.then(function(fbResponse){
+    console.log(fbResponse);
+    if (fbResponse.status === "connected") {
       let promise2 = getFbInfoAPIPromise();
       promise2.then(function(fbReturnObj){console.log(fbReturnObj);});
       
       //location.href = 'profile.html';
-    }  else {
-      memberLogin();
+    }  else if (fbResponse.error.message === "Error validating access token: The session was invalidated explicitly using an API call."){
+      
+        //再點一次    
+        FB.getLoginStatus(function (response) {console.log(response);});
+        memberLogin();
+
+    }  else if (fbResponse.status === "unknown"){
+
+      deleteCookie(name);
+      window.location.reload();
+      //再重新整理網頁
+      //memberLogin();
     }  
   });
 });
