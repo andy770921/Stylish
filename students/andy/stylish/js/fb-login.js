@@ -107,7 +107,7 @@ function memberLogout() {
         console.log(res);
         if (res && !res.error) {
             if (res) {
-                alert('您已經成功登出會員');
+                alert('您已經成功登出');
                 //再重新整理網頁，才不會 status 判斷成 "connected" 導致拿資料錯誤
                 window.location.reload();
             }
@@ -117,6 +117,8 @@ function memberLogout() {
         }
         else {
             alert('您已經登出了喔');
+            //再重新整理網頁，才不會 status 判斷成 "connected" 導致拿資料錯誤
+            window.location.reload();
         }
     });
     // FB.logout(function (response) {
