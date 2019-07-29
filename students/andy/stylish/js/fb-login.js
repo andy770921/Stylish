@@ -3,6 +3,7 @@ function deleteCookie(name) {
     document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 // deleteCookie("fblo_" + fbAppId); // fblo_yourFBAppId. example: fblo_444499089231295
+
 //--- 以下為 FB SDK
 
 const fbAppId = '862956427419338';
@@ -47,7 +48,7 @@ function checkLoginStatePromise() {
     });
 }
 
-// This is called with the results from from FB.getLoginStatus().
+// 此為 FB.getLoginStatus() 呼叫後執行的程式碼，alert 訊息會在 fb 跳出登入畫面，關閉 fb 畫面之後顯示
 function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
@@ -55,19 +56,11 @@ function statusChangeCallback(response) {
     if (response.status === 'connected') {
         getFbInfoAPI();
     } else if (response.status === 'not_authorized') {
-        // The person is logged into Facebook, but not your app.
         // alert('可以給我名字、信箱、跟本人帥照/美照嗎？ 拜託拜託');
-        //document.getElementById('status').innerHTML = 'Please log ' +
-        //    'into this app.';
     } else {
-        // The person is not logged into Facebook, so we're not sure if
-        // they are logged into this app or not.
         alert('要先登入並同意基本資料許可，才能使用本站會員功能喔');
-        //重新整理網頁，重整後會再刪除 cookie 避免判斷"not_authorized"錯誤
-        //deleteCookie("fblo_" + fbAppId);
+        //重新整理網頁，重整後會在 login in 時刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
         window.location.reload();
-        //document.getElementById('status').innerHTML = 'Please log ' +
-        //    'into Facebook.';
     }
 }
 
@@ -97,8 +90,11 @@ function getFbInfoAPIPromise() {
 }
 
 
+// 此為判斷 fb 登入狀態的程式碼，alert 訊息會在 fb 跳出登入畫面前顯示
 function memberLogin() {
-    deleteCookie('fblo_862956427419338');
+    // 刪除若上次取消登入，自動產生的 cookie ，避免判斷 "not_authorized" 成 "unknown" 錯誤
+    deleteCookie("fblo_" + fbAppId);
+
     FB.login(function (response) {
 
         statusChangeCallback(response);
@@ -107,8 +103,8 @@ function memberLogin() {
         });
 
 }
-function memberLogout() {
 
+function memberLogout() {
     FB.api('/me/permissions', 'delete', function (res) {
         console.log(res);
         if (res && !res.error) {
