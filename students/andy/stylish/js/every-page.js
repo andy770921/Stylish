@@ -60,6 +60,8 @@ let userOrder = new orderList("", "", 0, "", "", "", 0);
 //let userInfo = new shippingInfo("delivery", "credit_card", 1234, 60, 1300, "Luke", "0987654321", "email@email", "市政府站", "morning");
 //let userOrder = new orderList("201807202157", "活力花紋長筒牛仔褲", 1299, "DDF0FF", "淺藍", "M", 1);
 
+let userDataList = {};
+
 //----HTML文字設定---
 
 const navBarWords = ['女裝', '男裝', '配件'];

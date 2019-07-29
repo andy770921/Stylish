@@ -177,4 +177,6 @@ memberIcon2.addEventListener('click', () => {
 });
 
 
+
+
 // log out ( 取消權限 ) 後要重新載入網頁，否則 status: "connected" 會判斷錯
