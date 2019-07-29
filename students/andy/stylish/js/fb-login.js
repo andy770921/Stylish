@@ -36,8 +36,8 @@ window.fbAsyncInit = function () {
 }(document, 'script', 'facebook-jssdk'));
 
 function checkLoginState() {
+    deleteCookie(fbAppId);
     FB.getLoginStatus(function (response) {
-        deleteCookie(fbAppId);
         console.log(response);
         //statusChangeCallback(response);
     });
@@ -46,8 +46,8 @@ function checkLoginState() {
 
 
 function checkLoginStatePromise() {
+    deleteCookie(fbAppId);
     return new Promise(function (resolve, reject) {
-        deleteCookie(fbAppId);
         FB.getLoginStatus(function (response) {
             resolve(response.status);
         });
@@ -102,8 +102,8 @@ function getFbInfoAPIPromise() {
 
 
 function memberLogin() {
+    deleteCookie(fbAppId);
     FB.login(function (response) {
-        deleteCookie(fbAppId);
         statusChangeCallback(response);
     }, {
             scope: 'public_profile,email' //可email後，逗號加入 user_birthday 要求用戶提供
@@ -126,7 +126,6 @@ function memberLogout() {
             alert('Try again later.');
         }
     });
-    deleteCookie(fbAppId);
     // FB.logout(function (response) {
     //     statusChangeCallback(response);
     // });
