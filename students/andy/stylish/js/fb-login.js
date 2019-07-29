@@ -74,7 +74,7 @@ function handleFbResponse(response){
     console.log(userDataObj);
     //取得使用者資料後，存入 localStorage
     localStorage.setItem('userData', JSON.stringify(userDataObj));
-
+    location.href = 'profile.html';
 }
 
 
@@ -154,7 +154,7 @@ function handleMemberClick() {
         if (fbResponse.status === "connected") {
             //alert('已登入會員，或是剛剛移除權限但保持登入');
             let promise2 = getFbInfoAPIPromise();
-            promise2.then(function (fbReturnObj) { console.log(fbReturnObj); location.href = 'profile.html';});
+            promise2.then(function (fbReturnObj) { console.log(fbReturnObj);});
 
             //location.href = 'profile.html';
 
@@ -162,7 +162,7 @@ function handleMemberClick() {
             alert('需要取得您的名字、信箱、跟本人帥照/美照，才能登入會員喔');
             memberLogin();
         } else if (fbResponse.status === "unknown") {
-            alert('需要先登入臉書才能使用會員功能喔。可能您剛剛取消登入、或是取消授權');
+            alert('需要先登入臉書才能使用會員功能喔。');
             memberLogin();
         }
     });
