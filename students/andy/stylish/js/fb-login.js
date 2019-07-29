@@ -74,7 +74,7 @@ function handleFbResponse(response){
     console.log(userDataObj);
     //取得使用者資料後，存入 localStorage
     localStorage.setItem('userData', JSON.stringify(userDataObj));
-    //location.href = 'profile.html';
+    location.href = 'profile.html';
 }
 
 
