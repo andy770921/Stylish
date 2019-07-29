@@ -162,7 +162,7 @@ memberIcon1.addEventListener('click', () => {
 
     }  else if (fbResponse.status === "unknown"){
         alert('這個應該是，不授權後要進來的。可能是登入取消、或是授權取消');
-      deleteCookie(name);
+      deleteCookie("fblo_" + fbAppId);
       window.location.reload();
       //再重新整理網頁
       //memberLogin();
@@ -185,4 +185,3 @@ memberIcon2.addEventListener('click', () => {
 });
 
 
-// 1. 
