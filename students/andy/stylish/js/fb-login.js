@@ -4,9 +4,7 @@
 // deleteCookie("fblo_" + fbAppId); // fblo_yourFBAppId. example: fblo_444499089231295
 
 function deleteCookie(name) {
-    document.cookie = "fblo_" + name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    document.cookie = "fbsr_" + name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    document.cookie = "fbm_" + name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/';
   }
 
   function deleteCookieSet() {
