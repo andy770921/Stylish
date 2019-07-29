@@ -114,6 +114,7 @@ function memberLogout() {
         if (res && !res.error) {
             if (res) {
                 alert('您已經成功登出');
+                localStorage.removeItem('userData');
                 //再重新整理網頁，才不會 status 判斷成 "connected" 導致拿資料錯誤
                 window.location.reload();
             }
