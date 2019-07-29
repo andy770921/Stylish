@@ -4,7 +4,9 @@
 // deleteCookie("fblo_" + fbAppId); // fblo_yourFBAppId. example: fblo_444499089231295
 
 function deleteCookie(name) {
-    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = "fblo_" + name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = "fbsr_" + name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = "fbm_" + name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
 
 
@@ -35,7 +37,7 @@ window.fbAsyncInit = function () {
 
 function checkLoginState() {
     FB.getLoginStatus(function (response) {
-        deleteCookie("fblo_" + fbAppId);
+        deleteCookie(fbAppId);
         console.log(response);
         //statusChangeCallback(response);
     });
@@ -45,7 +47,7 @@ function checkLoginState() {
 
 function checkLoginStatePromise() {
     return new Promise(function (resolve, reject) {
-        deleteCookie("fblo_" + fbAppId);
+        deleteCookie(fbAppId);
         FB.getLoginStatus(function (response) {
             resolve(response.status);
         });
@@ -101,7 +103,7 @@ function getFbInfoAPIPromise() {
 
 function memberLogin() {
     FB.login(function (response) {
-        deleteCookie("fblo_" + fbAppId);
+        deleteCookie(fbAppId);
         statusChangeCallback(response);
     }, {
             scope: 'public_profile,email' //可email後，逗號加入 user_birthday 要求用戶提供
@@ -124,6 +126,7 @@ function memberLogout() {
             alert('Try again later.');
         }
     });
+    deleteCookie(fbAppId);
     // FB.logout(function (response) {
     //     statusChangeCallback(response);
     // });
