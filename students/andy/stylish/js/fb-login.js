@@ -128,14 +128,13 @@ function memberLogout() {
             console.log("已經登出，或 fb 登入");
             FB.getLoginStatus(function (response) {
                 console.log(response);
-            }, true);
-
-            console.log("重按檢查狀態一次");
+                if (response.status === 'connected'){
+                    console.log("重按檢查狀態一次");
+                    memberLogout();
+                }
+            }, true);         
         }
     });
-    // FB.logout(function (response) {
-    //     statusChangeCallback(response);
-    // });
 }
 
 
