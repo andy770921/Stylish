@@ -147,6 +147,12 @@ memberIcon1.addEventListener('click', () => {
       promise2.then(function(fbReturnObj){console.log(fbReturnObj);});
       
       //location.href = 'profile.html';
+    }  else if (fbResponse.status === "not_authorized"){
+        alert('需要取得您的名字、信箱、跟本人帥照/美照，才能登入會員喔');
+        //再點一次    
+        FB.getLoginStatus(function (response) {console.log(response);});
+        memberLogin();
+
     }  else if (fbResponse.error.message === "Error validating access token: The session was invalidated explicitly using an API call."){
         alert('這個應該是，按登出後，再按會員icon要進來的');
         //再點一次    
