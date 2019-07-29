@@ -62,7 +62,7 @@ function statusChangeCallback(response) {
     } else {
         // The person is not logged into Facebook, so we're not sure if
         // they are logged into this app or not.
-        alert('要先登入，才能使用本站會員功能喔');
+        alert('要先登入並同意基本資料許可，才能使用本站會員功能喔');
         //document.getElementById('status').innerHTML = 'Please log ' +
         //    'into Facebook.';
     }
