@@ -14,13 +14,13 @@ function deleteCookie(name) {
     for (var i = 0; i < cookies.length; i++)
     {
         if(cookies[i].split("=")[0].indexOf("fblo_") != -1) {
-            delete_cookie(cookies[i].split("=")[0]);
+            deleteCookie(cookies[i].split("=")[0]);
         }
         if(cookies[i].split("=")[0].indexOf("fbm_") != -1) {
-            delete_cookie(cookies[i].split("=")[0]);
+            deleteCookie(cookies[i].split("=")[0]);
         }
         if(cookies[i].split("=")[0].indexOf("fbsr_") != -1) {
-            delete_cookie(cookies[i].split("=")[0]);
+            deleteCookie(cookies[i].split("=")[0]);
         }
     }
   }
@@ -136,7 +136,7 @@ function memberLogout() {
                 alert('Permission revoked.');
             }
             else {
-                alert('Permissions delete error.');
+                alert('很像有點問題，無法登出');
             }
         }
         else {
@@ -147,3 +147,45 @@ function memberLogout() {
     //     statusChangeCallback(response);
     // });
 }
+
+
+// ---- 加入點擊會員圖示監聽函數，點擊後跳轉到會員頁面 -----
+
+// async function getFbLoginFeedback() {
+//   let feedbackWords = await checkLoginStatePromise();
+//   console.log(feedbackWords);
+//   return feedbackWords;
+// }
+
+const memberIcon1 = document.getElementsByClassName('member')[0];
+const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
+
+memberIcon1.addEventListener('click', () => {
+  let promise = checkLoginStatePromise();
+  promise.then(function(fbStatus){
+    console.log(fbStatus);
+    if (fbStatus === "connected") {
+      let promise2 = getFbInfoAPIPromise();
+      promise2.then(function(fbReturnObj){console.log(fbReturnObj);});
+      
+      //location.href = 'profile.html';
+    }  else {
+      memberLogin();
+    }  
+  });
+});
+
+memberIcon2.addEventListener('click', () => {
+  let promise = checkLoginStatePromise();
+  promise.then(function(fbStatus){
+    console.log(fbStatus);
+    if (fbStatus === "connected") {
+      const fbReturnObj = getFbInfoAPI();
+      console.log(fbReturnObj);
+      //location.href = 'profile.html';
+    }  else {
+      memberLogin();
+    }  
+  });
+});
+
