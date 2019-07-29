@@ -67,8 +67,14 @@ function getFbInfoAPI() {
     FB.api('/me', 'GET', { "fields": "id,name,picture.width(500),email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
         console.log(response);
         console.log('Successful login for: ' + response.name);
-        //document.getElementById('status').innerHTML =
-        //    'Thanks for logging in, ' + response.name + '!';
+        const userDataObj = {
+            userName : response.name,
+            userEmail : response.email,
+            userPictureUrl : response.picture.data.url
+        };
+        console.log(userDataObj);
+        //取得使用者資料後，存入 localStorage
+        localStorage.setItem('userData', JSON.stringify(userDataObj));
     });
 }
 
@@ -79,23 +85,21 @@ function getFbInfoAPIPromise() {
             console.log(response);
             console.log('Successful login for: ' + response.name);
             resolve(response);
-            //document.getElementById('status').innerHTML =
-            //    'Thanks for logging in, ' + response.name + '!';
         });
     });
 }
 
 
-// 此為判斷 fb 登入狀態的程式碼，alert 訊息會在 fb 跳出登入畫面前顯示
+
 function memberLogin() {
     // 刪除若上次取消登入，自動產生的 cookie ，避免判斷 "not_authorized" 成 "unknown" 錯誤
     deleteCookie(`fblo_${fbAppId}`);
+
     FB.login(function (response) {
         statusChangeCallback(response);
     }, {
             scope: 'public_profile,email' //可email後，逗號加入 user_birthday 要求用戶提供
         });
-
 }
 
 function memberLogout() {
@@ -132,10 +136,12 @@ function memberLogout() {
 const memberIcon1 = document.getElementsByClassName('member')[0];
 const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
 
+// 此為判斷 fb 登入狀態的程式碼，alert 訊息會在 fb 跳出登入畫面前顯示
+
 memberIcon1.addEventListener('click', () => {
     //在檢查狀態前 ( 以及login in 前 ) 刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
     deleteCookie(`fblo_${fbAppId}`);
-    
+
     let promise = checkLoginStatePromise();
     promise.then(function (fbResponse) {
         console.log(fbResponse);
