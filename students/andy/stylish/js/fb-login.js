@@ -185,7 +185,7 @@ loginIcon.addEventListener('click', () => {
     handleMemberClick();
 });
 
-loginIcon.addEventListener('click', () => {
+logoutIcon.addEventListener('click', () => {
     memberLogout();
 });
 
