@@ -97,6 +97,7 @@ function changeTokenPromise(fbResponse) {
         getAjaxLoginToken(getServerTokenURL, tokenFromFbResponse, (parsedData) => {
             // 用 fb access Token 換 server access Token，再存入 local storage
             accessToken.serverAccessToken = parsedData.data.access_token;
+            alert(`server T:${accessToken.serverAccessToken}----fb T:${accessToken.fbAccessToken}`);
             resolve(accessToken);
         });
     })
