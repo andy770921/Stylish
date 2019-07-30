@@ -1,3 +1,4 @@
+// --- 以下函數為刪除 cookie: fblo_xxxx 用，防止登入或授權中斷後 ，fb 回傳 status 出現 unknown ---
 
 function deleteCookie(name) {
     document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -29,13 +30,15 @@ window.fbAsyncInit = function () {
 }(document, 'script', 'facebook-jssdk'));
 
 
-function checkLoginState() {
-    FB.getLoginStatus(function (response) {
-        console.log(response);
-        statusChangeCallback(response);
-    }, true);
-}
+// --- 以下函數為 html 測試按鈕時用，正常程式運作時不會用 ---
 
+// function checkLoginState() {
+//     FB.getLoginStatus(function (response) {
+//         console.log(response);
+//         statusChangeCallback(response);
+//     }, true);
+// }
+// -------------------------------------------
 
 
 function checkLoginStatePromise() {
@@ -82,32 +85,32 @@ function getFbInfoAPIPromise() {
 }
 
 
- // 順序二分支: 送給 server 換 server token，執行完後，會 resolve 回傳 accessToken  物件
+// 順序二分支: 送給 server 換 server token，執行完後，會 resolve 回傳 accessToken  物件
 
-function changeTokenPromise() {
-    return new Promise( function (resolve, reject) {
-        const tokenFromFbResponse = response.authResponse.accessToken;
-    let accessToken = new Object();
-    accessToken.fbAccessToken = tokenFromFbResponse;
+function changeTokenPromise(fbResponse) {
+    return new Promise(function (resolve, reject) {
+        const tokenFromFbResponse = fbResponse.authResponse.accessToken;
+        let accessToken = new Object();
+        accessToken.fbAccessToken = tokenFromFbResponse;
 
-    // 用 fb access Token 換 server access Token
-    getAjaxLoginToken(getServerTokenURL, tokenFromFbResponse, (parsedData) => {
-        // 用 fb access Token 換 server access Token，再存入 local storage
-        accessToken.serverAccessToken = parsedData.data.access_token;
-        resolve(accessToken);
-    });
-})
+        // 用 fb access Token 換 server access Token
+        getAjaxLoginToken(getServerTokenURL, tokenFromFbResponse, (parsedData) => {
+            // 用 fb access Token 換 server access Token，再存入 local storage
+            accessToken.serverAccessToken = parsedData.data.access_token;
+            resolve(accessToken);
+        });
+    })
 }
 
 
 //  ---   按登入按鈕後，執行順序二 :  ---
-// 此為 FB.getLoginStatus() 呼叫後執行的程式碼，alert 訊息會在 fb 跳出登入畫面，關閉 fb 畫面之後顯示
+// 此為 FB.login() 呼叫後執行的程式碼，alert 訊息會在 fb 跳出登入畫面，關閉 fb 畫面之後顯示
 
 async function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
     if (response.status === 'connected') {
-        let accessTokenObject = await changeTokenPromise();
+        let accessTokenObject = await changeTokenPromise(response);
         // 將 accessToken  物件，存入 local storage
         localStorage.setItem('accessTokenJSON', JSON.stringify(accessTokenObject));
         getFbInfoAPI();
@@ -166,11 +169,6 @@ function memberLogout() {
 
 // ---- 加入點擊會員圖示監聽函數，點擊後跳轉到會員頁面 -----
 
-// async function getFbLoginFeedback() {
-//   let feedbackWords = await checkLoginStatePromise();
-//   console.log(feedbackWords);
-//   return feedbackWords;
-// }
 
 const memberIcon1 = document.getElementsByClassName('member')[0];
 const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
@@ -185,7 +183,7 @@ function handleMemberClick() {
     promise.then(function (fbResponse) {
         console.log(fbResponse);
         if (fbResponse.status === "connected") {
-            alert ('已登入會員');
+            alert('已登入會員');
             // alert ('已登入會員，或是剛剛移除權限但保持登入');
             let promise2 = getFbInfoAPIPromise();
             promise2.then(function (fbReturnObj) { console.log(fbReturnObj); });
