@@ -62,7 +62,7 @@ function handleFbResponse(response) {
     console.log(userDataObj);
     //取得使用者資料後，存入 localStorage
     localStorage.setItem('userData', JSON.stringify(userDataObj));
-    location.href = 'profile.html';
+    //location.href = 'profile.html';
 }
 
 //  ---   按登入按鈕後，執行順序三 :  ---
@@ -97,6 +97,7 @@ function changeTokenPromise(fbResponse) {
         getAjaxLoginToken(getServerTokenURL, tokenFromFbResponse, (parsedData) => {
             // 用 fb access Token 換 server access Token，再存入 local storage
             accessToken.serverAccessToken = parsedData.data.access_token;
+            console.log(parsedData);
             alert(`server T:${accessToken.serverAccessToken}----fb T:${accessToken.fbAccessToken}`);
             resolve(accessToken);
         });
