@@ -160,6 +160,7 @@ function handleMemberClick() {
     promise.then(function (fbResponse) {
         console.log(fbResponse);
         if (fbResponse.status === "connected") {
+            alert ('已登入會員');
             let accessToken = new Object();
             accessToken.fbAccessToken = fbResponse.authResponse.accessToken;
 
