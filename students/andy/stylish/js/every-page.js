@@ -5,6 +5,7 @@ const productListURL = `https://${hostName}/api/${ApiVersion}/products`;
 const bulletURL = `https://${hostName}/api/${ApiVersion}/marketing/campaigns`;
 const productDetailURL = `https://${hostName}/api/${ApiVersion}/products/details?id=`;
 const sentBuyDetailURL = `https://${hostName}/api/${ApiVersion}/order/checkout`;
+const getServerTokenURL = `https://${hostName}/api/${ApiVersion}/user/signin`;
 let pageIndicator = "all";
 let extPageURL = "";
 let pageNumberNow = 0;
@@ -111,11 +112,14 @@ function postAjax(src, sentObj, callback) {
   var sentJSON = JSON.stringify(sentObj);
   xhr.send(sentJSON);
 }
-//從此開始
-function postAjaxWithToken(src, sentObj, callback) {
+
+// -- 送出商品訂單，加上使用者的 token --
+
+function postAjaxWithToken(src, sentObj, token, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", src, true);
   xhr.setRequestHeader('Content-type', 'application/json');
+  xhr.setRequestHeader('Authorization', `Bearer ${token}`);
   xhr.onload = function () {
     var parsedData = JSON.parse(xhr.responseText);
     if (xhr.readyState == 4 && xhr.status == "200") {
@@ -127,6 +131,29 @@ function postAjaxWithToken(src, sentObj, callback) {
   var sentJSON = JSON.stringify(sentObj);
   xhr.send(sentJSON);
 }
+
+// -- 送出 fb token，換自己的 server token --
+
+function getAjaxLoginToken(src, fbToken, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", src, true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+  xhr.onload = function () {
+    var parsedData = JSON.parse(xhr.responseText);
+    if (xhr.readyState == 4 && xhr.status == "200") {
+      callback(parsedData);
+    } else {
+      console.error(parsedData);
+    }
+  }
+  const fbTokenObj = {
+    "provider":"facebook",
+    "access_token": `${fbToken}`
+  };
+  xhr.send(JSON.stringify(fbTokenObj));
+}
+
+
 
 //----取得網址後問號的Query字串相關----
 

@@ -99,7 +99,7 @@ function getPrime() {
         return;
     }
 
-    // Get prime
+    // Get prime ， 以及送出訂單
     TPDirect.card.getPrime((result) => {
         if (result.status !== 0) {
             alert('get prime error ' + result.msg);
@@ -114,18 +114,23 @@ function getPrime() {
         function jumpToThanksWithOrderNum(parsedData) {
             window.location.href=`thankyou.html?orderNumber=${parsedData.data.number}`;
         }
+
         if (finalJsonObj) {
             //alert('收件人資料及信用卡資料正確，已送出訂單' + JSON.stringify(finalJsonObj));
-            alert('收件人資料及信用卡資料正確，已送出訂單');
+            
             //清除 local storage;
             localStorage.removeItem('orderJSONinLocal');
 
-            if (localStorage.getItem('fbAccessToken') !== '' && localStorage.getItem('fbAccessToken') !== null) {
+            if (localStorage.getItem('accessTokenJSON') !== {} && localStorage.getItem('accessTokenJSON') !== null) {
                 //有會員的狀態
-                const fbAccessToken = localStorage.getItem('fbAccessToken');
-                
+                alert('收件人、信用卡、會員資料皆正確，已送出訂單');
+                const accessToken = JSON.parse(localStorage.getItem('accessTokenJSON'));
+                const serverToken = accessToken.serverAccessToken;
+                postAjaxWithToken(sentBuyDetailURL, finalJsonObj, serverToken, jumpToThanksWithOrderNum);
+
             } else {
                 //無會員的狀態
+                alert('收件人資料及信用卡資料正確，已送出訂單');
                 postAjax(sentBuyDetailURL, finalJsonObj, jumpToThanksWithOrderNum);
             }
         }

@@ -115,7 +115,7 @@ function memberLogout() {
             if (res) {
                 alert('您已經成功登出');
                 localStorage.removeItem('userData');
-                localStorage.removeItem('fbAccessToken');
+                localStorage.removeItem('accessTokenJSON');
                 //再重新整理網頁，才不會 status 判斷成 "connected" 導致拿資料錯誤
                 window.location.reload();
             }
@@ -129,11 +129,11 @@ function memberLogout() {
             console.log("已經登出，或 fb 登入");
             FB.getLoginStatus(function (response) {
                 console.log(response);
-                if (response.status === 'connected'){
+                if (response.status === 'connected') {
                     console.log("重按檢查狀態一次");
                     memberLogout();
                 }
-            }, true);         
+            }, true);
         }
     });
 }
@@ -160,13 +160,21 @@ function handleMemberClick() {
     promise.then(function (fbResponse) {
         console.log(fbResponse);
         if (fbResponse.status === "connected") {
-            const fbAccessToken = fbResponse.authResponse.accessToken;
-            localStorage.setItem('fbAccessToken',fbAccessToken);
-            //alert('已登入會員，或是剛剛移除權限但保持登入');
+            let accessToken = new Object();
+            accessToken.fbAccessToken = fbResponse.authResponse.accessToken;
+
+            // 用 fb access Token 換 server access Token
+            getAjaxLoginToken(getServerTokenURL, fbToken, (parsedData) => {
+                // 用 fb access Token 換 server access Token，再存入 local storage
+                accessToken.serverAccessToken = parsedData.data.access_token;
+                localStorage.setItem('accessTokenJSON', JSON.stringify(accessToken));
+            });
+
+            // alert ('已登入會員，或是剛剛移除權限但保持登入');
             let promise2 = getFbInfoAPIPromise();
             promise2.then(function (fbReturnObj) { console.log(fbReturnObj); });
 
-            //location.href = 'profile.html';
+            // location.href = 'profile.html';
 
         } else if (fbResponse.status === "not_authorized") {
             alert('需要取得您的名字、信箱、跟本人帥照/美照，才能登入會員喔');
