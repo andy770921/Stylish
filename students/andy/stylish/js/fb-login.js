@@ -46,13 +46,49 @@ function checkLoginStatePromise() {
     });
 }
 
+//  ---   按登入按鈕後，執行順序四 :  ---
+
+function handleFbResponse(response) {
+    console.log(response);
+    console.log('Successful login for: ' + response.name);
+    const userDataObj = {
+        userName: response.name,
+        userEmail: response.email,
+        userPictureUrl: response.picture.data.url
+    };
+    console.log(userDataObj);
+    //取得使用者資料後，存入 localStorage
+    localStorage.setItem('userData', JSON.stringify(userDataObj));;
+    location.href = 'profile.html';
+}
+
+//  ---   按登入按鈕後，執行順序三 :  ---
+
+function getFbInfoAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', 'GET', { "fields": "id,name,picture.width(500),email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
+        handleFbResponse(response);
+    });
+}
+
+function getFbInfoAPIPromise() {
+    return new Promise(function (resolve, reject) {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', 'GET', { "fields": "id,name,picture.width(500),email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
+            handleFbResponse(response);
+            resolve(response);
+        });
+    });
+}
+
+
+
+//  ---   按登入按鈕後，執行順序二 :  ---
 // 此為 FB.getLoginStatus() 呼叫後執行的程式碼，alert 訊息會在 fb 跳出登入畫面，關閉 fb 畫面之後顯示
 function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
-    console.log('C');
     if (response.status === 'connected') {
-        console.log('D');
         const tokenFromFbResponse = response.authResponse.accessToken;
         let accessToken = new Object();
         accessToken.fbAccessToken = tokenFromFbResponse;
@@ -75,49 +111,12 @@ function statusChangeCallback(response) {
 }
 
 
-function handleFbResponse(response) {
-    console.log(response);
-    console.log('Successful login for: ' + response.name);
-    const userDataObj = {
-        userName: response.name,
-        userEmail: response.email,
-        userPictureUrl: response.picture.data.url
-    };
-    console.log(userDataObj);
-    //取得使用者資料後，存入 localStorage
-    localStorage.setItem('userData', JSON.stringify(userDataObj));
-    console.log('G');
-    //location.href = 'profile.html';
-}
 
-
-function getFbInfoAPI() {
-    console.log('Welcome!  Fetching your information.... ');
-    console.log('E');
-    FB.api('/me', 'GET', { "fields": "id,name,picture.width(500),email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
-        console.log('F');
-        handleFbResponse(response);
-    });
-}
-
-function getFbInfoAPIPromise() {
-    return new Promise(function (resolve, reject) {
-        console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', 'GET', { "fields": "id,name,picture.width(500),email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
-            handleFbResponse(response);
-            resolve(response);
-        });
-    });
-}
-
-
-
+//  ---   按登入按鈕後，執行順序一 :  ---
 function memberLogin() {
     // 刪除若上次取消登入，自動產生的 cookie ，避免判斷 "not_authorized" 成 "unknown" 錯誤
     deleteCookie(`fblo_${fbAppId}`);
-    console.log('A');
     FB.login(function (response) {
-        console.log('B');
         statusChangeCallback(response);
     }, {
             scope: 'public_profile,email' //可email後，逗號加入 user_birthday 要求用戶提供
