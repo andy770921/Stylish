@@ -52,7 +52,7 @@ function statusChangeCallback(response) {
     console.log(response);
 
     if (response.status === 'connected') {
-        const tokenFromFbResponse = fbResponse.authResponse.accessToken;
+        const tokenFromFbResponse = response.authResponse.accessToken;
         let accessToken = new Object();
         accessToken.fbAccessToken = tokenFromFbResponse;
 
