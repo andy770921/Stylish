@@ -58,7 +58,7 @@ function handleFbResponse(response) {
     };
     console.log(userDataObj);
     //取得使用者資料後，存入 localStorage
-    localStorage.setItem('userData', JSON.stringify(userDataObj));;
+    localStorage.setItem('userData', JSON.stringify(userDataObj));
     location.href = 'profile.html';
 }
 
@@ -82,24 +82,34 @@ function getFbInfoAPIPromise() {
 }
 
 
+ // 順序二分支: 送給 server 換 server token，執行完後，會 resolve 回傳 accessToken  物件
+
+function changeTokenPromise() {
+    return new Promise( function (resolve, reject) {
+        const tokenFromFbResponse = response.authResponse.accessToken;
+    let accessToken = new Object();
+    accessToken.fbAccessToken = tokenFromFbResponse;
+
+    // 用 fb access Token 換 server access Token
+    getAjaxLoginToken(getServerTokenURL, tokenFromFbResponse, (parsedData) => {
+        // 用 fb access Token 換 server access Token，再存入 local storage
+        accessToken.serverAccessToken = parsedData.data.access_token;
+        resolve(accessToken);
+    });
+})
+}
+
 
 //  ---   按登入按鈕後，執行順序二 :  ---
 // 此為 FB.getLoginStatus() 呼叫後執行的程式碼，alert 訊息會在 fb 跳出登入畫面，關閉 fb 畫面之後顯示
-function statusChangeCallback(response) {
+
+async function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
     if (response.status === 'connected') {
-        const tokenFromFbResponse = response.authResponse.accessToken;
-        let accessToken = new Object();
-        accessToken.fbAccessToken = tokenFromFbResponse;
-
-        // 用 fb access Token 換 server access Token
-        getAjaxLoginToken(getServerTokenURL, tokenFromFbResponse, (parsedData) => {
-            // 用 fb access Token 換 server access Token，再存入 local storage
-            accessToken.serverAccessToken = parsedData.data.access_token;
-            localStorage.setItem('accessTokenJSON', JSON.stringify(accessToken));
-        });
-
+        let accessTokenObject = await changeTokenPromise();
+        // 將 accessToken  物件，存入 local storage
+        localStorage.setItem('accessTokenJSON', JSON.stringify(accessTokenObject));
         getFbInfoAPI();
     } else if (response.status === 'not_authorized') {
         // alert('可以給我名字、信箱、跟本人帥照/美照嗎？ 拜託拜託');
