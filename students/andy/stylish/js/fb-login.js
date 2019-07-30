@@ -52,6 +52,17 @@ function statusChangeCallback(response) {
     console.log(response);
 
     if (response.status === 'connected') {
+        const tokenFromFbResponse = fbResponse.authResponse.accessToken;
+        let accessToken = new Object();
+        accessToken.fbAccessToken = tokenFromFbResponse;
+
+        // 用 fb access Token 換 server access Token
+        getAjaxLoginToken(getServerTokenURL, tokenFromFbResponse, (parsedData) => {
+            // 用 fb access Token 換 server access Token，再存入 local storage
+            accessToken.serverAccessToken = parsedData.data.access_token;
+            localStorage.setItem('accessTokenJSON', JSON.stringify(accessToken));
+        });
+
         getFbInfoAPI();
     } else if (response.status === 'not_authorized') {
         // alert('可以給我名字、信箱、跟本人帥照/美照嗎？ 拜託拜託');
@@ -161,17 +172,6 @@ function handleMemberClick() {
         console.log(fbResponse);
         if (fbResponse.status === "connected") {
             alert ('已登入會員');
-            const tokenFromFbResponse = fbResponse.authResponse.accessToken;
-            let accessToken = new Object();
-            accessToken.fbAccessToken = tokenFromFbResponse;
-
-            // 用 fb access Token 換 server access Token
-            getAjaxLoginToken(getServerTokenURL, tokenFromFbResponse, (parsedData) => {
-                // 用 fb access Token 換 server access Token，再存入 local storage
-                accessToken.serverAccessToken = parsedData.data.access_token;
-                localStorage.setItem('accessTokenJSON', JSON.stringify(accessToken));
-            });
-
             // alert ('已登入會員，或是剛剛移除權限但保持登入');
             let promise2 = getFbInfoAPIPromise();
             promise2.then(function (fbReturnObj) { console.log(fbReturnObj); });
