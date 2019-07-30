@@ -161,11 +161,12 @@ function handleMemberClick() {
         console.log(fbResponse);
         if (fbResponse.status === "connected") {
             alert ('已登入會員');
+            const tokenFromFbResponse = fbResponse.authResponse.accessToken;
             let accessToken = new Object();
-            accessToken.fbAccessToken = fbResponse.authResponse.accessToken;
+            accessToken.fbAccessToken = tokenFromFbResponse;
 
             // 用 fb access Token 換 server access Token
-            getAjaxLoginToken(getServerTokenURL, fbToken, (parsedData) => {
+            getAjaxLoginToken(getServerTokenURL, tokenFromFbResponse, (parsedData) => {
                 // 用 fb access Token 換 server access Token，再存入 local storage
                 accessToken.serverAccessToken = parsedData.data.access_token;
                 localStorage.setItem('accessTokenJSON', JSON.stringify(accessToken));
