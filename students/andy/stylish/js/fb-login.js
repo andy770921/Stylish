@@ -52,14 +52,14 @@ function checkLoginStatePromise() {
 //  ---   按登入按鈕後，執行順序四 :  ---
 
 function handleFbResponse(response) {
-    console.log(response);
-    console.log('Successful login for: ' + response.name);
+    //console.log(response);
+    //console.log('Successful login for: ' + response.name);
     const userDataObj = {
         userName: response.name,
         userEmail: response.email,
         userPictureUrl: response.picture.data.url
     };
-    console.log(userDataObj);
+    //console.log(userDataObj);
     //取得使用者資料後，存入 localStorage
     localStorage.setItem('userData', JSON.stringify(userDataObj));
     location.href = 'profile.html';
@@ -68,7 +68,7 @@ function handleFbResponse(response) {
 //  ---   按登入按鈕後，執行順序三 :  ---
 
 function getFbInfoAPI() {
-    console.log('Welcome!  Fetching your information.... ');
+    //console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', 'GET', { "fields": "id,name,picture.width(500),email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
         handleFbResponse(response);
     });
@@ -76,7 +76,7 @@ function getFbInfoAPI() {
 
 function getFbInfoAPIPromise() {
     return new Promise(function (resolve, reject) {
-        console.log('Welcome!  Fetching your information.... ');
+        //console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', 'GET', { "fields": "id,name,picture.width(500),email" }, function (response) {  //可逗號加入 user_birthday 從 fb server 得到個人資料
             handleFbResponse(response);
             resolve(response);
@@ -141,24 +141,23 @@ function memberLogout() {
         console.log(res);
         if (res && !res.error) {
             if (res) {
-                alert('您已經成功登出');
+                //alert('您已經成功登出');
                 localStorage.removeItem('userData');
                 localStorage.removeItem('accessTokenJSON');
                 //再重新整理網頁，才不會 status 判斷成 "connected" 導致拿資料錯誤
                 window.location.reload();
             }
             else {
-                alert('很像有點問題，無法登出');
+                //alert('很像有點問題，無法登出');
             }
         }
         else {
             //alert('您已經登出了喔');
-            //這個很像有點奇怪
-            console.log("已經登出，或 fb 登入");
+            //console.log("已經登出，或 fb 登入");
             FB.getLoginStatus(function (response) {
-                console.log(response);
+            //    console.log(response);
                 if (response.status === 'connected') {
-                    console.log("重按檢查狀態一次");
+            //        console.log("重按檢查狀態一次");
                     memberLogout();
                 }
             }, true);
@@ -186,8 +185,6 @@ function handleMemberClick() {
             //alert('已登入會員');
             let promise2 = getFbInfoAPIPromise();
             promise2.then(function (fbReturnObj) { console.log(fbReturnObj); });
-
-            // location.href = 'profile.html';
 
         } else if (fbResponse.status === "not_authorized") {
             //alert('需要取得您的名字、信箱、跟本人帥照/美照，才能登入會員喔');
