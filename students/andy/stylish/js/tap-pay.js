@@ -81,8 +81,6 @@ TPDirect.card.setup({
 function sendOrder() {
     //event.preventDefault();
 
-    //加入 loading 畫面效果
-    document.getElementById('loading').classList.remove("display-none");
     // 取得 TapPay Fields 的 status
     const tappayStatus = TPDirect.card.getTappayFieldsStatus();
 
@@ -101,15 +99,20 @@ function sendOrder() {
         alert('信用卡資訊有誤喔');
         return;
     }
-    
+
     // 最後確認送出訂單
     let r = confirm("您確定要送出訂單嗎");
     if (r === true) {
+        //加入 loading 畫面效果
+        document.getElementById('loading').classList.remove("display-none");
 
         // Get prime ， 以及送出訂單
         TPDirect.card.getPrime((result) => {
             if (result.status !== 0) {
                 alert('get prime error ' + result.msg);
+
+                //移除 loading 畫面效果
+                document.getElementById('loading').classList.add("display-none");
                 return;
             }
             //alert('get prime 成功，prime: ' + result.card.prime);
@@ -147,5 +150,10 @@ function sendOrder() {
             // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api 
 
         })
-    } else { return;}
+    } else {
+        //移除 loading 畫面效果
+        document.getElementById('loading').classList.add("display-none");
+        
+        return;
+    }
 }
