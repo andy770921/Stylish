@@ -107,9 +107,8 @@ function changeTokenPromise(fbResponse) {
 // 此為 FB.login() 呼叫後執行的程式碼，alert 訊息會在 fb 跳出登入畫面，關閉 fb 畫面之後顯示
 
 async function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    alert("C");
+    //console.log('statusChangeCallback');
+    //console.log(response);
     if (response.status === 'connected') {
         let accessTokenObject = await changeTokenPromise(response);
         // 將 accessToken  物件，存入 local storage
@@ -130,9 +129,7 @@ async function statusChangeCallback(response) {
 function memberLogin() {
     // 刪除若上次取消登入，自動產生的 cookie ，避免判斷 "not_authorized" 成 "unknown" 錯誤
     deleteCookie(`fblo_${fbAppId}`);
-    alert("A");
     FB.login(function (response) {
-        alert("B");
         statusChangeCallback(response);
     }, {
             scope: 'public_profile,email' //可email後，逗號加入 user_birthday 要求用戶提供
@@ -193,7 +190,6 @@ function handleMemberClick() {
             memberLogin();
         } else if (fbResponse.status === "unknown") {
             //alert('需要先登入臉書才能使用會員功能喔。');
-            alert("Start");
             memberLogin();
         }
     });
