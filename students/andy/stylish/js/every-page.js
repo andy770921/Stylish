@@ -281,10 +281,17 @@ function createAppendOption(parentClassName, maxNumber, selectedNumber) {
   }
 }
 
-function addNewClassName(parentClassName, newName) {
-  const parent = document.getElementsByClassName(parentClassName)[0];
-  parent.setAttribute('class', newName);
+function addNewClassName(elementClassName, newName) {
+  const element = document.getElementsByClassName(elementClassName)[0];
+  element.setAttribute('class', newName);
 }
+
+function addNewClassNameByChildNumber(parentClassName, childNumber, newClassName) {
+  const parent = document.getElementsByClassName(parentClassName)[0];
+  const nthChild = parent.children[ parseInt(childNumber) - 1];
+  nthChild.classList.add(newClassName);
+}
+
 
 // 創建購物車圓點數量
 

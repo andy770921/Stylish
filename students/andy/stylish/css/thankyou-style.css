@@ -17,31 +17,93 @@
 }
 
 .container-3 {
-  font-family: 'Playball', cursive;
-  font-weight: lighter;
-  letter-spacing: 2.4px;
-  color: #3f3a3a;
-  font-size: 6vw;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   background-image: linear-gradient(-225deg, #ea7500 0%, #ffed97 48%, #ffbb77 100%);
   height: 100%;
   /* background-image: linear-gradient(-225deg, #5D9FFF 0%, #B8DCFF 48%, #6BBBFF 100%); */
   flex: 1;
-
+  position: relative;
 }
 
-.container-3 p{
+.words-1 {
+  font-family: 'Playball', cursive;
+  font-weight: lighter;
+  letter-spacing: 2.4px;
+  font-size: 6vw;
   text-align: center;
-  z-index: 2;
+  margin-top: 0.5em;
+  animation: extend-words 2.0s ease 0s 1 normal; 
 }
+
+.words-2 {
+  font-family: PingFangTC-Regular, sans-serif;
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  font-size: 3vw;
+  text-align: center;
+  animation: extend-words 2.0s ease 0s 1 normal; 
+}
+
 .container-5 {
   margin-top: 0;
 }
 .container-1, .container-2  {
   z-index: 2;
 }
+
+/* ================================= 
+  Base Layout Styles
+==================================== */
+
+  /* ---- Thank you area expand----- */
+
+  .container-thankyou {
+    background-color: #fff;
+    animation: extend-thankyou 2.0s ease 0s 1 normal; 
+    width: 80%;
+    height: 70%;
+    left: 10%;
+    top: 15%;
+    opacity: 0.85;
+    z-index: 2;
+    position: absolute;
+    border-style: solid;
+    border-color: #3f3a3a;
+    border-width: 1.5px;
+    border-radius:  5px;
+  }
+  @keyframes extend-thankyou {
+    from {width: 1px; height: 1px;}
+    to {width: 80%; height: 70%;}
+  }
+
+  @keyframes extend-words {
+    0% {opacity: 0;}
+    60% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+
+
+  .line-ani {
+    transition: opacity 2s linear,width 2s linear;
+    animation: line-ext 1s linear;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+    opacity: 0;
+    margin: 0.3em auto;
+  }
+  @keyframes line-ext {
+    0% {
+      width: 0;
+      opacity: 0;
+    }
+    100% {
+      width: 80%;
+      opacity: 1;
+    }
+  }
 
 
 
@@ -160,8 +222,4 @@
   }
 
 }
-
-/* ================================= 
-  Base Layout Styles
-==================================== */
 

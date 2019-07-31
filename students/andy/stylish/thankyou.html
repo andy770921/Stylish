@@ -22,11 +22,11 @@
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
-        gtag('config', 'UA-144843207-1',);
-        gtag('set', {'user_id': 'USER_ID'}); // 使用已登入的 user_id 設定 User ID。
+        gtag('config', 'UA-144843207-1');
+        gtag('set', { 'user_id': 'USER_ID' }); // 使用已登入的 user_id 設定 User ID。
     </script>
     <!-- 加入 Google Analytics -->
-    
+
 </head>
 
 <body class="site">
@@ -88,6 +88,8 @@
             </div>
         </nav>
         <div class="container-3">
+            <div class="container-thankyou">
+            </div>
         </div>
         <ul class="circles">
             <li></li>
@@ -134,12 +136,35 @@
 
     <!-- 加入 FB login -->
     <script type="text/javascript" src="js/fb-login.js"></script>
-    
+
     <!-- 自己寫的 -->
     <script type="text/javascript" src="js/every-page.js"></script>
 
     <script>
-        createAppendText("container-3", "p", `Thank you very much! <br> Your order number is <br>${getQueryValueByName('orderNumber')}`);
+        createAppendText("container-thankyou", "p", `Thank you very much! <hr class="line-ani">`);
+        createAppendText("container-thankyou", "p", `您的訂單號碼為`);
+        createAppendText("container-thankyou", "p", `${getQueryValueByName('orderNumber')}`);
+        addNewClassNameByChildNumber("container-thankyou", 1, "words-1");
+        addNewClassNameByChildNumber("container-thankyou", 2, "words-2");
+        addNewClassNameByChildNumber("container-thankyou", 3, "words-2");
+        addNewClassNameByChildNumber("container-thankyou", 3, "addCursor");
+
+        function CopyText(event) {
+            alert('已複製訂單號碼');
+            let temp = document.createElement('input');
+            document.body.appendChild(temp);
+            temp.value = event.textContent;
+            temp.select();
+            document.execCommand('copy', false);
+            temp.remove();
+            return false;
+        }
+        const parent = document.getElementsByClassName("container-thankyou")[0];
+        const numberChild = parent.children[2];
+        numberChild.setAttribute('onClick', 'CopyText(this)');
+        numberChild.style.color='blue';
+
+
     </script>
 
 </body>
