@@ -1,0 +1,239 @@
+/* ================================= 
+  Base Element Styles
+==================================== */
+.site {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  } 
+  .site-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+/* ================================= 
+  Base Layout Styles
+==================================== */
+
+.container-3 {
+    width: 90%;  /* 1160/1960 = 59.18%; */
+    max-width: 1160px;
+    margin: 50px auto 40px;
+    display: flex;
+    letter-spacing: 1.0px;
+}
+
+.item-3x1 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.item-3x2 {
+    flex: 1;
+}
+
+/*  圖  */
+.img-width {
+    width: 80%;
+    max-width: 400px;    
+    background-color: lightgray;
+    padding: 10%;
+    border-radius: 25% 20px; 
+    display: flex;
+    align-items: center;
+}
+.img-3x1 {
+    width: 100%;
+    border-radius: 15px; 
+    margin:auto;
+}
+
+/*  文字  */
+
+
+.words {
+    margin-top: 10px;
+    flex: 1;
+    height: 100px;  
+    line-height: 26px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .words div {
+    font-weight: bold;
+    font-size: 20px;
+    flex: 1;
+  }
+
+  .words div:last-child {
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 15px;
+    border-bottom: solid;
+    border-color: #3f3a3a;
+    border-width: 1.0px;
+    flex: 3;
+    display: flex;
+    justify-content: center;
+  }
+
+  .input-user-name.input-user-name {
+    font-size: 24px;
+}
+  .input-user-email.input-user-email {
+    font-size: 24px;
+  }
+
+.member-msg > div > div{
+    margin: 0px 0 10px 0;
+  }
+
+  .member-msg > div:first-child {
+    margin: 30px 0 10px 0;
+    font-weight: bold;
+    font-size: 20px;
+    color: #8b572a;
+  }
+  .member-msg > div:last-child {
+  border-style: solid none none none;
+  border-color: #3f3a3a;
+  border-width: 1.0px;
+  line-height: 2.6em;
+  padding: 10px 0px 10px 0px;
+  font-size: 25px;
+  }
+
+  /* ----按鈕設定 ---- */
+  .container-4 {
+    width: 90%;  /* 1160/1960 = 59.18%; */
+    max-width: 1160px;
+    margin: 0px auto 20px;
+    display: flex;
+}
+.item-4x1 {
+    display: flex;
+    width: 100%; 
+    justify-content: center;
+    
+  }
+  .btn {
+    background-color: #4e71ba;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    height: 47px; 
+    letter-spacing: 1.8px;
+    font-size: 18px; 
+    opacity: 1;
+    width: 60%;
+  }
+    
+  .btn:hover {
+    opacity: 0.8;
+  }
+  .btn:active {
+    opacity: 1;
+  }
+  
+  .signout {
+    background-color: #3f3a3a;
+  }
+
+/* ================================= 
+  Media Queries
+==================================== */
+
+@media (min-width: 601px) and (max-width:950px)  {
+
+  .container-3 {
+    width: 85%;
+    flex-direction: column;
+  }
+  .words div {
+    font-size: 20px;
+    flex: 1 40px;
+  }
+
+
+  .words div:last-child { 
+    margin-left: 10px;
+    flex: 5;
+  }
+  .input-user-name.input-user-name {
+    font-size: 25px;
+}
+  .input-user-email.input-user-email{
+    font-size: 25px;
+  }
+  
+  .member-msg > div:first-child {
+    font-size: 20px;
+  }
+  .member-msg > div:last-child {
+  font-size: 20px;
+  }
+ .btn {
+    width: 90%;
+    font-size: 18px; 
+    height: 60px;
+    letter-spacing: 1.1px;
+  }
+}
+
+@media (max-width:600px)   {
+
+  .container-3 {
+    width: 85%;
+    flex-direction: column;
+  }
+  .words div {
+    font-size: 15px;
+    flex: 1 40px;
+  }
+
+
+  .words div:last-child { 
+    margin-left: 10px;
+    flex: 5;
+  }
+  .input-user-name.input-user-name {
+    font-size: 16px;
+}
+  .input-user-email.input-user-email{
+    font-size: 16px;
+  }
+  
+  .member-msg > div:first-child {
+    font-size: 15px;
+  }
+  .member-msg > div:last-child {
+  font-size: 15px;
+  }
+ .btn {
+    width: 90%;
+    font-size: 15px; 
+    height: 60px;
+    letter-spacing: 1.1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+@media (max-width: 420px)  {
+
+  .words {
+    flex-direction: column;
+    height: auto;
+    align-items: stretch;
+    margin-top: 20px;
+  }
+
+  .words div:last-child {
+    padding-top: 0px; 
+    padding-bottom: 5px;
+  }
+}
+

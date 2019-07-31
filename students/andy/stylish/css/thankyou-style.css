@@ -1,0 +1,241 @@
+/* ================================= 
+  Base Element Styles
+==================================== */
+.site {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+} 
+.site-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-2 {
+  flex: none;
+}
+
+.container-3 {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  background-image: linear-gradient(-225deg, #ea7500 0%, #ffed97 48%, #ffbb77 100%);
+  height: 100%;
+  /* background-image: linear-gradient(-225deg, #5D9FFF 0%, #B8DCFF 48%, #6BBBFF 100%); */
+  flex: 1;
+  position: relative;
+}
+
+.words-1 {
+  font-family: 'Playball', cursive;
+  font-weight: lighter;
+  letter-spacing: 2.4px;
+  font-size: 6vw;
+  text-align: center;
+  margin-top: 0.5em;
+  animation: extend-words 2.0s ease 0s 1 normal; 
+}
+
+.words-2 {
+  font-family: PingFangTC-Regular, sans-serif;
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  font-size: 3vw;
+  text-align: center;
+  animation: extend-words 2.0s ease 0s 1 normal; 
+}
+
+.container-5 {
+  margin-top: 0;
+}
+.container-1, .container-2  {
+  z-index: 2;
+}
+
+
+@media (max-width: 700px)  {
+  .words-2 {
+    font-size: 4.5vw;
+  }
+}
+
+
+@media (min-width: 1500px)  {
+  .words-1 {
+    font-size: 5vw;
+  }
+  .words-2 {
+    font-size: 2.5vw;
+  }
+}
+/* ================================= 
+  Base Layout Styles
+==================================== */
+
+  /* ---- Thank you area expand----- */
+
+  .container-thankyou {
+    background-color: #fff;
+    animation: extend-thankyou 2.0s ease 0s 1 normal; 
+    width: 80%;
+    height: 70%;
+    left: 10%;
+    top: 15%;
+    opacity: 0.85;
+    z-index: 2;
+    position: absolute;
+    border-style: solid;
+    border-color: #3f3a3a;
+    border-width: 1.5px;
+    border-radius:  5px;
+  }
+  @keyframes extend-thankyou {
+    from {width: 1px; height: 1px;}
+    to {width: 80%; height: 70%;}
+  }
+
+  @keyframes extend-words {
+    0% {opacity: 0;}
+    60% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+
+
+  .line-ani {
+    transition: opacity 2s linear,width 2s linear;
+    animation: line-ext 1s linear;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+    opacity: 0;
+    margin: 0.3em auto;
+  }
+  @keyframes line-ext {
+    0% {
+      width: 0;
+      opacity: 0;
+    }
+    100% {
+      width: 80%;
+      opacity: 1;
+    }
+  }
+
+
+
+ /*===========  泡泡動畫  ================ */
+
+
+.circles{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.circles li{
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  animation: animate 5s linear infinite;
+  bottom: -50px;
+  
+}
+
+.circles li:nth-child(1){
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+
+.circles li:nth-child(2){
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+  animation-duration: 6s;
+}
+
+.circles li:nth-child(3){
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+}
+
+.circles li:nth-child(4){
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+  animation-duration: 9s;
+}
+
+.circles li:nth-child(5){
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;
+}
+
+.circles li:nth-child(6){
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 1s;
+}
+
+.circles li:nth-child(7){
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 3s;
+}
+
+.circles li:nth-child(8){
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 15s;
+  animation-duration: 22s;
+}
+
+.circles li:nth-child(9){
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 2s;
+  animation-duration: 17s;
+}
+
+.circles li:nth-child(10){
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 5s;
+}
+
+@keyframes animate {
+
+  0%{
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+      border-radius: 50%;
+  }
+
+  100%{
+      transform: translateY(-1200px) rotate(720deg);
+      opacity: 0;
+      border-radius: 40%;
+  }
+
+}
+

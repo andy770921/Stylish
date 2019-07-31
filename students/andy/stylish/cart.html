@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stylish Cart</title>
+    <link rel="icon" href="./image/logo_browser_2.png">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/cart-style.css">
     <link rel="stylesheet" href="css/every-page-style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-    <!-- 加入響應式控制的Javascript套件modernizr，偵測視窗大小改變時，Search Bar正確顯示 -->
+    <!-- 加入響應式控制的 Javascript 套件 modernizr，偵測視窗大小改變時，Search Bar 正確顯示 -->
+
     <style>
         .tpfield {
             height: 30px;
@@ -22,7 +24,7 @@
             padding-left: 10px;
         }
 
-        .tappay-field-focus {
+        .tappay-field-focus, .enter-area:focus {
             border-color: #66afe9;
             outline: 0;
             -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
@@ -31,11 +33,35 @@
     </style>
     <!-- 加入TapPay style-->
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144843207-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-144843207-1');
+        gtag('set', {'user_id': 'USER_ID'}); // 使用已登入的 user_id 設定 User ID。
+    </script>
+    <!-- 加入 Google Analytics -->
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
+    <!-- 加入 Loading 效果的外掛 css -->
+
 </head>
 
 <body>
+    <div class="black-background display-none" id="loading">
+        <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+    </div>
+    <!-- 引入 loading 效果用，相關的 div -->
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v3.3&appId=862956427419338&autoLogAppEvents=1"></script>
+    <!-- 引入使用 FB SDK 為了登入用，相關的程式碼 -->
+
     <div class="container-1">
-        <img class="item-1x1" src="./image/logo.png">
+        <img class="item-1x1 addCursor" src="./image/logo.png">
         <img class="item-1x2 addCursor" src="./image/search.png" onmouseover="hover(this, './image/search-hover.png')"
             onmouseout="unhover(this, './image/search.png')">
         <div class="item-1x3">
@@ -61,14 +87,15 @@
             <div class="space">&ensp;</div>
         </form>
         <div class="item-1x5">
-            <a href="#1" class="cart"><img class="img-1x5 addCursor" src="./image/cart.png"
+            <a class="cart"><img class="img-1x5 addCursor" src="./image/cart.png"
                     onmouseover="hover(this, './image/cart-hover.png')"
                     onmouseout="unhover(this, './image/cart.png')"></a>
-            <a href="#2" class="member"><img class="img-1x5 addCursor" src="./image/member.png"
+            <a class="member"><img class="img-1x5 addCursor" src="./image/member.png"
                     onmouseover="hover(this, './image/member-hover.png')"
                     onmouseout="unhover(this, './image/member.png')"></a>
         </div>
     </div>
+    <div class="container-space"></div>
     </header>
     <main>
         <nav class="container-2">
@@ -127,7 +154,7 @@
                             src="./image/cart-remove.png"></div>
                 </div> -->
             </div>
-            <form class="credit-card-form" onsubmit="getPrime(); return false;">
+            <form class="credit-card-form" onsubmit="sendOrder(); return false;">
                 <div class="item-3x3">
                     <div class="country">
                         <p>配送國家</p>
@@ -142,7 +169,7 @@
                         <select id="payment-method">
                             <option value="" hidden>信用卡或宅配貨到付款</option>
                             <option value="credit_card" selected="selected">信用卡</option>
-                            <option value="ship_to_house">宅配貨到付款</option>
+                            <option value="ship_to_house" hidden>宅配貨到付款</option>
                         </select>
                     </div>
                 </div>
@@ -156,29 +183,30 @@
                 <div class="item-3x5">
                     <div>
                         <div>收件人姓名</div>
-                        <input type="text" id="receiver-name">
+                        <input type="text" class="enter-area" id="receiver-name">
                     </div>
                     <div>務必填寫完整收件人姓名，避免包裹無法順利簽收</div>
                     <div>
                         <div>手機</div>
-                        <input type="tel" id="phone">
+                        <input type="tel" class="enter-area" id="phone">
                     </div>
                     <div>
                         <div>電子郵件</div>
-                        <input type="text" id="email">
+                        <input type="email" class="enter-area" id="email">
                     </div>
                     <div>
                         <div>地址</div>
-                        <input type="text" id="address">
+                        <input type="text" class="enter-area" id="address">
                     </div>
                     <div>
                         <div>配送時間</div>
                         <div class="receiving" id="receiving-time">
                             <div><input type="radio" value="moring" name="receiving-option"><span>08:00 - 12:00</span>
                             </div>
-                            <div><input type="radio" value="afternoon" name="receiving-option"><span>14:00 - 18:00</span>
+                            <div><input type="radio" value="afternoon" name="receiving-option"><span>14:00 -
+                                    18:00</span>
                             </div>
-                            <div><input type="radio" value="whenever" name="receiving-option"><span>不指定</span></div>
+                            <div><input type="radio" value="anytime" name="receiving-option"><span>不指定</span></div>
                         </div>
                     </div>
                 </div>
@@ -227,13 +255,13 @@
         <div class="sticky">
             <div class="item-s addCursor">
                 <div class="cart"><img class="img-s" src="./image/cart-mobile.png"></div>
-                <p class="text-s">購物車</p>
-                <p class="vertical-line-s">|</p>
+                <span class="text-s">購物車</span>
+                <span class="vertical-line-s">|</span>
             </div>
 
             <div class="item-s addCursor">
                 <div class="member"><img class="img-s" src="./image/member-mobile.png"></div>
-                <p class="text-s">會員</p>
+                <span class="text-s">會員</span>
             </div>
         </div>
     </main>
@@ -255,122 +283,19 @@
             <span class="item-5x3">&copy; 2018. All rights reserved.</span>
         </div>
     </footer>
+
+    <!-- 加入 FB login -->
+    <script type="text/javascript" src="js/fb-login.js"></script>
+
+    <!-- 自己寫的 -->
     <script type="text/javascript" src="js/every-page.js"></script>
     <script type="text/javascript" src="js/cart-page.js"></script>
 
     <!-- 加入TapPay -->
     <script src="https://js.tappaysdk.com/tpdirect/v5.1.0"></script>
-
-    <script>
-        // --- step1: 引入相關程式碼，套件及初始變數 -----
-        TPDirect.setupSDK(12348, 'app_pa1pQcKoY22IlnSXq5m5WP5jFKzoRG58VEXpT7wU62ud7mMbDOGzCYIlzzLF', 'sandbox');
-        var fields = {
-            number: {
-                // css selector
-                element: '#card-number',
-                placeholder: '**** **** **** ****'
-            },
-            expirationDate: {
-                // DOM object
-                element: document.getElementById('card-expiration-date'),
-                placeholder: 'MM / YY'
-            },
-            ccv: {
-                element: '#card-ccv',
-                placeholder: '後三碼'
-            }
-        }
-        TPDirect.card.setup({
-            fields: fields,
-            styles: {
-                // Style all elements
-                'input': {
-                    'color': 'gray'
-                },
-                // Styling ccv field
-                'input.cvc': {
-                    // 'font-size': '16px'
-                },
-                // Styling expiration-date field
-                'input.expiration-date': {
-                    // 'font-size': '16px'
-                },
-                // Styling card-number field
-                'input.card-number': {
-                    // 'font-size': '16px'
-                },
-                // style focus state
-                ':focus': {
-                    // 'color': 'black'
-                },
-                // style valid state
-                '.valid': {
-                    'color': 'green'
-                },
-                // style invalid state
-                '.invalid': {
-                    'color': 'red'
-                },
-                // Media queries
-                // Note that these apply to the iframe, not the root window.
-                '@media screen and (max-width: 400px)': {
-                    'input': {
-                        'color': 'orange'
-                    }
-                }
-            }
-        });
-
-        // --- step2: 在打信用卡資訊時，時刻監控信用卡資訊有沒正確，正確會出現"A"， .canGetPrime 值為 true ，不正確會出現"B" -----
-
-        // TPDirect.card.onUpdate(function (update) {
-        //     const submitButton = document.querySelector('.add-3x2');
-        //     if (update.canGetPrime) {
-        //         // Enable submit Button to get prime.
-        //         //submitButton.removeAttribute('disabled');
-        //         console.log("A");
-        //     } else {
-        //         // Disable submit Button to get prime.
-        //         //submitButton.setAttribute('disabled', true);
-        //         console.log("B");
-        //     }
-        // });
+    <script type="text/javascript" src="js/tap-pay.js"></script>
 
 
-        // --- step3:  若 .canGetPrime 值為 true ，觸發此函數時，會得到一串 Prime (result.card.prime)  -----
-
-        function getPrime() {
-            //event.preventDefault();
-            // 取得 TapPay Fields 的 status
-            const tappayStatus = TPDirect.card.getTappayFieldsStatus();
-
-            // 確認是否可以 getPrime
-            if (tappayStatus.canGetPrime === false) {
-                alert('信用卡資訊有誤喔');
-                return;
-            }
-
-            // Get prime
-            TPDirect.card.getPrime((result) => {
-                if (result.status !== 0) {
-                    alert('get prime error ' + result.msg);
-                    return;
-                }
-                //alert('get prime 成功，prime: ' + result.card.prime);
-                
-
-                // sendFinalOrder 函數說明: 若資料沒問題，函數會回傳移除圖片連結及庫存之後的物件。若過程中有問題，會回傳False
-                const finalJsonObj = sendFinalOrder("payment-method", "receiver-name", "phone", "email", "address", "receiving-time", result.card.prime, orderJSON);
-                
-                if (finalJsonObj) {
-                    alert('收件人資料及信用卡資料正確，已送出訂單' + JSON.stringify(finalJsonObj));
-                }
-                return;
-                // send prime to your server, to pay with Pay by Prime API .
-                // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
-            })
-        }
-    </script>
 </body>
 
 

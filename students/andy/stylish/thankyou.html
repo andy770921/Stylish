@@ -5,21 +5,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Stylish</title>
+    <title>Stylish Thankyou</title>
+    <link rel="icon" href="./image/logo_browser_2.png">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/every-page-style.css">
+    <link rel="stylesheet" href="css/thankyou-style.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playball&display=swap" rel="stylesheet">
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <!-- 加入響應式控制的 Javascript 套件 modernizr，偵測視窗大小改變時，Search Bar正確顯示 -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144843207-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-144843207-1');
+        gtag('set', { 'user_id': 'USER_ID' }); // 使用已登入的 user_id 設定 User ID。
+    </script>
+    <!-- 加入 Google Analytics -->
 
 </head>
 
-<body>
-    <header>
+<body class="site">
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v3.3&appId=862956427419338&autoLogAppEvents=1"></script>
+    <!-- 引入使用 FB SDK 為了登入用，相關的程式碼 -->
 
+    <header>
+        <div class="container-1">
+            <img class="item-1x1 addCursor" src="./image/logo.png">
+            <img class="item-1x2 addCursor" src="./image/search.png"
+                onmouseover="hover(this, './image/search-hover.png')" onmouseout="unhover(this, './image/search.png')">
+            <div class="item-1x3">
+                <div class="item-2x1 addCursor">
+                    <p class="barItem-1"></p>
+                    <p class="vertical-line-2x1">|</p>
+                </div>
+                <div class="item-2x2 addCursor">
+                    <p class="barItem-2"></p>
+                    <p class="vertical-line-2x2">|</p>
+                </div>
+                <div class="item-2x3 addCursor">
+                    <p class="barItem-3"></p>
+                </div>
+            </div>
+            <form class="item-1x4">
+                <input type="text" name="search" class="search-bar">
+                <button>
+                    <img class="img-1x4 addCursor" src="./image/search.png"
+                        onmouseover="hover(this, './image/search-hover.png')"
+                        onmouseout="unhover(this, './image/search.png')">
+                </button>
+                <div class="space">&ensp;</div>
+            </form>
+            <div class="item-1x5">
+                <a class="cart"><img class="img-1x5 addCursor" src="./image/cart.png"
+                        onmouseover="hover(this, './image/cart-hover.png')"
+                        onmouseout="unhover(this, './image/cart.png')"></a>
+                <a class="member"><img class="img-1x5 addCursor" src="./image/member.png"
+                        onmouseover="hover(this, './image/member-hover.png')"
+                        onmouseout="unhover(this, './image/member.png')"></a>
+            </div>
+        </div>
+        <div class="container-space"></div>
     </header>
-    <section>
-    </section>
+    <main class="site-content">
+        <nav class="container-2">
+            <div class="item-2x1 addCursor display-switch">
+                <p class="barItem-1"></p>
+                <p class="vertical-line-2x1">|</p>
+            </div>
+            <div class="item-2x2 addCursor display-switch">
+                <p class="barItem-2"></p>
+                <p class="vertical-line-2x2">|</p>
+            </div>
+            <div class="item-2x3 addCursor display-switch">
+                <p class="barItem-3"></p>
+            </div>
+        </nav>
+        <div class="container-3">
+            <div class="container-thankyou">
+            </div>
+        </div>
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div class="sticky">
+            <div class="item-s addCursor">
+                <div class="cart"><img class="img-s" src="./image/cart-mobile.png"></div>
+                <span class="text-s">購物車</span>
+                <span class="vertical-line-s">|</span>
+            </div>
+
+            <div class="item-s addCursor">
+                <div class="member"><img class="img-s" src="./image/member-mobile.png"></div>
+                <span class="text-s">會員</span>
+            </div>
+        </div>
+    </main>
     <footer>
+        <div class="container-5">
+            <div class="item-5x1">
+                <p class="text-5x1 addCursor">關於 Stylish</p>
+                <p class="text-5x1 addCursor">服務條款</p>
+                <p class="text-5x1 addCursor">隱私政策</p>
+                <p class="text-5x1 addCursor">聯絡我們</p>
+                <p class="text-5x1 addCursor">FAQ</p>
+            </div>
+            <div class="item-5x2">
+                <img class="img-5x2 addCursor" src="./image/line.png">
+                <img class="img-5x2 addCursor" src="./image/twitter.png">
+                <img class="img-5x2 addCursor" src="./image/facebook.png">
+            </div>
+            <span class="item-5x3">&copy; 2018. All rights reserved.</span>
+        </div>
     </footer>
+
+    <!-- 加入 FB login -->
+    <script type="text/javascript" src="js/fb-login.js"></script>
+
+    <!-- 自己寫的 -->
+    <script type="text/javascript" src="js/every-page.js"></script>
+
+    <script>
+        createAppendText("container-thankyou", "p", `Thank you very much! <hr class="line-ani">`);
+        createAppendText("container-thankyou", "p", `您的訂單號碼為`);
+        createAppendText("container-thankyou", "p", `${getQueryValueByName('orderNumber')}`);
+        addNewClassNameByChildNumber("container-thankyou", 1, "words-1");
+        addNewClassNameByChildNumber("container-thankyou", 2, "words-2");
+        addNewClassNameByChildNumber("container-thankyou", 3, "words-2");
+        addNewClassNameByChildNumber("container-thankyou", 3, "addCursor");
+
+        function CopyText(event) {
+            alert('已複製訂單號碼');
+            let temp = document.createElement('input');
+            document.body.appendChild(temp);
+            temp.value = event.textContent;
+            temp.select();
+            document.execCommand('copy', false);
+            temp.remove();
+            return false;
+        }
+        const parent = document.getElementsByClassName("container-thankyou")[0];
+        const numberChild = parent.children[2];
+        numberChild.setAttribute('onClick', 'CopyText(this)');
+        numberChild.style.color='blue';
+
+
+    </script>
 
 </body>
 

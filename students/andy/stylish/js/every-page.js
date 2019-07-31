@@ -4,6 +4,8 @@ const ApiVersion = "1.0";
 const productListURL = `https://${hostName}/api/${ApiVersion}/products`;
 const bulletURL = `https://${hostName}/api/${ApiVersion}/marketing/campaigns`;
 const productDetailURL = `https://${hostName}/api/${ApiVersion}/products/details?id=`;
+const sentBuyDetailURL = `https://${hostName}/api/${ApiVersion}/order/checkout`;
+const getServerTokenURL = `https://${hostName}/api/${ApiVersion}/user/signin`;
 let pageIndicator = "all";
 let extPageURL = "";
 let pageNumberNow = 0;
@@ -21,7 +23,7 @@ let userAmount = 0;
 let shippingFee = 40;
 
 // orderList Object
-let orderJSON = { "prime": "", "order": {}, "list": [] };
+let orderJSON = { "prime": "", "order": { "list": [] } };
 class orderList {
   constructor(id, name, price, colorCode, colorName, size, quantity, imgSrc, stock) {
     this.id = id;
@@ -59,12 +61,8 @@ let userOrder = new orderList("", "", 0, "", "", "", 0);
 //let userInfo = new shippingInfo("delivery", "credit_card", 1234, 60, 1300, "Luke", "0987654321", "email@email", "市政府站", "morning");
 //let userOrder = new orderList("201807202157", "活力花紋長筒牛仔褲", 1299, "DDF0FF", "淺藍", "M", 1);
 
+let userDataList = {};
 
-//當localStorage有資料陣列，先讀取，並顯示在購物車圓點
-if (localStorage.getItem('orderJSONinLocal') !== `{"prime":"","order":{},"list":[]}` && localStorage.getItem('orderJSONinLocal') !==  null ) {
-  orderJSON = JSON.parse(localStorage.getItem('orderJSONinLocal'));
-  createCartNumIcon('cart', 'cart-num', orderJSON.list.length);
-}
 
 
 //----HTML文字設定---
@@ -74,6 +72,12 @@ const navBarWords = ['女裝', '男裝', '配件'];
 for (let i = 0; i < navBarWords.length; i++) {
   document.getElementsByClassName(`barItem-${i + 1}`)[0].textContent = navBarWords[i];
   document.getElementsByClassName(`barItem-${i + 1}`)[1].textContent = navBarWords[i];
+}
+
+//當localStorage有資料陣列，先讀取，並顯示在購物車圓點
+if (localStorage.getItem('orderJSONinLocal') !== `{"prime":"","order":{"list":[]}}` && localStorage.getItem('orderJSONinLocal') !== null) {
+  orderJSON = JSON.parse(localStorage.getItem('orderJSONinLocal'));
+  createCartNumIcon('cart', 'cart-num', orderJSON.order.list.length);
 }
 
 //----與連線遠端，取得JSON相關----
@@ -94,6 +98,64 @@ function ajax(src, callback) {
   xhr.open('GET', src);
   xhr.send();
 }
+
+function postAjax(src, sentObj, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", src, true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+  xhr.onload = function () {
+    var parsedData = JSON.parse(xhr.responseText);
+    if (xhr.readyState == 4 && xhr.status == "200") {
+      callback(parsedData);
+    } else {
+      console.error(parsedData);
+    }
+  }
+  var sentJSON = JSON.stringify(sentObj);
+  xhr.send(sentJSON);
+}
+
+// -- 送出商品訂單，加上使用者的 token --
+
+function postAjaxWithToken(src, sentObj, token, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", src, true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+  xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+  xhr.onload = function () {
+    var parsedData = JSON.parse(xhr.responseText);
+    if (xhr.readyState == 4 && xhr.status == "200") {
+      callback(parsedData);
+    } else {
+      console.error(parsedData);
+    }
+  }
+  var sentJSON = JSON.stringify(sentObj);
+  xhr.send(sentJSON);
+}
+
+// -- 送出 fb token，換自己的 server token --
+
+function getAjaxLoginToken(src, fbToken, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", src, true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+  xhr.onload = function () {
+    var parsedData = JSON.parse(xhr.responseText);
+    if (xhr.readyState == 4 && xhr.status == "200") {
+      callback(parsedData);
+    } else {
+      console.error(parsedData);
+    }
+  }
+  const fbTokenObj = {
+    "provider":"facebook",
+    "access_token": `${fbToken}`
+  };
+  xhr.send(JSON.stringify(fbTokenObj));
+}
+
+
 
 //----取得網址後問號的Query字串相關----
 
@@ -123,27 +185,41 @@ function unhover(element, url) {
   element.setAttribute('src', url);
 }
 
+// 點選首頁stylish圖示，轉到全部產品頁
+
+
+const companyIcon = document.getElementsByClassName('item-1x1')[0];
+
+companyIcon.addEventListener('click', () => {
+  window.location.href = 'index.html';
+});
+
+
 // 點選放大鏡後，顯示搜尋Bar，按header外其他位置，隱藏搜尋Bar
 
 
+const magnifier = document.getElementsByClassName('item-1x2')[0];
+
 function showSearchBar() {
   const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
+
   searchBarDiv.style.display = 'flex';
+  magnifier.style.display = 'none';
+}
+
+function showSearchBarSpace() {
+  const whiteSpaceDiv = document.getElementsByClassName('container-space')[0];
+  whiteSpaceDiv.style.display = 'block';
 }
 
 function hideSearchBar() {
   const searchBarDiv = document.getElementsByClassName('item-1x4')[0];
+  const whiteSpaceDiv = document.getElementsByClassName('container-space')[0];
   searchBarDiv.style.display = 'none';
+  whiteSpaceDiv.style.display = 'none';
+  magnifier.style.display = 'block';
 }
 
-const magnifier = document.getElementsByClassName('item-1x2')[0];
-
-magnifier.addEventListener('click', () => {
-  showSearchBar();
-  document.getElementsByTagName('main')[0].addEventListener('click', () => {
-    hideSearchBar();
-  });
-});
 
 // 改變視窗大小時，搜尋Bar會因相對應大小，正確顯示or消失
 function mq() {
@@ -201,14 +277,21 @@ function createAppendOption(parentClassName, maxNumber, selectedNumber) {
     childP.setAttribute('value', i + 1);
     childP.innerText = i + 1;
     parent.appendChild(childP);
-    if ( i + 1 == selectedNumber){ childP.setAttribute('selected', 'selected'); }
+    if (i + 1 == selectedNumber) { childP.setAttribute('selected', 'selected'); }
   }
 }
 
-function addNewClassName(parentClassName, newName) {
-  const parent = document.getElementsByClassName(parentClassName)[0];
-  parent.setAttribute('class', newName);
+function addNewClassName(elementClassName, newName) {
+  const element = document.getElementsByClassName(elementClassName)[0];
+  element.setAttribute('class', newName);
 }
+
+function addNewClassNameByChildNumber(parentClassName, childNumber, newClassName) {
+  const parent = document.getElementsByClassName(parentClassName)[0];
+  const nthChild = parent.children[ parseInt(childNumber) - 1];
+  nthChild.classList.add(newClassName);
+}
+
 
 // 創建購物車圓點數量
 
@@ -311,12 +394,23 @@ const searchBarForm = document.getElementsByClassName('item-1x4')[0];
 searchBarForm.addEventListener('submit', (e) => {
   e.preventDefault();
   let userInput = document.getElementsByClassName('search-bar')[0];
-  userValue = userInput.value;
+  let userValue = userInput.value;
   if (userValue !== "") {
     location.href = `index.html?section=search&keyword=${userValue}`;
-  } else {
+  } else if (Modernizr.mq('(max-width: 1149px)')) {
     hideSearchBar();
   }
+});
+
+magnifier.addEventListener('click', () => {
+  showSearchBar();
+  showSearchBarSpace();
+    document.getElementsByTagName('main')[0].addEventListener('click', () => {
+      if (Modernizr.mq('(max-width: 1149px)')){
+      hideSearchBar();
+      }
+    });
+  
 });
 
 // ---- 加入點擊購物車監聽函數，點擊後跳轉到購物車頁面 -----
@@ -324,10 +418,11 @@ searchBarForm.addEventListener('submit', (e) => {
 const cartIcon1 = document.getElementsByClassName('cart')[0];
 const cartIcon2 = document.getElementsByClassName('cart')[1].parentNode;
 
-cartIcon1.addEventListener('click', (e) => {
-    location.href = 'cart.html';
-});
-
-cartIcon2.addEventListener('click', (e) => {
+cartIcon1.addEventListener('click', () => {
   location.href = 'cart.html';
 });
+
+cartIcon2.addEventListener('click', () => {
+  location.href = 'cart.html';
+});
+

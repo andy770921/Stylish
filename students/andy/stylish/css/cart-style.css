@@ -19,8 +19,15 @@ body {
 
    /* 無商品之文字 */
    .item-3x2 > p {
-    margin: 30px auto;
+    padding: 30px 0px 30px 0px; 
     align-self: center;
+
+    display: inline-block;
+    border-style: solid none solid none;
+    border-color: #3f3a3a;
+    border-width: 1.0px;
+    width: 100%;
+    text-align: center;
 }
   
   /*==================================== */
@@ -75,6 +82,7 @@ body {
     border: none;
 }
 
+
 .cart-product {
     padding-top: 10px; 
     flex: 1;
@@ -92,7 +100,8 @@ body {
 }
 
 .img-product {
-    width: 114px;  /* 114px / 360px = 31.66% */
+   width: 114px;   /* 114px / 360px = 31.66% */
+   height: 152px;
 }
 
 .row-or-column-1, .row-or-column-2 {
@@ -168,9 +177,7 @@ body {
 
 .item-3x3 {
   margin-top: 20px;
-  padding-bottom: 20px;
   flex: 1;
-  height: 164px;
   background-color: #e8e8e8;
   display: flex;
   flex-direction: column;
@@ -187,6 +194,7 @@ body {
 
 .pay-method {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .country select, .pay-method select {
@@ -487,6 +495,12 @@ input[type="radio"] {
   .item-3x2 {
     border: solid 1px #979797;
   }
+  .item-3x2 > p{
+    padding: 0px; 
+    margin: 40px 0px 0px 0px;
+    align-self: center;
+    border: none;
+  }
   .cart-product {
     padding-top: 40px; 
   }
@@ -507,7 +521,6 @@ input[type="radio"] {
     }
 
     .country, .pay-method {
-      margin-top: 0px;
       height: 74px;
       flex-direction: row;
       display: flex;
@@ -517,11 +530,14 @@ input[type="radio"] {
 
     .country {
       margin-left: 30px;
+      margin-top: 0px;
     }
 
     .pay-method {
       margin-left: 7.07%;       /* 82px/1160px = 7.07%  */
       margin-right: auto;
+      margin-top: 0px;
+      margin-bottom: 0px;
     }
 
     .country select, .pay-method select {

@@ -9,6 +9,7 @@
   
   * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent; /* for removing the mobile highlight */
   }
   body {
       font-family: PingFangTC-Regular, sans-serif;
@@ -34,13 +35,28 @@
 
  
   /* 拉下預選字選單 不顯示藍底 可以換掉白色 */
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active  {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus, 
+  input:-webkit-autofill:active  {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
     box-shadow: 0 0 0 30px white inset !important;
-}
+  }
+
+  /* 外掛 loading 效果的 class */
+
+  .black-background {
+  background: #333;
+  opacity: 0.7;
+  z-index: 100;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  }
+
+  .display-none {
+  display: none;
+  }
   /* ================================= 
     Base Layout Styles  - heaader / search bar / sticy footer / footer
   ==================================== */
@@ -63,7 +79,7 @@ input:-webkit-autofill:active  {
   
   .item-1x1 {   
       max-width: 151px;
-      position: absolute;
+      position: static;
   }
   .item-1x2 {
       margin-right: 10px;
@@ -78,31 +94,45 @@ input:-webkit-autofill:active  {
 
   /* ---- Search bar css setting after clicking ----- */
 
+  .container-space {
+    width: 100%;
+    background-color: #fff;
+    animation: extend-container 0.8s ease 0s 1 normal;
+    height: 40px;
+    display: none;
+  }
+  @keyframes extend-container {
+    from {height: 0px;}
+    to {height: 40px;}
+  }
+
 .item-1x4 {
     justify-content: center;
     position: absolute;
-    right: 9px;   
-    width: 300px;
-    max-width: 80%;
+    right: 9px; 
+    top: 66px;
+    /* max-width: 80%; */
+    width: calc(100% - 22px);
     height: 40px;
     border-style: solid;
     border-color: #979797;
     border-width: 1px;
     border-radius:  20px;
-    background-color: #fff;
-    animation: extend 1s ease 0s 1 normal;
+    background-color: white;
+    animation: extend 1.2s ease 0s 1 normal;
   }
   @keyframes extend {
-    from {width: 100px;}
-    to {width: 300px;}
+    0% {width: 60px; top: 17px; right: 13px;}
+    60% {width: 100px; top: 66px; right: 9px;}
+    100% {width: calc(100% - 22px); top: 66px; right: 9px;}
   }
   
   .search-bar {
     margin-left: 1em;
     letter-spacing: 0.25em;
     border-style: none;
-    flex-grow: 50;
-    width: 70%;
+    width: 100%; 
+    background-color: transparent;
   }
   .search-bar:focus {
     outline: medium;
@@ -111,11 +141,10 @@ input:-webkit-autofill:active  {
   .img-1x4 {
     width: 40px;
     height: 40px;
-    flex-grow: 1;
   }
 
   .space {
-    flex-grow: 1;
+    width: 10px;
   }
 
 
@@ -332,7 +361,9 @@ input:-webkit-autofill:active  {
     .item-1x1 {   
       max-width: 258px;
       left: 60px;  
+      position: absolute;
     }
+
     .item-1x2 {
       display: none;
     }
@@ -358,10 +389,14 @@ input:-webkit-autofill:active  {
       letter-spacing: 0;
     }
     /* ---- Search bar into item-1x4 ----- */
+    .container-space {
+      animation: none;
+      display: none;
+    }
 
     .item-1x4 {
       display: flex;
-      bottom: 26px; 
+      top: 35px; 
       right: 226px;   
       width: 214px;
       animation: none;
@@ -469,5 +504,5 @@ input:-webkit-autofill:active  {
    ==================================== */
    .display-switch {
     display: none;
-    }
+   }
   }  

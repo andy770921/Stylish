@@ -1,26 +1,4 @@
-
-switch (getQueryValueByName("section")) {
-  case "women":
-    ajax(`${productListURL}/women`, setProduct);
-    pageIndicator = "women";
-    break;
-  case "men":
-    ajax(`${productListURL}/men`, setProduct);
-    pageIndicator = "men";
-    break;
-  case "accessories":
-    ajax(`${productListURL}/accessories`, setProduct);
-    pageIndicator = "accessories";
-    break;
-  case "search":
-    ajax(`${productListURL}/search?keyword=${getQueryValueByName("keyword")}`, setProduct);
-    pageIndicator = `search?keyword=${getQueryValueByName("keyword")}`;
-    break;
-  default:
-    ajax(`${productListURL}/all`, setProduct);
-}
-
-ajax(`${bulletURL}`, setBullet);
+// -- Ajax相關函數宣告 --
 
 function setProduct(parsedData) {
 
@@ -133,6 +111,32 @@ function setBullet(parsedData) {
     createPoet(imgContentArray, bulletTextDiv);
   }
 }
+
+//  -- Ajax相關函數執行 --
+
+switch (getQueryValueByName("section")) {
+  case "women":
+    ajax(`${productListURL}/women`, setProduct);
+    pageIndicator = "women";
+    break;
+  case "men":
+    ajax(`${productListURL}/men`, setProduct);
+    pageIndicator = "men";
+    break;
+  case "accessories":
+    ajax(`${productListURL}/accessories`, setProduct);
+    pageIndicator = "accessories";
+    break;
+  case "search":
+    ajax(`${productListURL}/search?keyword=${getQueryValueByName("keyword")}`, setProduct);
+    pageIndicator = `search?keyword=${getQueryValueByName("keyword")}`;
+    break;
+  default:
+    ajax(`${productListURL}/all`, setProduct);
+}
+
+ajax(`${bulletURL}`, setBullet);
+
 
 // ----創造與移除元素----
 
