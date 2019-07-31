@@ -109,6 +109,7 @@ function changeTokenPromise(fbResponse) {
 async function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
+    alert("C");
     if (response.status === 'connected') {
         let accessTokenObject = await changeTokenPromise(response);
         // 將 accessToken  物件，存入 local storage
@@ -129,7 +130,9 @@ async function statusChangeCallback(response) {
 function memberLogin() {
     // 刪除若上次取消登入，自動產生的 cookie ，避免判斷 "not_authorized" 成 "unknown" 錯誤
     deleteCookie(`fblo_${fbAppId}`);
+    alert("A");
     FB.login(function (response) {
+        alert("B");
         statusChangeCallback(response);
     }, {
             scope: 'public_profile,email' //可email後，逗號加入 user_birthday 要求用戶提供
@@ -177,7 +180,6 @@ const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
 function handleMemberClick() {
     //在檢查狀態前 ( 以及login in 前 ) 刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
     deleteCookie(`fblo_${fbAppId}`);
-
     let promise = checkLoginStatePromise();
     promise.then(function (fbResponse) {
         console.log(fbResponse);
@@ -191,6 +193,7 @@ function handleMemberClick() {
             memberLogin();
         } else if (fbResponse.status === "unknown") {
             //alert('需要先登入臉書才能使用會員功能喔。');
+            alert("Start");
             memberLogin();
         }
     });
