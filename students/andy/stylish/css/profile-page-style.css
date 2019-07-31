@@ -38,12 +38,11 @@
 .img-width {
     width: 80%;
     max-width: 400px;    
-    height: 80%;
-    max-height: 400px;
     background-color: lightgray;
     padding: 10%;
     border-radius: 25% 20px; 
     display: flex;
+    align-items: center;
 }
 .img-3x1 {
     width: 100%;
