@@ -177,9 +177,7 @@ const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
 function handleMemberClick() {
     //在檢查狀態前 ( 以及login in 前 ) 刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
     deleteCookie(`fblo_${fbAppId}`);
-    let promise = checkLoginStatePromise();
-    promise.then(function (fbResponse) {
-        console.log(fbResponse);
+
         if (fbResponse.status === "connected") {
             //alert('已登入會員');
             let promise2 = getFbInfoAPIPromise();
@@ -192,7 +190,7 @@ function handleMemberClick() {
             //alert('需要先登入臉書才能使用會員功能喔。');
             memberLogin();
         }
-    });
+
 }
 
 memberIcon1.addEventListener('click', () => {

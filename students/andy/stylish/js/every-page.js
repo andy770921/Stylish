@@ -63,6 +63,16 @@ let userOrder = new orderList("", "", 0, "", "", "", 0);
 
 let userDataList = {};
 
+
+//---- 每頁一載入，都確認 fb 登入狀態---
+let fbResponse = {};
+function checkLoginState() {
+    FB.getLoginStatus(function (response) {
+      fbResponse = response;
+    }, true);
+}
+checkLoginState();
+
 //----HTML文字設定---
 
 const navBarWords = ['女裝', '男裝', '配件'];
