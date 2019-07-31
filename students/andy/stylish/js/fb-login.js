@@ -29,6 +29,15 @@ window.fbAsyncInit = function () {
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
+//---- 每頁一載入，都確認 fb 登入狀態---
+let fbResponse = {};
+function checkLoginState() {
+    FB.getLoginStatus(function (response) {
+      fbResponse = response;
+    }, true);
+}
+checkLoginState();
+
 
 // --- 以下函數為 html 測試按鈕時用，正常程式運作時不會用 ---
 
