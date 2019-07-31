@@ -201,13 +201,3 @@ for (let i = 0; i < document.querySelectorAll('.cart-product-1x3 select').length
         checkListAndSetIcon();
     });
 }
-
-
-function finalCheck() {
-    let r = confirm("您確定要送出訂單嗎");
-    if (r == true) {
-      txt = "You pressed OK!";
-    } else {
-      txt = "You pressed Cancel!";
-    }
-  }

@@ -1,9 +1,10 @@
 
 function showMember() {
-    //加入 loading 畫面效果
-    document.getElementById('loading').classList.remove("display-none");
 
     if (localStorage.getItem('userData') !== '{}' && localStorage.getItem('userData') !== null) {
+        //加入 loading 畫面效果
+        document.getElementById('loading').classList.remove("display-none");
+        
         userDataList = JSON.parse(localStorage.getItem('userData'));
         // 加入產品圖片
         const img = document.getElementsByClassName("img-3x1")[0];
