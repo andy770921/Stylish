@@ -78,8 +78,11 @@ TPDirect.card.setup({
 
 // --- step3:  若 .canGetPrime 值為 true ，觸發此函數時，會得到一串 Prime (result.card.prime)  -----
 
-function getPrime() {
+function sendOrder() {
     //event.preventDefault();
+
+    //加入 loading 畫面效果
+    document.getElementById('loading').classList.remove("display-none");
     // 取得 TapPay Fields 的 status
     const tappayStatus = TPDirect.card.getTappayFieldsStatus();
 

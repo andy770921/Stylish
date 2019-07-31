@@ -44,9 +44,18 @@
     </script>
     <!-- 加入 Google Analytics -->
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
+    <!-- 加入 Loading 效果的外掛 css -->
+
 </head>
 
 <body>
+
+    <div class="black-background display-none" id="loading">
+        <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+    </div>
+    <!-- 引入 loading 效果用，相關的 div -->
+
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v3.3&appId=862956427419338&autoLogAppEvents=1"></script>
@@ -146,7 +155,7 @@
                             src="./image/cart-remove.png"></div>
                 </div> -->
             </div>
-            <form class="credit-card-form" onsubmit="getPrime(); return false;">
+            <form class="credit-card-form" onsubmit="sendOrder(); return false;">
                 <div class="item-3x3">
                     <div class="country">
                         <p>配送國家</p>

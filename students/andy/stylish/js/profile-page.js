@@ -23,6 +23,7 @@ loginIcon.addEventListener('click', () => {
 
 const logoutIcon = document.getElementById('FB_logout');
 logoutIcon.addEventListener('click', () => {
+    //加入 loading 畫面效果
     document.getElementById('loading').classList.remove("display-none");
     memberLogout();
 });
