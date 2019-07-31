@@ -232,7 +232,20 @@ minusBtn.addEventListener('click',(e) => { handleClickPlusMinus(e) });
 const addBtn = document.getElementsByClassName('add-3x2')[0];
 
 addBtn.addEventListener('click', () => {
-  
+
+  if (colorNow == 0 || sizeNow == 0 ){ 
+    alert("please select color and size first");
+    return;
+  }
+
+  //訂購成功，顯示 alert 
+  if ( userAmount == 0 ) {
+    alert('還沒選商品數量喔！');
+    return;
+  } else if ( userAmount > 0 ) {
+    alert('商品已成功加入購物車！');
+  }
+
   //---與使用者購買數量相關---
   //將訂購數量，加入user order物件，再將user order加入orderJSON物件
   let haveSameItem = false;
@@ -257,9 +270,6 @@ addBtn.addEventListener('click', () => {
 
   //將訂購的物件，存入localStorage
     localStorage.setItem('orderJSONinLocal', JSON.stringify(orderJSON));
-  
-  //訂購成功，顯示 alert 
-  alert('商品已成功加入購物車！');
 
   //--- 與剩餘庫存相關 ---
 
