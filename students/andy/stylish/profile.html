@@ -22,14 +22,20 @@
         gtag('js', new Date());
 
         gtag('config', 'UA-144843207-1');
-        gtag('set', {'user_id': 'USER_ID'}); // 使用已登入的 user_id 設定 User ID。
+        gtag('set', { 'user_id': 'USER_ID' }); // 使用已登入的 user_id 設定 User ID。
     </script>
     <!-- 加入 Google Analytics -->
-    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css">
+    <!-- 加入 Loading 效果的外掛 css -->
 
 </head>
 
 <body class="site">
+    <div class="black-background display-none" id="loading">
+        <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+    </div>
+    <!-- 引入 loading 效果用，相關的 div -->
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v3.3&appId=862956427419338&autoLogAppEvents=1"></script>
@@ -140,7 +146,6 @@
                 <span class="text-s">會員</span>
             </div>
         </div>
-
     </main>
     <footer>
         <div class="container-5">

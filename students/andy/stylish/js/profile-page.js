@@ -23,6 +23,7 @@ loginIcon.addEventListener('click', () => {
 
 const logoutIcon = document.getElementById('FB_logout');
 logoutIcon.addEventListener('click', () => {
+    document.getElementById('loading').classList.remove("display-none");
     memberLogout();
 });
 

@@ -42,6 +42,21 @@ input:-webkit-autofill:active  {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
     box-shadow: 0 0 0 30px white inset !important;
 }
+
+  /* 外掛 loading 效果的 class */
+
+.black-background {
+  background: #333;
+  opacity: 0.7;
+  z-index: 100;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.display-none {
+  display: none;
+}
   /* ================================= 
     Base Layout Styles  - heaader / search bar / sticy footer / footer
   ==================================== */
