@@ -19,7 +19,7 @@ window.fbAsyncInit = function () {
     });
 
     FB.AppEvents.logPageView();
-    //---- 每頁一載入，都確認 fb 登入狀態---
+    //---- 每頁一載入，都確認 fb 登入狀態，不能點擊按鈕才抓狀態，否則手機板瀏覽器，登入會有問題---
 
     function checkLoginState() {
         FB.getLoginStatus(function (response) {
@@ -167,7 +167,7 @@ function memberLogout() {
             FB.getLoginStatus(function (response) {
                 //    console.log(response);
                 if (response.status === 'connected') {
-                    //        console.log("重按檢查狀態一次");
+                    // console.log("重按檢查狀態一次");
                     memberLogout();
                 }
             }, true);
@@ -185,7 +185,7 @@ const memberIcon2 = document.getElementsByClassName('member')[1].parentNode;
 // 此為判斷 fb 登入狀態的程式碼，alert 訊息會在 fb 跳出登入畫面前顯示
 
 function handleMemberClick() {
-    //在檢查狀態前 ( 以及login in 前 ) 刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
+    //在login in 前刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
     deleteCookie(`fblo_${fbAppId}`);
 
     if (fbResponse.status === "connected") {
