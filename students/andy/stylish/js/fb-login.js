@@ -8,6 +8,7 @@ function deleteCookie(name) {
 //--- 以下為 FB SDK
 
 const fbAppId = '862956427419338';
+let fbResponse = {};
 
 window.fbAsyncInit = function () {
     FB.init({
@@ -18,7 +19,14 @@ window.fbAsyncInit = function () {
     });
 
     FB.AppEvents.logPageView();
+    //---- 每頁一載入，都確認 fb 登入狀態---
 
+    function checkLoginState() {
+        FB.getLoginStatus(function (response) {
+            fbResponse = response;
+        }, true);
+    }
+    checkLoginState();
 };
 
 (function (d, s, id) {
@@ -29,14 +37,7 @@ window.fbAsyncInit = function () {
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-//---- 每頁一載入，都確認 fb 登入狀態---
-let fbResponse = {};
-function checkLoginState() {
-    FB.getLoginStatus(function (response) {
-      fbResponse = response;
-    }, true);
-}
-checkLoginState();
+
 
 
 // --- 以下函數為 html 測試按鈕時用，正常程式運作時不會用 ---
@@ -164,9 +165,9 @@ function memberLogout() {
             //alert('您已經登出了喔');
             //console.log("已經登出，或 fb 登入");
             FB.getLoginStatus(function (response) {
-            //    console.log(response);
+                //    console.log(response);
                 if (response.status === 'connected') {
-            //        console.log("重按檢查狀態一次");
+                    //        console.log("重按檢查狀態一次");
                     memberLogout();
                 }
             }, true);
@@ -187,18 +188,18 @@ function handleMemberClick() {
     //在檢查狀態前 ( 以及login in 前 ) 刪除 cookie 避免判斷 "not_authorized" 成 "unknown" 錯誤
     deleteCookie(`fblo_${fbAppId}`);
 
-        if (fbResponse.status === "connected") {
-            //alert('已登入會員');
-            let promise2 = getFbInfoAPIPromise();
-            promise2.then(function (fbReturnObj) { console.log(fbReturnObj); });
+    if (fbResponse.status === "connected") {
+        //alert('已登入會員');
+        let promise2 = getFbInfoAPIPromise();
+        promise2.then(function (fbReturnObj) { console.log(fbReturnObj); });
 
-        } else if (fbResponse.status === "not_authorized") {
-            //alert('需要取得您的名字、信箱、跟本人帥照/美照，才能登入會員喔');
-            memberLogin();
-        } else if (fbResponse.status === "unknown") {
-            //alert('需要先登入臉書才能使用會員功能喔。');
-            memberLogin();
-        }
+    } else if (fbResponse.status === "not_authorized") {
+        //alert('需要取得您的名字、信箱、跟本人帥照/美照，才能登入會員喔');
+        memberLogin();
+    } else if (fbResponse.status === "unknown") {
+        //alert('需要先登入臉書才能使用會員功能喔。');
+        memberLogin();
+    }
 
 }
 
