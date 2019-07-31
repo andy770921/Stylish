@@ -60,7 +60,9 @@ function setDetail(parsedData) {
 // 送出指令給server，得到解析後的JSON後，取得庫存的函數如下
 
 function getStocks(parsedData) {
+   // 找顏色的中文，之後會存
   const colorNameRef = parsedData.data.colors;
+  
   parsedData.data.variants.forEach((element) => {
     if (element.color_code == colorNow && element.size == sizeNow) {
 
