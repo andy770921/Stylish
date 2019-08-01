@@ -157,7 +157,7 @@ for (let i = 0; i < orderJSON.order.list.length; i++) {
 
         // ---- 統計畫面中垃圾桶數量，刪除物件元素與local storage -----
         orderJSON.order.list.splice(trashCanNumMinusOne, 1);
-        localStorage.setItem('orderJSONinLocal', JSON.stringify(orderJSON));
+        sessionStorage.setItem('orderJSONinLocal', JSON.stringify(orderJSON));
         // ---- 刪除UI -----
         const productParent = e.target.parentNode.parentNode;
         productParent.parentNode.removeChild(productParent);
@@ -192,7 +192,7 @@ for (let i = 0; i < document.querySelectorAll('.cart-product-1x3 select').length
             if (orderJSON.order.list[j].id == ID && orderJSON.order.list[j].color.name == color && orderJSON.order.list[j].size == size) {
                 orderJSON.order.list[j].qty = Number(e.target.value);
                 // 設定瀏覽器 local storage
-                localStorage.setItem('orderJSONinLocal', JSON.stringify(orderJSON));
+                sessionStorage.setItem('orderJSONinLocal', JSON.stringify(orderJSON));
                 // ---- 設定UI金額 -----
                 setTotalPrice(shippingFee);
             }

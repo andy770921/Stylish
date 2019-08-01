@@ -129,12 +129,12 @@ function sendOrder() {
                 //alert('收件人資料及信用卡資料正確，已送出訂單' + JSON.stringify(finalJsonObj));
 
                 //清除 local storage;
-                localStorage.removeItem('orderJSONinLocal');
+                sessionStorage.removeItem('orderJSONinLocal');
 
-                if (localStorage.getItem('accessTokenJSON') !== {} && localStorage.getItem('accessTokenJSON') !== null) {
+                if (sessionStorage.getItem('accessTokenJSON') !== {} && sessionStorage.getItem('accessTokenJSON') !== null) {
                     //有會員的狀態
                     alert('收件人、信用卡、會員資料皆正確，已送出訂單');
-                    const accessToken = JSON.parse(localStorage.getItem('accessTokenJSON'));
+                    const accessToken = JSON.parse(sessionStorage.getItem('accessTokenJSON'));
                     const serverToken = accessToken.serverAccessToken;
                     postAjaxWithToken(sentBuyDetailURL, finalJsonObj, serverToken, jumpToThanksWithOrderNum);
 
@@ -152,8 +152,7 @@ function sendOrder() {
         })
     } else {
         //移除 loading 畫面效果
-        document.getElementById('loading').classList.add("display-none");
-        
+        document.getElementById('loading').classList.add("display-none");      
         return;
     }
 }

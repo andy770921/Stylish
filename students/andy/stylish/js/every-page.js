@@ -75,8 +75,8 @@ for (let i = 0; i < navBarWords.length; i++) {
 }
 
 //當localStorage有資料陣列，先讀取，並顯示在購物車圓點
-if (localStorage.getItem('orderJSONinLocal') !== `{"prime":"","order":{"list":[]}}` && localStorage.getItem('orderJSONinLocal') !== null) {
-  orderJSON = JSON.parse(localStorage.getItem('orderJSONinLocal'));
+if (sessionStorage.getItem('orderJSONinLocal') !== `{"prime":"","order":{"list":[]}}` && sessionStorage.getItem('orderJSONinLocal') !== null) {
+  orderJSON = JSON.parse(sessionStorage.getItem('orderJSONinLocal'));
   createCartNumIcon('cart', 'cart-num', orderJSON.order.list.length);
 }
 
