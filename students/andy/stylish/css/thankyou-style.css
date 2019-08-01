@@ -17,12 +17,12 @@
 }
 
 .container-3 {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-  background-image: linear-gradient(-225deg, #ea7500 0%, #ffed97 48%, #ffbb77 100%);
+  /* background-image: linear-gradient(-225deg, #ea7500 0%, #ffed97 48%, #ffbb77 100%); */
+  background-image: url("../image/thankyou-background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 40%;
   height: 100%;
-  /* background-image: linear-gradient(-225deg, #5D9FFF 0%, #B8DCFF 48%, #6BBBFF 100%); */
   flex: 1;
   position: relative;
 }
