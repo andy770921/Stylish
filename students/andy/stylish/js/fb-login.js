@@ -38,27 +38,6 @@ window.fbAsyncInit = function () {
 }(document, 'script', 'facebook-jssdk'));
 
 
-
-
-// --- 以下函數為 html 測試按鈕時用，正常程式運作時不會用 ---
-
-// function checkLoginState() {
-//     FB.getLoginStatus(function (response) {
-//         console.log(response);
-//         statusChangeCallback(response);
-//     }, true);
-// }
-// -------------------------------------------
-
-
-function checkLoginStatePromise() {
-    return new Promise(function (resolve, reject) {
-        FB.getLoginStatus(function (response) {
-            resolve(response);
-        }, true);
-    });
-}
-
 //  ---   按登入按鈕後，執行順序四 :  ---
 
 function handleFbResponse(response) {
@@ -71,7 +50,7 @@ function handleFbResponse(response) {
     };
     //console.log(userDataObj);
     //取得使用者資料後，存入 localStorage
-    localStorage.setItem('userData', JSON.stringify(userDataObj));
+    sessionStorage.setItem('userData', JSON.stringify(userDataObj));
     location.href = 'profile.html';
 }
 
@@ -122,7 +101,7 @@ async function statusChangeCallback(response) {
     if (response.status === 'connected') {
         let accessTokenObject = await changeTokenPromise(response);
         // 將 accessToken  物件，存入 local storage
-        localStorage.setItem('accessTokenJSON', JSON.stringify(accessTokenObject));
+        sessionStorage.setItem('accessTokenJSON', JSON.stringify(accessTokenObject));
         getFbInfoAPI();
     } else if (response.status === 'not_authorized') {
         // alert('可以給我名字、信箱、跟本人帥照/美照嗎？ 拜託拜託');
@@ -152,8 +131,8 @@ function memberLogout() {
         if (res && !res.error) {
             if (res) {
                 //alert('您已經成功登出');
-                localStorage.removeItem('userData');
-                localStorage.removeItem('accessTokenJSON');
+                sessionStorage.removeItem('userData');
+                sessionStorage.removeItem('accessTokenJSON');
                 //再重新整理網頁，才不會 status 判斷成 "connected" 導致拿資料錯誤
                 window.location.reload();
             }
