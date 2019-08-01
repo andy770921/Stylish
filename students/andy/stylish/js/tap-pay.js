@@ -152,8 +152,7 @@ function sendOrder() {
         })
     } else {
         //移除 loading 畫面效果
-        document.getElementById('loading').classList.add("display-none");
-        
+        document.getElementById('loading').classList.add("display-none");      
         return;
     }
 }
