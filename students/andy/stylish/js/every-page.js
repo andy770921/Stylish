@@ -195,7 +195,7 @@ companyIcon.addEventListener('click', () => {
 });
 
 
-// 點選放大鏡後，顯示搜尋Bar，按header外其他位置，隱藏搜尋Bar
+// 創建顯示搜尋Bar、隱藏搜尋Bar的函數
 
 
 const magnifier = document.getElementsByClassName('item-1x2')[0];
@@ -388,6 +388,8 @@ accNavBar2.addEventListener('click', () => {
 
 // 打搜尋字串，再滑鼠點選放大鏡後，跳轉到首頁並附帶 query string
 // 在首頁使用AJAX撈資料並顯示。因為頁面跳轉，不需清除input text
+// 點選放大鏡後，顯示搜尋Bar
+
 
 const searchBarForm = document.getElementsByClassName('item-1x4')[0];
 
@@ -402,14 +404,16 @@ searchBarForm.addEventListener('submit', (e) => {
   }
 });
 
+// 取消點放大鏡後監聽外部區域功能，因部分手機板會有無法打字、即刻彈回搜尋條之問題。 原功能: 按header外其他位置，隱藏搜尋Bar
+
 magnifier.addEventListener('click', () => {
   showSearchBar();
   showSearchBarSpace();
-    document.getElementsByTagName('main')[0].addEventListener('click', () => {
-      if (Modernizr.mq('(max-width: 1149px)')){
-      hideSearchBar();
-      }
-    });
+    // document.getElementsByTagName('main')[0].addEventListener('click', () => {
+    //   if (Modernizr.mq('(max-width: 1149px)')){
+    //   hideSearchBar();
+    //   }
+    // });
   
 });
 
