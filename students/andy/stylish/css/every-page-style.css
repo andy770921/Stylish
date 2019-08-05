@@ -298,6 +298,7 @@
   }
   .img-5x2{
     width: 20px; 
+    height: 20px;
   }
 
  .img-5x2:not(:last-child) {
@@ -344,6 +345,7 @@
   }
   .img-5x2{
     width: 30px; 
+    height: 30px;
   }
   .img-5x2:not(:last-child) {
     margin: 0 14px 0 0; 
@@ -486,6 +488,7 @@
   }
   .img-5x2{
     width: 50px;
+    height: 50px;
   }
   .img-5x2:not(:last-child) {
     margin: 0 30px 0 0; /* ----30px/1920=1.56% ---- */
