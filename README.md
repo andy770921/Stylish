@@ -1,6 +1,5 @@
-# Web Front-End Class 2019 Summer
+# Stylish Technical Outline
 
-## Outline
 
 ### Programming Language
 - HTML, CSS
@@ -8,13 +7,9 @@
 
 ### Layout
 - Responsive Web Design (RWD)
-- Flex and Grid Layout
-- Single Page Application (SPA)
+- Flex Layout
 
-### Library and Framework
-- Bootstrap
-- JQuery
-- React (Router and Redux)
+### Library
 - Facebook SDK
 
 ### Backend Framework and Cloud Service
@@ -29,26 +24,15 @@
 
 ### Persistent Store
 - Web Storage
-- Cookie
 
 ### Patterns
 - Module
 - Object-Oriented Programming
 - Functional Programming
-- MVC and MVVM
-
-### Others
-- Unit Test & Debugging
-- Performance Optimization
-- Cache
 
 ### Tools for Development
-- ESLint
-- Webpack
 - Git, GitHub
 - Slack
 
 ### Tools for Business
 - Google Analytics
-- Google Optimize
-- Facebook Pixel
