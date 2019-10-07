@@ -221,18 +221,18 @@ function hideSearchBar() {
 }
 
 
-// 改變視窗大小時，搜尋Bar會因相對應大小，正確顯示or消失
-function mq() {
-  var query = Modernizr.mq('(max-width: 1149px)');
-  if (query) {
-    hideSearchBar();
-  } else {
-    showSearchBar();
-  }
-};
-window.onresize = function () {
-  mq();
-};
+// 改變視窗大小時，搜尋Bar會因相對應大小，正確顯示or消失 -- 在手機因為螢幕縮放，會無法正常運作，取消功能
+// function mq() {
+//   var query = Modernizr.mq('(max-width: 1149px)');
+//   if (query) {
+//     hideSearchBar();
+//   } else {
+//     showSearchBar();
+//   }
+// };
+// window.onresize = function () {
+//   mq();
+// };
 
 //----創建元素相關----
 
