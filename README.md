@@ -12,12 +12,7 @@
 ### Library
 - Facebook SDK
 
-### Backend Framework and Cloud Service
-- Node.js and Express
-- Firebase
-
 ### Networking
-- HTTP / HTTPS
 - JSON
 - RESTful APIs
 - AJAX
@@ -26,7 +21,6 @@
 - Web Storage
 
 ### Patterns
-- Module
 - Object-Oriented Programming
 - Functional Programming
 
