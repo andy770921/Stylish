@@ -1,5 +1,7 @@
 # Stylish Technical Outline
 
+### Demo
+- https://andy770921.github.io/Stylish/
 
 ### Programming Language
 - HTML, CSS
@@ -20,13 +22,8 @@
 ### Persistent Store
 - Web Storage
 
-### Patterns
-- Object-Oriented Programming
-- Functional Programming
-
 ### Tools for Development
 - Git, GitHub
-- Slack
 
 ### Tools for Business
 - Google Analytics
