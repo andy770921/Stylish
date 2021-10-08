@@ -129,6 +129,7 @@
     font-size: 18px; 
     opacity: 1;
     width: 60%;
+    align-items: center;
   }
     
   .btn:hover {
