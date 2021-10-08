@@ -103,7 +103,7 @@ function setBullet(parsedData) {
     bulletTextDiv.setAttribute('onclick', `javascript:location.href='product.html?id=${parsedData.data[i].product_id}'`);
 
     // 加入發燒產品圖片
-    bulletA.querySelector('div').style.backgroundImage = `url("https://${hostName}${parsedData.data[i].picture}")`;
+    bulletA.querySelector('div').style.backgroundImage = `url("${parsedData.data[i].picture}")`;
 
     // 加入發燒產品文字
     const imgContentArray = parsedData.data[i].story.split("\r\n");
