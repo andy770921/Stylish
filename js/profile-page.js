@@ -1,9 +1,9 @@
 
 function showMember() {
 
-    if (sessionStorage.getItem('userData') !== '{}' && sessionStorage.getItem('userData') !== null) {
+    if (localStorage.getItem('userData') !== '{}' && localStorage.getItem('userData') !== null) {
 
-        userDataList = JSON.parse(sessionStorage.getItem('userData'));
+        userDataList = JSON.parse(localStorage.getItem('userData'));
         // 加入產品圖片
         const img = document.getElementsByClassName("img-3x1")[0];
         img.src = userDataList.userPictureUrl;

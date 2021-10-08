@@ -50,7 +50,7 @@ function handleFbResponse(response) {
     };
     //console.log(userDataObj);
     //取得使用者資料後，存入 localStorage
-    sessionStorage.setItem('userData', JSON.stringify(userDataObj));
+    localStorage.setItem('userData', JSON.stringify(userDataObj));
     location.href = 'profile.html';
 }
 
@@ -101,7 +101,7 @@ async function statusChangeCallback(response) {
     if (response.status === 'connected') {
         let accessTokenObject = await changeTokenPromise(response);
         // 將 accessToken  物件，存入 local storage
-        sessionStorage.setItem('accessTokenJSON', JSON.stringify(accessTokenObject));
+        localStorage.setItem('accessTokenJSON', JSON.stringify(accessTokenObject));
         getFbInfoAPI();
     } else if (response.status === 'not_authorized') {
         // alert('可以給我名字、信箱、跟本人帥照/美照嗎？ 拜託拜託');
@@ -131,8 +131,8 @@ function memberLogout() {
         if (res && !res.error) {
             if (res) {
                 //alert('您已經成功登出');
-                sessionStorage.removeItem('userData');
-                sessionStorage.removeItem('accessTokenJSON');
+                localStorage.removeItem('userData');
+                localStorage.removeItem('accessTokenJSON');
                 //再重新整理網頁，才不會 status 判斷成 "connected" 導致拿資料錯誤
                 window.location.reload();
             }
