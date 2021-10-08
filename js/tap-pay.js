@@ -140,8 +140,11 @@ function sendOrder() {
 
                 } else {
                     //無會員的狀態
-                    alert('收件人資料及信用卡資料正確，已送出訂單');
-                    postAjax(sentBuyDetailURL, finalJsonObj, jumpToThanksWithOrderNum);
+                    alert('收件人資料及信用卡資料正確，但是需要先登入才能購買喔');
+                    // postAjax(sentBuyDetailURL, finalJsonObj, jumpToThanksWithOrderNum);
+                    
+                    //移除 loading 畫面效果
+                    document.getElementById('loading').classList.add("display-none");  
                 }
             }
 
